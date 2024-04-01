@@ -64,7 +64,7 @@
             android:drawablePadding="16dp"
             android:text="@string/your_notifications_n_will_appear_here"
             app:drawableStartCompat="@drawable/ic_baseline_notifications_active_24"
-            app:drawableTint="@color/seed"
+            app:drawableTint="?attr/colorPrimary"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

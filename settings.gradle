@@ -22,5 +22,5 @@ dependencyResolutionManagement {
         jcenter() // Warning: this repository is going to shut down soon
     }
 }
-rootProject.name = "appbase"
+rootProject.name = "ulife_creator"
 include ':app'

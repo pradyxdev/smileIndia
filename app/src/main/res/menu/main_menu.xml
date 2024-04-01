@@ -11,30 +11,19 @@
 
     <item
         android:id="@+id/homeFragment"
-        android:icon="@drawable/ic_baseline_home_24"
+        android:icon="@drawable/home"
         android:title="Home"
         app:showAsAction="always" />
 
-    <!--    <item-->
-    <!--        android:id="@+id/mapFragment"-->
-    <!--        android:icon="@drawable/taxi_on_the_map"-->
-    <!--        android:title="Map"-->
-    <!--        app:showAsAction="always" />-->
-
     <item
-        android:id="@+id/historyFragment"
-        android:icon="@drawable/purchase_order"
-        android:title="History"
+        android:id="@+id/rechargeFragment"
+        android:icon="@drawable/dashboard_layout"
+        android:title="Recharge"
         app:showAsAction="always" />
 
-    <!--    <item-->
-    <!--        android:id="@+id/rewardsFragment"-->
-    <!--        android:icon="@drawable/gift"-->
-    <!--        android:title="Rewards"-->
-    <!--        app:showAsAction="always" />-->
-
-    <!--    <item-->
-    <!--        android:icon="@drawable/female_profile"-->
-    <!--        android:title="Accounts"-->
-    <!--        app:showAsAction="always" />-->
+    <item
+        android:id="@+id/profileFragment"
+        android:icon="@drawable/account"
+        android:title="Rewards"
+        app:showAsAction="always" />
 </menu>
