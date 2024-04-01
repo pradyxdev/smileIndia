@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ /**
+  ~  * Created by Prady on 11/07/22, 4:11 PM
+  ~  * Copyright (c) 2022 . All rights reserved.
+  ~  * Last modified 11/07/22, 2:24 PM
+  ~  */
+  -->
+
+<com.skydoves.progressview.ProgressView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/progress_bar"
+    android:layout_width="0dp"
+    android:layout_height="250dp"
+    android:layout_marginStart="8dp"
+    android:layout_weight="1"
+    app:layout_constraintEnd_toEndOf="@+id/linearLayout4"
+    app:layout_constraintStart_toStartOf="@+id/linearLayout4"
+    app:layout_constraintTop_toBottomOf="@+id/linearLayout4"
+    app:progressView_autoAnimate="true"
+    app:progressView_colorBackground="#1E000000"
+    app:progressView_colorGradientEnd="?attr/colorTertiary"
+    app:progressView_colorGradientStart="?attr/colorTertiary"
+    app:progressView_colorProgress="?attr/colorTertiary"
+    app:progressView_labelColorInner="@color/white"
+    app:progressView_labelColorOuter="@color/black"
+    app:progressView_labelSize="13sp"
+    app:progressView_labelSpace="10dp"
+    app:progressView_labelText="80%"
+    app:progressView_labelTypeface="bold"
+    app:progressView_max="100"
+    app:progressView_min="0"
+    app:progressView_orientation="vertical"
+    app:progressView_padding="1dp"
+    app:progressView_progress="80"
+    app:progressView_progressFromPrevious="true"
+    app:progressView_radius="12dp" />

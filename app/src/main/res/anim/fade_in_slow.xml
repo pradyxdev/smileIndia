@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ /**
+  ~  * Created by Prady on 02/11/22, 3:33 PM
+  ~  * Copyright (c) 2022 . All rights reserved.
+  ~  * Last modified 13/10/22, 1:22 PM
+  ~  */
+  -->
+
+<set xmlns:android="http://schemas.android.com/apk/res/android"
+    android:interpolator="@android:anim/linear_interpolator">
+    <alpha
+        android:duration="1000"
+        android:fromAlpha="0.1"
+        android:toAlpha="1.0" />
+</set>

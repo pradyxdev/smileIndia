@@ -1,0 +1,18 @@
+<!--
+  ~ /**
+  ~  * Created by Prady on 6/29/23, 12:36 PM
+  ~  * Copyright (c) 2023 . All rights reserved.
+  ~  * Last modified 6/29/23, 12:36 PM
+  ~  */
+  -->
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:tint="?attr/colorControlNormal"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+  <path
+      android:fillColor="#FF000000"
+      android:pathData="M3,2L3,22L5,22C5,21.448 5.448,21 6,21C6.552,21 7,21.448 7,22L9,22C9,21.448 9.448,21 10,21C10.552,21 11,21.448 11,22L13,22C13,21.448 13.448,21 14,21C14.552,21 15,21.448 15,22L17,22C17,21.448 17.448,21 18,21C18.552,21 19,21.448 19,22L21,22L21,2L19,2C19,2.552 18.552,3 18,3C17.448,3 17,2.552 17,2L15,2C15,2.552 14.552,3 14,3C13.448,3 13,2.552 13,2L11,2C11,2.552 10.552,3 10,3C9.448,3 9,2.552 9,2L7,2C7,2.552 6.552,3 6,3C5.448,3 5,2.552 5,2L3,2zM5,5L19,5L19,19L18,19L14,19L10,19L6,19L5,19L5,5zM7,7L7,9L17,9L17,7L7,7zM7,11L7,13L17,13L17,11L7,11zM7,15L7,17L17,17L17,15L7,15z"/>
+</vector>

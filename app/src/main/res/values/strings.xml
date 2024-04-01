@@ -1,0 +1,116 @@
+<!--
+  ~ /**
+  ~  * Created by Prady on 3/21/23, 6:47 PM
+  ~  * Copyright (c) 2023 . All rights reserved.
+  ~  * Last modified 3/21/23, 6:42 PM
+  ~  */
+  -->
+
+<resources>
+    <string name="app_name">App Base</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="alert">Alert</string>
+    <string name="dummy">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="terms_condition">By continuing, I agree to the <a href="https://">Terms &amp; Condition</a> use and <a href="https://">Privacy Policy. </a></string>
+    <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
+    <string name="Rs">\u20B9</string>
+    <string name="rs">\u20A8</string>
+    <string name="update_available">Update available !!</string>
+    <string name="a_new_version_of_the_app_is_available_please_update_to_continue_using_the_app">A new version of the app is available. Please update to continue using the app.</string>
+    <string name="before_we_continue_let_s_setup_your_profile_before_you_can_start_using_this_app">Before we continue, let\'s setup your profile before you can start using this app.</string>
+    <string name="are_you_sure_you_want_to_skip_entering_your_referer_because_you_won_t_earn_it_s_benefits">Are you sure you want to skip entering your referer because you won\'t earn it\'s benefits.</string>
+    <string name="were_you_invited_to_this_platform_by_any_user_if_yes_please_scan_their_referal_qr_code_from_below">Were you invited to this platform by any user? If yes please scan their referal qr code from below.</string>
+    <string name="or">OR</string>
+    <string name="enter_refer_code">Enter refer code</string>
+    <string name="skip">SKIP</string>
+    <string name="btn_continue">Continue</string>
+    <string name="start_now">Start now</string>
+    <string name="personal_info">Personal info</string>
+    <string name="full_name">Full name</string>
+    <string name="gender">Gender</string>
+    <string name="residental_address">Residential address</string>
+    <string name="kyc_info">KYC info</string>
+    <string name="aadhaar_card_number">Aadhaar card number</string>
+    <string name="front_side">Front side</string>
+    <string name="back_side">Back side</string>
+    <string name="submit">SUBMIT</string>
+    <string name="complete_today_s_goal_to_earn_exciting_rewards">Complete today\'s goal to earn exciting rewards !</string>
+    <string name="quick_menu">Quick menu\'s</string>
+    <string name="my_account">My Account</string>
+    <string name="next">Next</string>
+    <string name="your_notifications_n_will_appear_here">Your notifications\n will appear here...</string>
+    <string name="enter_otp">Enter OTP !</string>
+    <string name="please_enter_otp_received_n_on_your_number">Please enter OTP received\n on your number.</string>
+    <string name="update_profile_info">Update profile info</string>
+    <string name="update_bank_info">Update bank info</string>
+    <string name="invite_people">Invite people</string>
+    <string name="terms_amp_conditions"><![CDATA[Terms & conditions]]></string>
+    <string name="privacy_policy">Privacy policy</string>
+    <string name="contact_us">Contact us</string>
+    <string name="logout">Logout</string>
+    <string name="date_of_birth">Date of birth</string>
+    <string name="day">Day</string>
+    <string name="month">Month</string>
+    <string name="year">Year</string>
+    <string name="select_your_gender">Select your gender</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="other">Other</string>
+    <string name="full_address">Full address</string>
+    <string name="pincode">Pincode</string>
+    <string name="please_enter_aadhar_card_number">Please enter AADHAR card number.</string>
+    <string name="enter_here">Enter here</string>
+    <string name="please_enter_pan_card_number">Please enter PAN card number.</string>
+    <string name="select_your_vehicle_ownership">Select your vehicle ownership</string>
+    <string name="personal">Personal</string>
+    <string name="rented">Rented</string>
+    <string name="referral_history">Referral history</string>
+    <string name="sign_in">Sign In !</string>
+    <string name="please_enter_your_phone_number">Please enter your phone number.</string>
+    <string name="phone_number">Phone number</string>
+    <string name="request_otp">Request OTP</string>
+    <string name="start_date_end_date">Start date - End date</string>
+    <string name="filter">Filter</string>
+    <string name="transaction_id">Transaction ID</string>
+    <string name="date_time"><![CDATA[Date & time]]></string>
+    <string name="amount">Amount</string>
+    <string name="driving_license">Driving license</string>
+    <string name="please_enter_your_driving_license_number">Please enter your Driving License number.</string>
+    <string name="my_dashboard">My Dashboard</string>
+    <string name="my_profile">My Profile</string>
+    <string name="my_notifications">My Notifications</string>
+    <string name="profile_update">Profile update</string>
+    <string name="coming_soon">Coming Soon</string>
+    <string name="switch_language">Switch language</string>
+    <string name="english">English</string>
+    <string name="hindi">Hindi</string>
+    <string name="settings">Settings</string>
+    <string name="fetching">fetching...</string>
+    <string name="bank_details">Bank details</string>
+    <string name="bank_name">Bank name</string>
+    <string name="account_number">Account number</string>
+    <string name="ifsc_code">Ifsc code</string>
+    <string name="other_details">Other details</string>
+    <string name="allowed_methods">Allowed methods</string>
+    <string name="minimum_balance">Minimum balance</string>
+    <string name="click_to_enlarge">click to enlarge</string>
+    <string name="please_select_your_language">Please select your language</string>
+    <string name="welcome">Welcome !!</string>
+    <string name="welcome_to_swsm">Welcome to SWSM !</string>
+    <string name="please_select_your_user_type">Please select your user type</string>
+    <string name="customer">STUDENT</string>
+    <string name="select_this_to_report_his_problems">Select this to report his problems.</string>
+    <string name="department">TEACHER</string>
+    <string name="select_this_to_resolve_customer_queries">Select this to resolve customer queries.</string>
+    <string name="administrator">ADMINISTRATOR</string>
+    <string name="select_this_to_get_administrator_access">Select this to get administrator access.</string>
+    <string name="sign_up">Sign up</string>
+    <string name="please_fill_up_following_details">Please fill up following details :</string>
+    <string name="email">Email</string>
+    <string name="don_t_have_account_sign_up">Don\'t have account? Sign Up</string>
+    <string name="complaint_history">Complaint History</string>
+    <string name="by_using_this_app">By using this app, you agree to our <a href="http://www.google.com">Terms &amp; Conditions\n</a> and <a href="http://www.google.com">Privacy Policy</a>.</string>
+</resources>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ /**
+  ~  * Created by Prady on 02/11/22, 3:33 PM
+  ~  * Copyright (c) 2022 . All rights reserved.
+  ~  * Last modified 02/11/22, 3:32 PM
+  ~  */
+  -->
+
+<set xmlns:android="http://schemas.android.com/apk/res/android"
+    android:fillAfter="true"
+    android:interpolator="@android:anim/bounce_interpolator">
+
+    <scale
+        android:duration="900"
+        android:fromXScale="1.0"
+        android:fromYScale="0.0"
+        android:toXScale="1.0"
+        android:toYScale="1.0" />
+</set>

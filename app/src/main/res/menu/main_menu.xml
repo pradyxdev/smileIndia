@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ /**
+  ~  * Created by Prady on 3/21/23, 6:47 PM
+  ~  * Copyright (c) 2023 . All rights reserved.
+  ~  * Last modified 3/21/23, 6:42 PM
+  ~  */
+  -->
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/homeFragment"
+        android:icon="@drawable/ic_baseline_home_24"
+        android:title="Home"
+        app:showAsAction="always" />
+
+    <!--    <item-->
+    <!--        android:id="@+id/mapFragment"-->
+    <!--        android:icon="@drawable/taxi_on_the_map"-->
+    <!--        android:title="Map"-->
+    <!--        app:showAsAction="always" />-->
+
+    <item
+        android:id="@+id/historyFragment"
+        android:icon="@drawable/purchase_order"
+        android:title="History"
+        app:showAsAction="always" />
+
+    <!--    <item-->
+    <!--        android:id="@+id/rewardsFragment"-->
+    <!--        android:icon="@drawable/gift"-->
+    <!--        android:title="Rewards"-->
+    <!--        app:showAsAction="always" />-->
+
+    <!--    <item-->
+    <!--        android:icon="@drawable/female_profile"-->
+    <!--        android:title="Accounts"-->
+    <!--        app:showAsAction="always" />-->
+</menu>

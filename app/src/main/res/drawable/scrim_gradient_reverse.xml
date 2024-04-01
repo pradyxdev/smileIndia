@@ -1,0 +1,16 @@
+<!--
+  ~ /**
+  ~  * Created by Prady on 23/02/23, 11:49 AM
+  ~  * Copyright (c) 2023 . All rights reserved.
+  ~  * Last modified 04/11/22, 11:32 AM
+  ~  */
+  -->
+
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <gradient
+        android:angle="90"
+        android:centerColor="#25FFEB3B"
+        android:endColor="#22FF9800"
+        android:startColor="#052193B0" />
+</shape>

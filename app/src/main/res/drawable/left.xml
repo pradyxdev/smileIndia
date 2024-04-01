@@ -1,0 +1,18 @@
+<!--
+  ~ /**
+  ~  * Created by Prady on 3/24/23, 12:31 PM
+  ~  * Copyright (c) 2023 . All rights reserved.
+  ~  * Last modified 3/24/23, 12:31 PM
+  ~  */
+  -->
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:tint="?attr/colorControlNormal"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+  <path
+      android:fillColor="#FF000000"
+      android:pathData="M10,4.93L2.93,12L10,19.07L11.5,17.57L6.93,13L21,13L21,11L6.93,11L11.5,6.43L10,4.93z"/>
+</vector>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ /**
+  ~  * Created by Prady on 23/02/23, 11:49 AM
+  ~  * Copyright (c) 2023 . All rights reserved.
+  ~  * Last modified 02/11/22, 3:33 PM
+  ~  */
+  -->
+
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval"
+    android:tint="@color/green">
+    <stroke
+        android:width="5dp"
+        android:color="@color/green" />
+</shape>

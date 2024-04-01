@@ -1,0 +1,18 @@
+<!--
+  ~ /**
+  ~  * Created by Prady on 4/8/23, 4:35 PM
+  ~  * Copyright (c) 2023 . All rights reserved.
+  ~  * Last modified 4/8/23, 4:35 PM
+  ~  */
+  -->
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:tint="#9C27B0"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:fillColor="#FF000000"
+        android:pathData="M12,2L3,6L3,21L21,21L21,6L12,2zM12,4.189L19,7.301L19,19L5,19L5,7.301L12,4.189zM7,8L7,10L9,10L9,8L7,8zM11,8L11,10L13,10L13,8L11,8zM15,8L15,10L17,10L17,8L15,8zM7,12L7,14L9,14L9,12L7,12zM11,12L11,14L13,14L13,12L11,12zM15,12L15,14L17,14L17,12L15,12zM7,16L7,18L9,18L9,16L7,16zM11,16L11,18L13,18L13,16L11,16zM15,16L15,18L17,18L17,16L15,16z" />
+</vector>

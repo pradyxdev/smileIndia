@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ /**
+  ~  * Created by Prady on 6/6/23, 6:11 PM
+  ~  * Copyright (c) 2023 . All rights reserved.
+  ~  * Last modified 6/6/23, 6:11 PM
+  ~  */
+  -->
+
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/vendor_navigation"
+    app:startDestination="@id/venHomeFragment">
+
+    <fragment
+        android:id="@+id/venHomeFragment"
+        android:name="com.app.prady.appbase.ui.userTypeActivities.vendor.mainActivity.fragments.home.VenHomeFragment"
+        android:label="VenHomeFragment" />
+    <fragment
+        android:id="@+id/createBillFragment"
+        android:name="com.app.prady.appbase.ui.userTypeActivities.vendor.mainActivity.fragments.create.bill.CreateBillFragment"
+        android:label="CreateBillFragment" />
+    <fragment
+        android:id="@+id/createItemsFragment"
+        android:name="com.app.prady.appbase.ui.userTypeActivities.vendor.mainActivity.fragments.create.CreateItemsFragment"
+        android:label="CreateItemsFragment" />
+    <fragment
+        android:id="@+id/createCustomerFragment"
+        android:name="com.app.prady.appbase.ui.userTypeActivities.vendor.mainActivity.fragments.create.CreateCustomerFragment"
+        android:label="CreateCustomerFragment" />
+    <fragment
+        android:id="@+id/createBill2Fragment"
+        android:name="com.app.prady.appbase.ui.userTypeActivities.vendor.mainActivity.fragments.create.bill.CreateBill2Fragment"
+        android:label="CreateBill2Fragment" />
+</navigation>

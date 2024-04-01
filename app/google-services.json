@@ -1,0 +1,76 @@
+{
+  "project_info": {
+    "project_number": "1030018009090",
+    "project_id": "app-otp-xxxx",
+    "storage_bucket": "app-otp-xxxx.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1030018009090:android:25fc47d2e0a9cf58bbff1b",
+        "android_client_info": {
+          "package_name": "com.app.prady.appbase"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1030018009090-a96pv921h6p924admf40sptpj7ur3meo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCMfxk9C0tOLDn2hFanfkOe4WsUk9RX8ZI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1030018009090-a96pv921h6p924admf40sptpj7ur3meo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1030018009090:android:81d6b387837ef5c8bbff1b",
+        "android_client_info": {
+          "package_name": "com.app.ecommerce.appname"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1030018009090-t3l1192u4q33o1ou10n9unogpavm498e.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.app.ecommerce.appname",
+            "certificate_hash": "f1e69ff5331a900e0a3d1c2bc6f9f9a5cc422677"
+          }
+        },
+        {
+          "client_id": "1030018009090-a96pv921h6p924admf40sptpj7ur3meo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCMfxk9C0tOLDn2hFanfkOe4WsUk9RX8ZI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1030018009090-a96pv921h6p924admf40sptpj7ur3meo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ /**
+  ~  * Created by Prady on 5/17/23, 11:33 AM
+  ~  * Copyright (c) 2023 . All rights reserved.
+  ~  * Last modified 5/17/23, 11:33 AM
+  ~  */
+  -->
+
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:top="-8dp"
+        android:bottom="-8dp"
+        android:left="-8dp">
+        <shape>
+            <solid android:color="@android:color/transparent"/>
+            <stroke
+                android:width="4dp"
+                android:color="?attr/colorSurfaceInverse"
+                android:dashGap="4dp"
+                android:dashWidth="4dp"/>
+        </shape>
+    </item>
+</layer-list>

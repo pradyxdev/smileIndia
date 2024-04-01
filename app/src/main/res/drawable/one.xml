@@ -1,0 +1,20 @@
+<!--
+  ~ /**
+  ~  * Created by Prady on 6/29/23, 1:34 PM
+  ~  * Copyright (c) 2023 . All rights reserved.
+  ~  * Last modified 6/29/23, 1:30 PM
+  ~  */
+  -->
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="32dp"
+    android:height="32dp"
+    android:viewportWidth="48"
+    android:viewportHeight="48">
+    <path
+        android:fillColor="#bbdefb"
+        android:pathData="M6,10c0,-2.209 1.791,-4 4,-4h28c2.209,0 4,1.791 4,4v28c0,2.209 -1.791,4 -4,4H10c-2.209,0 -4,-1.791 -4,-4V10z" />
+    <path
+        android:fillColor="#1976d2"
+        android:pathData="M26,32h-3V20.082l-3,1.043v-2.75L25.667,16H26V32z" />
+</vector>

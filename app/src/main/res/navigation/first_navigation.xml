@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ /**
+  ~  * Created by Prady on 23/02/23, 11:49 AM
+  ~  * Copyright (c) 2023 . All rights reserved.
+  ~  * Last modified 21/02/23, 2:25 PM
+  ~  */
+  -->
+
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/first_navigation"
+    app:startDestination="@id/step1Fragment">
+
+    <fragment
+        android:id="@+id/step1Fragment"
+        android:name="com.app.prady.appbase.ui.initialActivities.firstLoginActivity.steps.LangSelectFragment"
+        android:label=""
+        tools:layout="@layout/fragment_first_step_1" />
+</navigation>

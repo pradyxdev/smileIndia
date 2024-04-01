@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ /**
+  ~  * Created by Prady on 5/17/23, 11:27 AM
+  ~  * Copyright (c) 2023 . All rights reserved.
+  ~  * Last modified 5/17/23, 11:27 AM
+  ~  */
+  -->
+
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="line">
+
+    <stroke
+        android:color="?attr/colorSurfaceInverse"
+        android:dashWidth="10px"
+        android:dashGap="10px"
+        android:width="1dp"/>
+</shape>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ /**
+  ~  * Created by Prady on 02/11/22, 3:33 PM
+  ~  * Copyright (c) 2022 . All rights reserved.
+  ~  * Last modified 02/11/22, 12:36 PM
+  ~  */
+  -->
+
+<set xmlns:android="http://schemas.android.com/apk/res/android">
+    <translate
+        android:duration="400"
+        android:fromXDelta="100%"
+        android:toXDelta="0%" />
+</set>

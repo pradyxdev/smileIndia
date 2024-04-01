@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ /**
+  ~  * Created by Prady on 15/10/22, 6:26 PM
+  ~  * Copyright (c) 2022 . All rights reserved.
+  ~  * Last modified 15/10/22, 6:26 PM
+  ~  */
+  -->
+
+
+<com.google.android.material.chip.Chip xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/Widget.MyApp.Chip"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" />

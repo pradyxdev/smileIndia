@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ /**
+  ~  * Created by Prady on 19/09/22, 12:42 PM
+  ~  * Copyright (c) 2022 . All rights reserved.
+  ~  * Last modified 19/09/22, 12:42 PM
+  ~  */
+  -->
+
+<resources>
+    <array name="search_array">
+        <item>Search for "PENDANTS"</item>
+        <item>Search for "RINGS"</item>
+        <item>Search for "EARRINGS"</item>
+        <item>Search for "BRACELETS"</item>
+        <item>Search for "MANGALSUTRA"</item>
+        <item>Search for "CHAIN"</item>
+        <item>Search for "NOSE PINS"</item>
+    </array>
+</resources>

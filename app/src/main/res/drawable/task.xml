@@ -1,0 +1,41 @@
+<!--
+  ~ /**
+  ~  * Created by Prady on 4/10/23, 6:05 PM
+  ~  * Copyright (c) 2023 . All rights reserved.
+  ~  * Last modified 4/10/23, 6:03 PM
+  ~  */
+  -->
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="48"
+    android:viewportHeight="48">
+    <path
+        android:fillColor="#6d4c41"
+        android:pathData="M36,4H26c0,1.105 -0.895,2 -2,2s-2,-0.895 -2,-2H12C9.789,4 8,5.789 8,8v32c0,2.211 1.789,4 4,4h24c2.211,0 4,-1.789 4,-4V8C40,5.789 38.211,4 36,4" />
+    <path
+        android:fillColor="#fff"
+        android:pathData="M36,41H12c-0.551,0 -1,-0.449 -1,-1V8c0,-0.551 0.449,-1 1,-1h24c0.551,0 1,0.449 1,1v32C37,40.551 36.551,41 36,41" />
+    <path
+        android:fillColor="#90a4ae"
+        android:pathData="M26,4c0,1.105 -0.895,2 -2,2s-2,-0.895 -2,-2h-7v4c0,1.105 0.895,2 2,2h14c1.105,0 2,-0.895 2,-2V4H26z" />
+    <path
+        android:fillColor="#90a4ae"
+        android:pathData="M24,0c-2.207,0 -4,1.793 -4,4s1.793,4 4,4s4,-1.793 4,-4S26.207,0 24,0M24,6c-1.105,0 -2,-0.895 -2,-2s0.895,-2 2,-2s2,0.895 2,2S25.105,6 24,6" />
+    <path
+        android:fillColor="#e57373"
+        android:pathData="M30.858,16.322l2.819,2.82c0.43,0.429 0.43,1.126 0,1.555l-1.328,1.328l-4.375,-4.376l1.328,-1.327C29.732,15.893 30.428,15.893 30.858,16.322" />
+    <path
+        android:fillColor="#ff9800"
+        android:pathData="M15.469,30.153l4.376,4.376L30.16,24.214l-4.376,-4.376L15.469,30.153z" />
+    <path
+        android:fillColor="#b0bec5"
+        android:pathData="M25.783,19.836l4.375,4.378l2.188,-2.187l-4.375,-4.378L25.783,19.836z" />
+    <path
+        android:fillColor="#ffc107"
+        android:pathData="M19.848,34.527L14,36l1.472,-5.848L19.848,34.527z" />
+    <path
+        android:fillColor="#37474f"
+        android:pathData="M16.956,35.256L14,36l0.744,-2.956L16.956,35.256z" />
+</vector>
