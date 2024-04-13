@@ -1,0 +1,27 @@
+/*
+ * *
+ *  * Created by Prady on 4/4/24, 1:03 PM
+ *  * Copyright (c) 2024 . All rights reserved.
+ *  * Last modified 4/4/24, 1:03 PM
+ *
+ */
+
+package com.app.ulife.creator.models.productList
+
+data class GetProductListRes(
+    val `data`: List<Data>,
+    val message: String,
+    val status: Boolean
+)
+
+data class Data(
+    val bv: Int,
+    val desc: String,
+    val img: String,
+    val mrp: Int,
+    val name: String,
+    val prodid: Int,
+    val sp: Int,
+    val type: String,
+    val AvailableStock: Int
+)

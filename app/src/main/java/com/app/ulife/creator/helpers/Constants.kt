@@ -8,9 +8,13 @@
 
 package com.app.ulife.creator.helpers
 
+import com.app.ulife.creator.R
+import com.app.ulife.creator.models.dummys.CategoryMD
+import com.app.ulife.creator.models.dummys.items.ItemsMD
+
 object Constants {
     // add api base url
-    const val BaseUrl = "http://apiurl.com/api/"
+    const val BaseUrl = "https://apiulife.sigmasoftwares.co/api/"
     const val dummyQrCode =
         "https://firebasestorage.googleapis.com/v0/b/app-otp-xxxx.appspot.com/o/qrcode.png?alt=media&token=c4672ab7-29c9-4069-8f14-bf22d40a8651"
     const val dummyImg =
@@ -26,7 +30,7 @@ object Constants {
     var defaultMapLoc =
         "2/501, Vijay Khand, Ujariyaon, Vijay Khand 2, Gomti Nagar, Lucknow, Uttar Pradesh 226010, India"
 
-    var imgBaseUrl = "http://ramapi.sigmasoftwares.co/"
+    var imgBaseUrl = "https://ulifecreator.com/Resources/"
 
     const val userTypeCustomer = "customer"
     const val userTypeDepartment = "department"
@@ -113,4 +117,59 @@ object Constants {
 
     var searchedLat = 0.0
     var searchedLog = 0.0
+
+    val itemShoesArr = listOf(
+        ItemsMD(R.drawable.logo, "Vegetables", "Carrot", "50", ""),
+        ItemsMD(R.drawable.logo, "Vegetables", "Bell Pepper", "120", ""),
+        ItemsMD(R.drawable.logo, "Vegetables", "Tomatoes", "30", ""),
+        ItemsMD(R.drawable.logo, "Vegetables", "Peas", "45", ""),
+
+        ItemsMD(R.drawable.logo, "Vegetables", "Carrot", "50", ""),
+        ItemsMD(R.drawable.logo, "Vegetables", "Bell Pepper", "120", ""),
+        ItemsMD(R.drawable.logo, "Vegetables", "Tomatoes", "30", ""),
+        ItemsMD(R.drawable.logo, "Vegetables", "Peas", "45", ""),
+
+        ItemsMD(R.drawable.logo, "Vegetables", "Carrot", "50", ""),
+        ItemsMD(R.drawable.logo, "Vegetables", "Bell Pepper", "120", ""),
+        ItemsMD(R.drawable.logo, "Vegetables", "Tomatoes", "30", ""),
+        ItemsMD(R.drawable.logo, "Vegetables", "Peas", "45", ""),
+    )
+
+    val itemRecharge1 = listOf(
+        CategoryMD(img = R.drawable.iphone, name = "Mobile Recharge"),
+        CategoryMD(img = R.drawable.tv_show, name = "DTH Recharge"),
+        CategoryMD(img = R.drawable.purchase_order, name = "Post-Paid Recharge"),
+    )
+
+    val itemRecharge2 = listOf(
+        CategoryMD(img = R.drawable.wi_fi_router, name = "Broadband"),
+        CategoryMD(img = R.drawable.office_phone, name = "Landline"),
+//        CategoryMD(img = R.drawable.retro_tv, name = "Cable Tv"),
+        CategoryMD(img = R.drawable.electricity, name = "Electricity"),
+        CategoryMD(img = R.drawable.commit_git, name = "Gas Line"),
+        CategoryMD(img = R.drawable.gas_bottle, name = "Cylinder"),
+        CategoryMD(img = R.drawable.water_tower, name = "Water Bill"),
+        CategoryMD(img = R.drawable.tags, name = "Fastag"),
+        CategoryMD(img = R.drawable.money_box, name = "Insurance"),
+    )
+
+    val itemDashboard = listOf(
+        CategoryMD(img = 0, name = "Total XYZ"),
+        CategoryMD(img = 1, name = "Total XYZ"),
+        CategoryMD(img = 2, name = "Total XYZ"),
+        CategoryMD(img = 3, name = "Total XYZ"),
+    )
+
+    // mobile
+    var planTypeUnlimited = 1
+    var planTypeData = 2
+    var planTypeISD = 0
+    var planTypeInternational = 3
+    var planTypeTTPlan = 4
+    var planTypeInflight = 5
+
+    // DTH
+    var planTypeDthAddOn = 1
+    var planTypeDthPlan = 2
+    var planTypeDthLanguages = 3
 }

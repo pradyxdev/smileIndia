@@ -12,27 +12,18 @@ import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import com.app.ulife.creator.R
 import com.app.ulife.creator.databinding.FragmentEditProfileBinding
 import com.app.ulife.creator.factories.SharedVMF
-import com.app.ulife.creator.helpers.Constants
 import com.app.ulife.creator.helpers.PreferenceManager
-import com.app.ulife.creator.models.UserIdRequest
-import com.app.ulife.creator.models.userDetails.UserDetailsRes
-import com.app.ulife.creator.ui.userTypeActivities.customer.mainActivity.MainActivity
-import com.app.ulife.creator.utils.LoadingUtils
-import com.app.ulife.creator.utils.snackbar
 import com.app.ulife.creator.viewModels.SharedVM
 import com.google.android.material.chip.Chip
-import com.google.gson.Gson
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.kodein
@@ -72,69 +63,69 @@ class EditProfileFragment : Fragment(), KodeinAware {
     }
 
     private fun hitApis() {
-        getUserDetails(UserIdRequest("" + preferenceManager.userid))
+//        getUserDetails(UserIdRequest("" + preferenceManager.userid))
     }
 
     private fun setupListeners() {
     }
 
-    private fun getUserDetails(mobileNoReq: UserIdRequest) {
-        LoadingUtils.showDialog(requireContext(), false)
-        viewModel.getUserDetails = MutableLiveData()
-        viewModel.getUserDetails.observe(requireActivity()) {
-            val response = Gson().fromJson(it, UserDetailsRes::class.java)
-//            Log.e("getUserDetails ", "$response")
-            if (response != null) {
-                if (response.status) {
-                    LoadingUtils.hideDialog()
-
-                    binding.apply {
-                        etUsername.setText(response.response?.fullName)
-                        etFather.setText(response.response?.fatherName)
-                        etMother.setText(response.response?.motherName)
-                        etAddress.setText(response.response?.address)
-
-                        etEnrollNum.setText(response.response?.enrollmentNo)
-                        etCourseName.setText(response.response?.courseName)
-
-                        try {
-                            val getDob = response.response?.dob
-                            if (!getDob.isNullOrEmpty()) {
-                                val terms = getDob.split("-")
-                                etDay.setText(terms[0])
-                                etMonth.setText(terms[1])
-                                etYear.setText(terms[2])
-                            }
-
-                            val subjectList = response.response?.subjectName
-                            if (!subjectList.isNullOrEmpty()) {
-                                val chunks = subjectList.split(",")
-                                for (i in chunks.indices) {
-                                    Log.e("subjectsName ", "" + chunks[i])
-                                    chipGroup.addView(
-                                        createTagChip(
-                                            requireContext(),
-                                            chunks[i]
-                                        )
-                                    )
-                                }
-                            }
-
-                        } catch (e: Exception) {
-                            Log.e("getUserDetails ", "$e")
-                        }
-                    }
-                } else {
-                    LoadingUtils.hideDialog()
-                    binding.root.snackbar("error: ${response.response}")
-                }
-            } else {
-                LoadingUtils.hideDialog()
-                (activity as MainActivity)?.apiErrorDialog(Constants.apiErrors)
-            }
-        }
-        viewModel.getUserDetails(mobileNoReq)
-    }
+//    private fun getUserDetails(mobileNoReq: UserIdRequest) {
+//        LoadingUtils.showDialog(requireContext(), false)
+//        viewModel.getUserDetails = MutableLiveData()
+//        viewModel.getUserDetails.observe(requireActivity()) {
+//            val response = Gson().fromJson(it, UserDetailsRes::class.java)
+////            Log.e("getUserDetails ", "$response")
+//            if (response != null) {
+//                if (response.status) {
+//                    LoadingUtils.hideDialog()
+//
+////                    binding.apply {
+////                        etUsername.setText(response.response?.fullName)
+////                        etFather.setText(response.response?.fatherName)
+////                        etMother.setText(response.response?.motherName)
+////                        etAddress.setText(response.response?.address)
+////
+////                        etEnrollNum.setText(response.response?.enrollmentNo)
+////                        etCourseName.setText(response.response?.courseName)
+////
+////                        try {
+////                            val getDob = response.response?.dob
+////                            if (!getDob.isNullOrEmpty()) {
+////                                val terms = getDob.split("-")
+////                                etDay.setText(terms[0])
+////                                etMonth.setText(terms[1])
+////                                etYear.setText(terms[2])
+////                            }
+////
+////                            val subjectList = response.response?.subjectName
+////                            if (!subjectList.isNullOrEmpty()) {
+////                                val chunks = subjectList.split(",")
+////                                for (i in chunks.indices) {
+////                                    Log.e("subjectsName ", "" + chunks[i])
+////                                    chipGroup.addView(
+////                                        createTagChip(
+////                                            requireContext(),
+////                                            chunks[i]
+////                                        )
+////                                    )
+////                                }
+////                            }
+////
+////                        } catch (e: Exception) {
+////                            Log.e("getUserDetails ", "$e")
+////                        }
+////                    }
+//                } else {
+//                    LoadingUtils.hideDialog()
+////                    binding.root.snackbar("error: ${response.response}")
+//                }
+//            } else {
+//                LoadingUtils.hideDialog()
+//                (activity as MainActivity)?.apiErrorDialog(Constants.apiErrors)
+//            }
+//        }
+//        viewModel.getUserDetails(mobileNoReq)
+//    }
 
     private fun createTagChip(context: Context, chipName: String): Chip {
         return Chip(context).apply {

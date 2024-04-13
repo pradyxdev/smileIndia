@@ -16,7 +16,7 @@
         app:showAsAction="always" />
 
     <item
-        android:id="@+id/rechargeFragment"
+        android:id="@+id/rechargeDashboardFragment"
         android:icon="@drawable/dashboard_layout"
         android:title="Recharge"
         app:showAsAction="always" />
@@ -24,6 +24,6 @@
     <item
         android:id="@+id/profileFragment"
         android:icon="@drawable/account"
-        android:title="Rewards"
+        android:title="Profile"
         app:showAsAction="always" />
 </menu>

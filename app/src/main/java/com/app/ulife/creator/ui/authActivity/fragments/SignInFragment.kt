@@ -10,7 +10,6 @@ package com.app.ulife.creator.ui.authActivity.fragments
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -64,8 +63,10 @@ class SignInFragment : Fragment(), KodeinAware {
     private fun setupViews() {
 //        setupCustomMargins()
 
-        binding.apply {
-        }
+//        binding.apply {
+//            etUserId.setText("SC000001")
+//            etPass.setText("019144")
+//        }
     }
 
     private fun setupListeners() {
@@ -84,24 +85,59 @@ class SignInFragment : Fragment(), KodeinAware {
                     else -> {
                         viewModel.setUserType(Constants.userTypeCustomer) //
                         btnSignIn.isEnabled = false
-//                        hitApi(
-//                            SigninReq(
-//                                "" + etPassword.text,
-//                                "" + sessionNumber,
-//                                "" + etUsername.text
-//                            )
-//                        )
-                        preferenceManager.userType = Constants.userTypeCustomer
-                        activity?.startActivity(Intent(activity, MainActivity::class.java))
-                        activity?.overridePendingTransition(
-                            R.anim.slide_in_from_right,
-                            R.anim.slide_out_left
+                        hitApi(
+                            SigninReq(
+                                ip = "1",
+                                password = "" + etPass.text,
+                                role = "User",
+                                userid = "" + etUserId.text
+                            )
                         )
-                        activity?.finishAffinity()
                     }
                 }
             }
         }
+    }
+
+    private fun hitApi(loginReq: SigninReq) {
+        LoadingUtils.showDialog(requireContext(), false)
+        viewModel.signIn = MutableLiveData()
+        viewModel.signIn.observe(requireActivity()) {
+            try {
+                val response = Gson().fromJson(it, SigninRes::class.java)
+//            Log.e("response", "$response")
+                if (response != null) {
+                    if (response.status) {
+                        LoadingUtils.hideDialog()
+                        binding.btnSignIn.isEnabled = false
+                        preferenceManager.token = "" + response.token
+
+                        when (response.data[0].id) {
+                            1 -> {
+                                preferenceManager.userid = "" + response.data[0].UserId
+                                openNextUI()
+                            }
+
+                            else -> (activity as AuthActivity).apiErrorDialog("Sorry, your credentials were invalid !")
+                        }
+                    } else {
+                        LoadingUtils.hideDialog()
+                        (activity as AuthActivity).apiErrorDialog("Sorry, your credentials were invalid !")
+//                    binding.progressBar.visibility = View.GONE
+                        binding.btnSignIn.isEnabled = true
+                    }
+                } else {
+                    LoadingUtils.hideDialog()
+                    binding.btnSignIn.isEnabled = true
+                    (activity as AuthActivity).apiErrorDialog(Constants.apiErrors)
+                }
+            } catch (e: Exception) {
+                LoadingUtils.hideDialog()
+                binding.btnSignIn.isEnabled = true
+                (activity as AuthActivity).apiErrorDialog("$it\n$e")
+            }
+        }
+        viewModel.signIn(loginReq)
     }
 
     private fun openNextUI() {
@@ -126,35 +162,6 @@ class SignInFragment : Fragment(), KodeinAware {
 //            }
             else -> context?.toast("Unable to get user type !")
         }
-    }
-
-    private fun hitApi(loginReq: SigninReq) {
-        LoadingUtils.showDialog(requireContext(), false)
-        viewModel.signIn = MutableLiveData()
-        viewModel.signIn.observe(requireActivity()) {
-            val response = Gson().fromJson(it, SigninRes::class.java)
-            Log.e("response", "$response")
-            if (response != null) {
-                if (response.status) {
-                    LoadingUtils.hideDialog()
-                    binding.btnSignIn.isEnabled = false
-//                context?.copyToClipboard(response.response?.otp.toString())
-//                context?.toast("copied to clipboard")
-                    preferenceManager.userid = response.response.userID
-                    openNextUI()
-                } else {
-                    LoadingUtils.hideDialog()
-                    (activity as AuthActivity).apiErrorDialog("Sorry, your credentials were invalid !")
-//                    binding.progressBar.visibility = View.GONE
-                    binding.btnSignIn.isEnabled = true
-                }
-            } else {
-                LoadingUtils.hideDialog()
-                binding.btnSignIn.isEnabled = true
-                (activity as AuthActivity).apiErrorDialog(Constants.apiErrors)
-            }
-        }
-        viewModel.signIn(loginReq)
     }
 
     private fun setupCustomMargins() {

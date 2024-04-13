@@ -8,4 +8,7 @@
 
 package com.app.ulife.creator.models
 
-class EmptyRequest()
+class EmptyRequest(
+    val apiname: String,
+    val obj: Obj
+)

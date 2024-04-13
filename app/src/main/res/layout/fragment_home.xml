@@ -45,20 +45,32 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/textView6"
-                    style="@style/StyleHeaderStyle"
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:text="@string/app_name"
-                    android:textAllCaps="false"
-                    android:textSize="26.5sp"
+                    android:gravity="center"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginEnd="4dp"
+                        android:src="@drawable/logo" />
+
+                    <TextView
+                        android:id="@+id/textView6"
+                        style="@style/StyleHeaderStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:text="@string/app_name"
+                        android:textAllCaps="false"
+                        android:textSize="26.5sp" />
+                </LinearLayout>
 
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/card_cart"
@@ -92,6 +104,7 @@
                             app:layout_constraintTop_toTopOf="parent" />
 
                         <TextView
+                            android:id="@+id/tv_cart_count"
                             android:layout_width="20dp"
                             android:layout_height="20dp"
                             android:background="@drawable/circle_active"
@@ -131,7 +144,7 @@
                         android:layout_marginStart="16dp"
                         android:background="@null"
                         android:drawablePadding="8dp"
-                        android:hint="What are you looking for?"
+                        android:hint="What are you looking for ?"
                         android:imeOptions="actionDone"
                         android:inputType="text"
                         android:maxLength="12"
@@ -171,7 +184,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp">
+                android:layout_marginEnd="16dp"
+                android:visibility="gone">
 
                 <TextView
                     android:id="@+id/textView17"
@@ -226,7 +240,7 @@
                 android:id="@+id/rv_category"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="16dp"
                 android:orientation="horizontal"
                 android:paddingStart="8dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -235,7 +249,7 @@
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/viewPagerImageSlider"
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
+                android:layout_height="170dp"
                 android:layout_marginTop="16dp"
                 android:paddingStart="30dp"
                 android:paddingEnd="30dp"

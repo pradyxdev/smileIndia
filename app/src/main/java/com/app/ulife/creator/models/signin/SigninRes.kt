@@ -9,7 +9,8 @@
 package com.app.ulife.creator.models.signin
 
 data class SigninRes(
-    val msg: String,
-    val response: Response,
-    val status: Boolean
+    val `data`: List<Data>,
+    val message: String,
+    val status: Boolean,
+    val token: String
 )

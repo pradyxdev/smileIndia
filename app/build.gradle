@@ -137,4 +137,6 @@ dependencies {
     implementation group: 'net.time4j', name: 'time4j-android', version: '4.8-2021a'
 
     implementation 'com.github.afreakyelf:Pdf-Viewer:v1.0.7'
+
+    implementation("io.coil-kt:coil:2.4.0")
 }

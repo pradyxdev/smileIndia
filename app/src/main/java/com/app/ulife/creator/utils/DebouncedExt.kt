@@ -6,7 +6,7 @@
  *
  */
 
-package com.sports.battle.utils
+package com.app.ulife.creator.utils
 
 import android.view.View
 

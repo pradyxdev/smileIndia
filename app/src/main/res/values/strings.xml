@@ -113,4 +113,19 @@
     <string name="don_t_have_account_sign_up">Don\'t have account? Sign Up</string>
     <string name="complaint_history">Complaint History</string>
     <string name="by_using_this_app">By using this app, you agree to our <a href="http://www.google.com">Terms &amp; Conditions\n</a> and <a href="http://www.google.com">Privacy Policy</a>.</string>
+    <string name="order_summary">Order Summary</string>
+    <string name="order_details">Order Details</string>
+    <string name="order_id">Order ID</string>
+    <string name="order_date">Order Date</string>
+    <string name="order_status">Order Status</string>
+    <string name="payment_mode">Payment Mode</string>
+    <string name="cod">COD</string>
+    <string name="delivery_address">Delivery Address</string>
+    <string name="payment_summary">Payment Summary</string>
+    <string name="subtotal">Subtotal</string>
+    <string name="delivery_charge">Delivery Charge</string>
+    <string name="total">Total</string>
+    <string name="no_order_history_found">No order history found !</string>
+    <string name="purchased_items">Purchased Items :</string>
+    <string name="delivery_date_time"><![CDATA[Delivery Date & Time]]></string>
 </resources>

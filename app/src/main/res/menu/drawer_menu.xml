@@ -5,17 +5,25 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_profile"
-            android:icon="@drawable/male_user"
-            android:title="My Profile" />
-        <item
-            android:id="@+id/nav_orders"
+            android:id="@+id/nav_order_history"
             android:icon="@drawable/purchase_order"
-            android:title="My Orders" />
+            android:title="Order History" />
         <item
-            android:id="@+id/nav_notif"
-            android:icon="@drawable/notification"
-            android:title="Notifications" />
+            android:id="@+id/nav_ledger"
+            android:icon="@drawable/cashbook"
+            android:title="Wallet Ledger" />
+        <item
+            android:id="@+id/nav_network_manage"
+            android:icon="@drawable/network"
+            android:title="Network Management" />
+        <item
+            android:id="@+id/nav_fund_manage"
+            android:icon="@drawable/wallet"
+            android:title="Funds Management" />
+        <item
+            android:id="@+id/nav_epin_manage"
+            android:icon="@drawable/password_1"
+            android:title="E-PIN Management" />
         <item
             android:id="@+id/nav_help"
             android:icon="@drawable/help"
@@ -29,7 +37,7 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_logout"
-            android:icon="@drawable/male_user"
+            android:icon="@drawable/ic_baseline_logout_24"
             android:title="Logout" />
     </group>
 </menu>

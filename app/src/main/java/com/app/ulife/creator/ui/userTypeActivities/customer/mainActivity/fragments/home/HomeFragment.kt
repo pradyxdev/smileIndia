@@ -8,60 +8,78 @@
 
 package com.app.ulife.creator.ui.userTypeActivities.customer.mainActivity.fragments.home
 
-import android.app.Dialog
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
+import android.os.Handler
 import android.view.LayoutInflater
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.view.Window
-import android.view.WindowManager
-import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
-import android.widget.FrameLayout
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.widget.CompositePageTransformer
+import androidx.viewpager2.widget.MarginPageTransformer
+import androidx.viewpager2.widget.ViewPager2
 import com.app.ulife.creator.R
+import com.app.ulife.creator.adapters.ecom.CategoryAdapter
+import com.app.ulife.creator.adapters.ecom.ItemsGridAdapter
+import com.app.ulife.creator.adapters.ecom.SliderAdapter
 import com.app.ulife.creator.databinding.FragmentHomeBinding
 import com.app.ulife.creator.factories.SharedVMF
 import com.app.ulife.creator.helpers.Constants
 import com.app.ulife.creator.helpers.PreferenceManager
+import com.app.ulife.creator.models.CommonUserIdReq
+import com.app.ulife.creator.models.EmptyRequest
+import com.app.ulife.creator.models.SliderItemsModel
+import com.app.ulife.creator.models.UserIdObj
+import com.app.ulife.creator.models.addToCart.AddToCartReq
+import com.app.ulife.creator.models.addToCart.AddToCartRes
+import com.app.ulife.creator.models.banner.GetBannerRes
+import com.app.ulife.creator.models.cart.GetCartRes
+import com.app.ulife.creator.models.getCat.Data
+import com.app.ulife.creator.models.getCat.GetCategoryReq
+import com.app.ulife.creator.models.getCat.GetCategoryRes
+import com.app.ulife.creator.models.getCat.Obj
+import com.app.ulife.creator.models.productList.GetProductListReq
+import com.app.ulife.creator.models.productList.GetProductListRes
 import com.app.ulife.creator.ui.SplashActivity
+import com.app.ulife.creator.ui.authActivity.AuthActivity
+import com.app.ulife.creator.ui.userTypeActivities.customer.cartActivity.BagActivity
+import com.app.ulife.creator.ui.userTypeActivities.customer.mainActivity.MainActivity
+import com.app.ulife.creator.ui.userTypeActivities.customer.productActivity.ProductDetailsActivity
+import com.app.ulife.creator.utils.LoadingUtils
+import com.app.ulife.creator.utils.calculateNoOfColumns
+import com.app.ulife.creator.utils.getNavOptions
+import com.app.ulife.creator.utils.toast
 import com.app.ulife.creator.viewModels.SharedVM
-import com.bumptech.glide.Glide
 import com.crowdfire.cfalertdialog.CFAlertDialog
-import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.google.android.material.button.MaterialButton
-import com.google.android.material.datepicker.CalendarConstraints
-import com.google.android.material.datepicker.MaterialDatePicker
-import com.google.android.material.slider.Slider
+import com.google.android.material.snackbar.Snackbar
+import com.google.gson.Gson
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.kodein
 import org.kodein.di.generic.instance
 import org.kodein.di.generic.kcontext
-import ozaydin.serkan.com.image_zoom_view.ImageViewZoom
-import java.text.SimpleDateFormat
-import java.util.Calendar
+import kotlin.math.abs
 
-class HomeFragment : Fragment(), KodeinAware {
+class HomeFragment : Fragment(), KodeinAware, CategoryAdapter.OnItemClickListener,
+    ItemsGridAdapter.OnItemClickListener {
     private lateinit var binding: FragmentHomeBinding
     override val kodeinContext = kcontext<Fragment>(this)
     override val kodein: Kodein by kodein()
     private val factory: SharedVMF by instance()
     private lateinit var viewModel: SharedVM
     private lateinit var preferenceManager: PreferenceManager
+    private val sliderHandler = Handler()
+    private val sliderRunnable = Runnable {
+        binding.viewPagerImageSlider.currentItem = binding.viewPagerImageSlider.currentItem + 1
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -90,64 +108,304 @@ class HomeFragment : Fragment(), KodeinAware {
     private fun setupViews() {
 //        setHasOptionsMenu(true)
         preferenceManager.loggedIn = "true"
-        Log.e("sessionDetails ", "" + preferenceManager.session)
 //        showViewStub()
 //        setupRandomSearchTxt()
-
-//        openNewUserDialog()
-//        (activity as MainActivity?)?.setToolbarIcon(R.drawable.box_location)
-//        (activity as MainActivity?)?.setToolbarTitle(GPSTracker(context).getLocality(context))
     }
 
     private fun setupListeners() {
         binding.apply {
-//            btnLogout.setOnClickListener {
-//                showLogoutDialog()
-//            }
-//            btnProfile.setOnClickListener {
-////                context?.toast("Coming soon !")
-//                val action = HomeFragmentDirections.actionHomeFragmentToProfileFragment()
-//                findNavController().navigate(action)
-//            }
+            btnHamburger.setOnClickListener {
+                (activity as MainActivity).openDrawer()
+            }
+
+            cardCart.setOnClickListener {
+                startActivity(Intent(requireActivity(), BagActivity::class.java))
+                activity?.overridePendingTransition(
+                    R.anim.slide_in_from_right,
+                    R.anim.slide_out_left
+                )
+            }
         }
     }
 
     private fun hitApis() {
-
+        getCategories(GetCategoryReq(apiname = "getCategory", obj = Obj()))
+        setupSlider(EmptyRequest(apiname = "getBanner", obj = com.app.ulife.creator.models.Obj()))
+        getArrival(
+            GetProductListReq(
+                apiname = "getProductList",
+                obj = com.app.ulife.creator.models.productList.Obj(id = "", name = "", type = "All")
+            )
+        )
     }
 
-    private fun openFilterSheet() {
-        val bottomSheetDialog = BottomSheetDialog(requireContext())
-        bottomSheetDialog.setContentView(R.layout.bottom_sheet_filter)
-        bottomSheetDialog.behavior.state = BottomSheetBehavior.STATE_EXPANDED
-        bottomSheetDialog.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
+    private fun getCategories(req: GetCategoryReq) {
+        LoadingUtils.showDialog(context, false)
+        viewModel.getCategories = MutableLiveData()
+        viewModel.getCategories.observe(requireActivity()) {
+            try {
+                val response = Gson().fromJson(it, GetCategoryRes::class.java)
+                if (response != null) {
+                    if (response.status) {
+                        LoadingUtils.hideDialog()
+                        when (response.data[0].Id) {
+                            1 -> {
+                                binding.rvCategory.apply {
+                                    adapter =
+                                        CategoryAdapter(context, response.data, this@HomeFragment)
+                                }
+                            }
 
-        val tvQty = bottomSheetDialog.findViewById<TextView>(R.id.tv_qty)
-        val btnSubmit = bottomSheetDialog.findViewById<MaterialButton>(R.id.btn_filter)
-        val btnClose = bottomSheetDialog.findViewById<MaterialButton>(R.id.btn_close)
-        val sliderQty = bottomSheetDialog.findViewById<Slider>(R.id.slider_qty)
+                            else -> (activity as AuthActivity).apiErrorDialog("" + response?.message)
+                        }
+                    } else {
+                        LoadingUtils.hideDialog()
+                        (activity as MainActivity).apiErrorDialog(response.message)
+                    }
+                } else {
+                    LoadingUtils.hideDialog()
+                    (activity as MainActivity).apiErrorDialog(Constants.apiErrors)
+                }
+            } catch (e: Exception) {
+                LoadingUtils.hideDialog()
+                (activity as MainActivity).apiErrorDialog("$it\n$e")
+            }
+        }
+        viewModel.getCategories(req)
+    }
 
-        val autoState =
-            bottomSheetDialog.findViewById<AutoCompleteTextView>(R.id.auto_complete_state)
-        val autoCity = bottomSheetDialog.findViewById<AutoCompleteTextView>(R.id.auto_complete_city)
-        val autoDistrict =
-            bottomSheetDialog.findViewById<AutoCompleteTextView>(R.id.auto_complete_district)
+    override fun onCatItemClick(response: Data) {
+        val args = Bundle()
+        args.putString("catId", "" + response.catid)
+        args.putString("catName", response.CategoryName)
+        findNavController().navigate(R.id.categoryFragment, args, getNavOptions())
+    }
 
-        val modeAdapter = ArrayAdapter(
-            requireContext(), android.R.layout.simple_list_item_1, Constants.stateArray
+    private fun getArrival(req: GetProductListReq) {
+        LoadingUtils.showDialog(context, false)
+        viewModel.getProductListReq = MutableLiveData()
+        viewModel.getProductListReq.observe(requireActivity()) {
+            try {
+                val response = Gson().fromJson(it, GetProductListRes::class.java)
+                if (response != null) {
+                    if (response.status) {
+                        LoadingUtils.hideDialog()
+
+                        binding.rvArrival.apply {
+                            val mNoOfColumns = context.calculateNoOfColumns(context, 140)
+                            val gridManager = GridLayoutManager(
+                                context,
+                                mNoOfColumns,
+                            )
+                            layoutManager = gridManager
+                            adapter =
+                                ItemsGridAdapter(context, response.data, this@HomeFragment, 6)
+                        }
+                    } else {
+                        LoadingUtils.hideDialog()
+                        (activity as MainActivity).apiErrorDialog(response.message)
+                    }
+                } else {
+                    LoadingUtils.hideDialog()
+                    (activity as MainActivity).apiErrorDialog(Constants.apiErrors)
+                }
+            } catch (e: Exception) {
+                LoadingUtils.hideDialog()
+                (activity as MainActivity).apiErrorDialog("$it\n$e")
+            }
+        }
+        viewModel.getProductListReq(req)
+    }
+
+    override fun onGridItemsClick(
+        s: String,
+        response: com.app.ulife.creator.models.productList.Data
+    ) {
+        when (s) {
+            "open" -> {
+                val gson = Gson()
+                startActivity(
+                    Intent(
+                        requireActivity(),
+                        ProductDetailsActivity::class.java
+                    ).putExtra("identifier", gson.toJson(response))
+                )
+                activity?.overridePendingTransition(
+                    R.anim.slide_in_from_right,
+                    R.anim.slide_out_left
+                )
+            }
+
+            "add" -> {
+                addToCart(
+                    AddToCartReq(
+                        apiname = "AddToCart",
+                        obj = com.app.ulife.creator.models.addToCart.Obj(
+                            productid = "" + response.prodid,
+                            qty = "1",
+                            userid = "" + preferenceManager.userid
+                        )
+                    )
+                )
+            }
+
+            else -> context?.toast("Action undefined !")
+        }
+    }
+
+    private fun addToCart(req: AddToCartReq) {
+        viewModel.addToCart = MutableLiveData()
+        viewModel.addToCart.observe(requireActivity()) {
+            try {
+                val response = Gson().fromJson(it, AddToCartRes::class.java)
+                if (response != null) {
+                    if (response.status) {
+                        val snackBar = Snackbar
+                            .make(
+                                binding.root,
+                                "Product has been added to your cart !",
+                                Snackbar.LENGTH_LONG
+                            )
+                            .setAction("OPEN CART") {
+                                startActivity(
+                                    Intent(
+                                        requireActivity(),
+                                        BagActivity::class.java
+                                    )
+                                )
+                                activity?.overridePendingTransition(
+                                    R.anim.slide_in_from_right,
+                                    R.anim.slide_out_left
+                                )
+                            }
+                        snackBar.show()
+
+                        getCart(
+                            CommonUserIdReq(
+                                apiname = "GetCart",
+                                obj = UserIdObj(userId = "" + preferenceManager.userid)
+                            )
+                        )
+                    } else {
+                        (activity as MainActivity).apiErrorDialog(response.message)
+                    }
+                } else {
+                    (activity as MainActivity).apiErrorDialog(Constants.apiErrors)
+                }
+            } catch (e: Exception) {
+                (activity as MainActivity).apiErrorDialog(e.toString())
+            }
+        }
+        viewModel.addToCart(req)
+    }
+
+    private fun getCart(req: CommonUserIdReq) {
+        viewModel.getCart = MutableLiveData()
+        viewModel.getCart.observe(requireActivity()) {
+            try {
+                val response = Gson().fromJson(it, GetCartRes::class.java)
+                if (response != null) {
+                    if (response.status) {
+                        if (response.data.size > 9) {
+                            binding.tvCartCount.text = "9+"
+//                            (activity as MainActivity).setNavbarBadge(response.totalProducts.toString())
+                        } else {
+                            binding.tvCartCount.text = "" + response.data.size
+//                            (activity as MainActivity).setNavbarBadge(response.totalProducts.toString())
+                        }
+                    } else {
+                        binding.tvCartCount.text = "0"
+                    }
+                } else {
+                    binding.tvCartCount.text = "0"
+//                    (activity as MainActivity).setNavbarBadge("0")
+                }
+            } catch (e: Exception) {
+                binding.tvCartCount.text = "0"
+                (activity as MainActivity).apiErrorDialog("$it\n$e")
+//                (activity as MainActivity).setNavbarBadge("0")
+            }
+        }
+        viewModel.getCart(req)
+    }
+
+    private fun setupSlider(emptyRequest: EmptyRequest) {
+        LoadingUtils.showDialog(context, false)
+        viewModel.emptyRequestCommon = MutableLiveData()
+        viewModel.emptyRequestCommon.observe(requireActivity()) {
+            try {
+                val response = Gson().fromJson(it, GetBannerRes::class.java)
+                if (response != null) {
+                    if (response.status) {
+                        LoadingUtils.hideDialog()
+                        val imagesList: MutableList<SliderItemsModel> = ArrayList()
+                        imagesList.clear()
+                        for (i in response.data.indices) {
+                            imagesList.add(SliderItemsModel("" + response.data[i]?.image))
+                        }
+
+                        binding.apply {
+                            viewPagerImageSlider.adapter = SliderAdapter(
+                                imagesList,
+                                viewPagerImageSlider,
+                            )
+                            viewPagerImageSlider.clipToPadding = false
+                            viewPagerImageSlider.clipChildren = false
+                            viewPagerImageSlider.offscreenPageLimit = 3
+                            viewPagerImageSlider.getChildAt(0).overScrollMode =
+                                RecyclerView.OVER_SCROLL_NEVER
+
+                            val compositePageTransformer = CompositePageTransformer()
+                            compositePageTransformer.addTransformer(MarginPageTransformer(40))
+                            compositePageTransformer.addTransformer { page, position ->
+                                val r = 1 - abs(position)
+                                page.scaleY = 0.85f + r * 0.15f
+                            }
+                            viewPagerImageSlider.setPageTransformer(compositePageTransformer)
+                            viewPagerImageSlider.registerOnPageChangeCallback(object :
+                                ViewPager2.OnPageChangeCallback() {
+                                override fun onPageSelected(position: Int) {
+                                    super.onPageSelected(position)
+                                    sliderHandler.removeCallbacks(sliderRunnable)
+                                    sliderHandler.postDelayed(
+                                        sliderRunnable,
+                                        4000
+                                    ) // slide duration
+                                }
+                            })
+                        }
+                    } else {
+                        LoadingUtils.hideDialog()
+                        (activity as MainActivity).apiErrorDialog(response.message)
+                    }
+                } else {
+                    LoadingUtils.hideDialog()
+                    (activity as MainActivity).apiErrorDialog(Constants.apiErrors)
+                }
+            } catch (e: Exception) {
+                LoadingUtils.hideDialog()
+                (activity as MainActivity).apiErrorDialog("$it\n$e")
+            }
+        }
+        viewModel.emptyRequestCommon(emptyRequest)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        sliderHandler.removeCallbacks(sliderRunnable)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        sliderHandler.postDelayed(sliderRunnable, 500)
+        (activity as MainActivity).setBottombarVisibility(isVisible = true)
+
+        getCart(
+            CommonUserIdReq(
+                apiname = "GetCart",
+                obj = UserIdObj(userId = "" + preferenceManager.userid)
+            )
         )
-        autoState?.setAdapter(modeAdapter)
-
-        sliderQty?.addOnChangeListener { slider, value, fromUser ->
-            tvQty?.text = value.toInt().toString()
-        }
-        btnSubmit?.setOnClickListener {
-            bottomSheetDialog.dismiss()
-        }
-        btnClose?.setOnClickListener {
-            bottomSheetDialog.dismiss()
-        }
-        bottomSheetDialog.show()
     }
 
     private fun navigateToComingSoon(type: String) {
@@ -185,39 +443,39 @@ class HomeFragment : Fragment(), KodeinAware {
             }.setCancelable(true).show()
     }
 
-    override fun onPrepareOptionsMenu(menu: Menu) {
-        val profileMenuItem = menu.findItem(R.id.menu_profile)
-        val rootView = profileMenuItem.actionView as FrameLayout?
-        val profileImg = rootView!!.findViewById<View>(R.id.iv_profile_img) as ImageView
-        Glide.with(requireContext()).load(preferenceManager.profileImgUrl)
-            .placeholder(R.drawable.dummy_user).into(profileImg)
-
-        rootView.setOnClickListener {
-            onOptionsItemSelected(profileMenuItem)
-        }
-        return super.onPrepareOptionsMenu(menu)
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        menu.clear() // Inflate the menu; this adds items to the action bar if it is present.
-        inflater.inflate(R.menu.home_menu, menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.menu_profile -> {
-                val action = HomeFragmentDirections.actionHomeFragmentToProfileFragment()
-                findNavController().navigate(action)
-            }
-            R.id.menu_logout -> {
-                showLogoutDialog()
-            }
-            R.id.menu_exit -> {
-                showExitDialog()
-            }
-        }
-        return super.onOptionsItemSelected(item)
-    }
+//    override fun onPrepareOptionsMenu(menu: Menu) {
+//        val profileMenuItem = menu.findItem(R.id.menu_profile)
+//        val rootView = profileMenuItem.actionView as FrameLayout?
+//        val profileImg = rootView!!.findViewById<View>(R.id.iv_profile_img) as ImageView
+//        Glide.with(requireContext()).load(preferenceManager.profileImgUrl)
+//            .placeholder(R.drawable.dummy_user).into(profileImg)
+//
+//        rootView.setOnClickListener {
+//            onOptionsItemSelected(profileMenuItem)
+//        }
+//        return super.onPrepareOptionsMenu(menu)
+//    }
+//
+//    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+//        menu.clear() // Inflate the menu; this adds items to the action bar if it is present.
+//        inflater.inflate(R.menu.home_menu, menu)
+//    }
+//
+//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+//        when (item.itemId) {
+//            R.id.menu_profile -> {
+//                val action = HomeFragmentDirections.actionHomeFragmentToProfileFragment()
+//                findNavController().navigate(action)
+//            }
+//            R.id.menu_logout -> {
+//                showLogoutDialog()
+//            }
+//            R.id.menu_exit -> {
+//                showExitDialog()
+//            }
+//        }
+//        return super.onOptionsItemSelected(item)
+//    }
 
     private fun showLogoutDialog() {
         CFAlertDialog.Builder(context).setDialogStyle(CFAlertDialog.CFAlertStyle.ALERT)
@@ -242,75 +500,6 @@ class HomeFragment : Fragment(), KodeinAware {
             ) { dialog: DialogInterface, _: Int ->
                 dialog.dismiss()
             }.setCancelable(true).show()
-    }
-
-    private fun openImageDialog(imgLink: String) {
-        val dialog = Dialog(requireContext())
-        dialog.setCancelable(true)
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-
-        dialog.setContentView(R.layout.alertdailog_image)
-
-        val lp = WindowManager.LayoutParams()
-        lp.copyFrom(dialog.window?.attributes)
-        lp.width = WindowManager.LayoutParams.MATCH_PARENT
-        lp.height = WindowManager.LayoutParams.WRAP_CONTENT
-
-        val imgView = dialog.findViewById<ImageViewZoom>(R.id.iv_pic)
-        val btnClose = dialog.findViewById<MaterialButton>(R.id.btn_close)
-        val tvUpiId = dialog.findViewById<TextView>(R.id.tv_upi_id)
-
-        tvUpiId.text = preferenceManager.upiId
-        Glide.with(requireContext()).load(preferenceManager.upiQrCode)
-            .placeholder(R.drawable.ic_baseline_qr_code_2_24).into(imgView)
-
-//        Glide.with(this)
-//            .asBitmap()
-//            .load(imgLink).placeholder(R.drawable.ic_baseline_qr_code_2_24).into(imgView)
-
-        btnClose.setOnClickListener {
-            dialog.dismiss()
-        }
-
-        dialog.show()
-        dialog.window?.attributes = lp
-    }
-
-    private fun datePicker() {
-        val builder = MaterialDatePicker.Builder.datePicker()
-        val constraintsBuilder = CalendarConstraints.Builder()
-//                .setValidator(DateValidatorPointForward.now())
-        builder.setCalendarConstraints(constraintsBuilder.build())
-        val now = Calendar.getInstance()
-//            builder.setSelection(androidx.core.util.Pair(now.timeInMillis, now.timeInMillis))
-
-        val picker = builder.build()
-        picker.show(activity?.supportFragmentManager!!, picker.toString())
-        picker.addOnNegativeButtonClickListener { picker.dismiss() }
-        picker.addOnPositiveButtonClickListener {
-            val startDateStr = SimpleDateFormat("dd/MM/yyyy").format(it)
-//            binding.tvDob.text = "DOB ($startDateStr)"
-        }
-    }
-
-    private fun openNewUserDialog() {
-        val dialog = Dialog(requireActivity())
-//        dialog.setCancelable(false)
-        dialog.setContentView(R.layout.dialog_header_new_user)
-
-        val lp = WindowManager.LayoutParams()
-        lp.copyFrom(dialog.window?.attributes)
-        lp.width = WindowManager.LayoutParams.MATCH_PARENT
-        lp.height = WindowManager.LayoutParams.WRAP_CONTENT
-
-        val button = dialog.findViewById<MaterialButton>(R.id.btn_search)
-        button.setOnClickListener {
-            dialog.dismiss()
-//            startActivity(Intent(activity, ProfileCreationActivity::class.java))
-//            activity?.overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_left)
-        }
-        dialog.show()
-        dialog.window?.attributes = lp
     }
 
 //    private fun showViewStub() {

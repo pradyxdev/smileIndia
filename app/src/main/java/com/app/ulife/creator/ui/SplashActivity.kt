@@ -72,7 +72,7 @@ class SplashActivity : AppCompatActivity(), KodeinAware {
 
         versionCode = BuildConfig.VERSION_CODE.toString()
         versionName = BuildConfig.VERSION_NAME
-        binding.tvAppVersion.text = "$versionName-beta"
+        binding.tvAppVersion.text = "$versionName"
 
         val slideInRight = AnimationUtils.loadAnimation(
             applicationContext,

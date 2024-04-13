@@ -64,7 +64,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:animateLayoutChanges="true"
-            android:background="@color/white"
             android:elevation="16dp"
             app:abb_animationInterpolator="@android:anim/overshoot_interpolator"
             app:abb_indicatorAnimation="slide"
@@ -90,6 +89,6 @@
         android:layout_gravity="start"
         android:background="?attr/colorSurface"
         android:fitsSystemWindows="true"
-        app:headerLayout="@layout/nav_header_main"
+        app:drawerLayoutCornerSize="0dp"
         app:menu="@menu/drawer_menu" />
 </androidx.drawerlayout.widget.DrawerLayout>

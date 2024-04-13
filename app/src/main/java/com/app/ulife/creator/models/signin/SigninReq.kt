@@ -9,7 +9,8 @@
 package com.app.ulife.creator.models.signin
 
 data class SigninReq(
+    val ip: String,
     val password: String,
-    val session: String,
-    val userID: String
+    val role: String,
+    val userid: String
 )

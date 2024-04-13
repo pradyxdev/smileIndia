@@ -9,6 +9,6 @@
 package com.app.ulife.creator.models
 
 class SliderItemsModel(  //set to String, if you want to add image url from internet
-    val imageURL: Int
-//    val imageURL: String
+//    val imageURL: Int
+    val imageURL: String
 )

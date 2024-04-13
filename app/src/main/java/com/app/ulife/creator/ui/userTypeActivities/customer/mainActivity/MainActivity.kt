@@ -27,6 +27,7 @@ import androidx.core.view.GravityCompat
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
@@ -35,17 +36,24 @@ import com.app.ulife.creator.R
 import com.app.ulife.creator.databinding.ActivityMainBinding
 import com.app.ulife.creator.factories.SharedVMF
 import com.app.ulife.creator.helpers.Constants
+import com.app.ulife.creator.helpers.Coroutines
 import com.app.ulife.creator.helpers.PreferenceManager
+import com.app.ulife.creator.models.CommonUserIdReq
 import com.app.ulife.creator.models.EmptyResponse
+import com.app.ulife.creator.models.UserIdObj
 import com.app.ulife.creator.models.fcm.SaveFcmReq
+import com.app.ulife.creator.models.userDetails.UserDetailsRes
 import com.app.ulife.creator.ui.SplashActivity
 import com.app.ulife.creator.utils.ConnectionLiveData
 import com.app.ulife.creator.utils.GPSTracker
+import com.app.ulife.creator.utils.LoadingUtils
 import com.app.ulife.creator.utils.getColorFromAttr
 import com.app.ulife.creator.utils.isNetworkConnected
+import com.app.ulife.creator.utils.toast
 import com.app.ulife.creator.viewModels.SharedVM
 import com.crowdfire.cfalertdialog.CFAlertDialog
 import com.google.gson.Gson
+import kotlinx.coroutines.delay
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.kodein
 import org.kodein.di.generic.instance
@@ -79,8 +87,8 @@ class MainActivity : AppCompatActivity(), KodeinAware {
         viewModel = ViewModelProvider(this, factory)[SharedVM::class.java]
 //        DynamicColors.applyToActivitiesIfAvailable(application)
         setupNavController()
-
-//        hitApis()
+        setupNavDrawer()
+        hitApis()
 //        setupHandler()
 
         //        connectionLiveData = ConnectionLiveData(this)
@@ -92,8 +100,12 @@ class MainActivity : AppCompatActivity(), KodeinAware {
     }
 
     private fun hitApis() {
-//        getUserDetails(MobileRequest(preferenceManager.phone.toString()))
-
+        getUserDetails(
+            CommonUserIdReq(
+                apiname = "GetUserDetail",
+                obj = UserIdObj(userId = "" + preferenceManager.userid)
+            )
+        )
     }
 
     private fun hitHandlerApis() {
@@ -133,34 +145,44 @@ class MainActivity : AppCompatActivity(), KodeinAware {
         isHandlerRunning = false
     }
 
-//    private fun getUserDetails(mobileNoReq: MobileRequest) {
-//        LoadingUtils.showDialog(this, false)
-//        viewModel.getUserDetails = MutableLiveData()
-//        viewModel.getUserDetails.observe(this) {
-//            val response = Gson().fromJson(it, UserDetailsRes::class.java)
-//            Log.e("getUserDetails ", "$response")
-//            if (response != null) {
-//                if (response.status) {
-//                    LoadingUtils.hideDialog()
-//                    preferenceManager.userid = response.response[0]?.userId
-//                    preferenceManager.phone = response.response[0]?.mobile
-//                    saveFCM(
-//                        SaveFcmReq(
-//                            preferenceManager.userid.toString(),
-//                            preferenceManager.fcmToken.toString()
-//                        )
-//                    )
-//                } else {
-//                    LoadingUtils.hideDialog()
-//                    apiErrorDialog(response.message)
-//                }
-//            } else {
-//                LoadingUtils.hideDialog()
-//                apiErrorDialog(Constants.apiErrors)
-//            }
-//        }
-//        viewModel.getUserDetails(mobileNoReq)
-//    }
+    private fun getUserDetails(mobileNoReq: CommonUserIdReq) {
+        LoadingUtils.showDialog(this, false)
+        viewModel.getUserDetails = MutableLiveData()
+        viewModel.getUserDetails.observe(this) {
+            try {
+                val response = Gson().fromJson(it, UserDetailsRes::class.java)
+                if (response != null) {
+                    if (response.status) {
+                        LoadingUtils.hideDialog()
+                        preferenceManager.phone = response.data[0]?.Mobile
+                        preferenceManager.userName = response.data[0]?.UserName
+                    } else {
+                        LoadingUtils.hideDialog()
+                        apiErrorDialog(response.message)
+                        checkLoginSession("$response")
+                    }
+                } else {
+                    LoadingUtils.hideDialog()
+                    apiErrorDialog(Constants.apiErrors)
+                    checkLoginSession("${Constants.apiErrors}")
+                }
+            } catch (e: Exception) {
+                apiErrorDialog("$it\n$e")
+                checkLoginSession(it)
+            }
+        }
+        viewModel.getUserDetails(mobileNoReq)
+    }
+
+    fun checkLoginSession(errMsg: String) {
+        Log.e("checkLoginSession ", "--$errMsg--")
+        if (errMsg.equals("Error Code: 401")) {
+            this.toast("Login session expired !")
+            preferenceManager.clear()
+            startActivity(Intent(this, SplashActivity::class.java))
+            finishAffinity()
+        }
+    }
 
     private fun saveFCM(request: SaveFcmReq) {
         viewModel.saveFCM = MutableLiveData()
@@ -249,6 +271,78 @@ class MainActivity : AppCompatActivity(), KodeinAware {
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 
+    private fun setupNavDrawer() {
+        val navView = binding.navView // initiate a Navigation View
+        // Inflate the header view at runtime
+        val headerLayout: View = navView.inflateHeaderView(R.layout.nav_header_main)
+        // We can now look up items within the header if needed
+        //        val ivHeaderPhoto: ImageView = headerLayout.findViewById(R.id.imageView)
+        val username = headerLayout.findViewById<TextView>(R.id.textView)
+        Coroutines.main {
+            delay(2000)
+            username.text = "" + preferenceManager.userName
+        }
+
+        // implement setNavigationSelectedListener event
+        navView.setNavigationItemSelectedListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.nav_order_history -> {
+                    binding.drawerlayout.closeDrawer(GravityCompat.START)
+                    val navController = findNavController(R.id.fragmentContainerView)
+                    navController.navigate(R.id.orderHistoryFragment)
+                    true
+                }
+
+                R.id.nav_ledger -> {
+                    binding.drawerlayout.closeDrawer(GravityCompat.START)
+                    val navController = findNavController(R.id.fragmentContainerView)
+                    navController.navigate(R.id.ledgerFragment)
+                    true
+                }
+
+                R.id.nav_network_manage -> {
+                    binding.drawerlayout.closeDrawer(GravityCompat.START)
+                    val navController = findNavController(R.id.fragmentContainerView)
+                    navController.navigate(R.id.networkContainerNewFragment)
+                    true
+                }
+
+                R.id.nav_fund_manage -> {
+                    binding.drawerlayout.closeDrawer(GravityCompat.START)
+                    val navController = findNavController(R.id.fragmentContainerView)
+                    navController.navigate(R.id.fundsContainerFragment)
+                    true
+                }
+
+                R.id.nav_epin_manage -> {
+                    binding.drawerlayout.closeDrawer(GravityCompat.START)
+                    val navController = findNavController(R.id.fragmentContainerView)
+                    navController.navigate(R.id.epinContainerFragment)
+                    true
+                }
+
+                R.id.nav_help -> {
+                    binding.drawerlayout.closeDrawer(GravityCompat.START)
+                    true
+                }
+
+                R.id.nav_about -> {
+                    binding.drawerlayout.closeDrawer(GravityCompat.START)
+                    true
+                }
+
+                R.id.nav_logout -> {
+                    binding.drawerlayout.closeDrawer(GravityCompat.START)
+                    showLogoutDialog()
+                    true
+                }
+
+                else -> false
+            }
+            false
+        }
+    }
+
     fun setToolbarTitle(title: String) {
         binding.toolbar.title = title
     }
@@ -267,12 +361,12 @@ class MainActivity : AppCompatActivity(), KodeinAware {
     }
 
     fun setBottombarVisibility(isVisible: Boolean) {
-//        binding.bottomNavigationView.layoutTransition.enableTransitionType(LayoutTransition.CHANGING)
-//        if (isVisible) {
-//            binding.bottomNavigationView.visibility = View.VISIBLE
-//        } else {
-//            binding.bottomNavigationView.visibility = View.GONE
-//        }
+        binding.bottomNavigationView.layoutTransition.enableTransitionType(LayoutTransition.CHANGING)
+        if (isVisible) {
+            binding.bottomNavigationView.visibility = View.VISIBLE
+        } else {
+            binding.bottomNavigationView.visibility = View.GONE
+        }
     }
 
     fun openDrawer() {
@@ -347,6 +441,31 @@ class MainActivity : AppCompatActivity(), KodeinAware {
 
         val btnClose = dialog.findViewById<TextView>(R.id.btn_close)
         btnClose.setOnClickListener {
+            dialog.dismiss()
+        }
+        dialog.show()
+        dialog.window?.attributes = lp
+    }
+
+    fun apiSuccessDialog(successMsg: String, action: () -> Unit) {
+        val dialog = Dialog(this)
+        dialog.setCancelable(false)
+        dialog.setContentView(R.layout.dialog_header_api_success)
+        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+
+        val lp = WindowManager.LayoutParams()
+        lp.copyFrom(dialog.window?.attributes)
+        lp.width = WindowManager.LayoutParams.MATCH_PARENT
+        lp.height = WindowManager.LayoutParams.WRAP_CONTENT
+
+        val title = dialog.findViewById<TextView>(R.id.tv_title)
+
+        val subtitle = dialog.findViewById<TextView>(R.id.tv_sub_title)
+        subtitle.text = successMsg
+
+        val btnClose = dialog.findViewById<TextView>(R.id.btn_close)
+        btnClose.setOnClickListener {
+            action()
             dialog.dismiss()
         }
         dialog.show()

@@ -45,6 +45,15 @@
             android:name="com.app.ulife.creator.ui.initialActivities.LoginAsActivity"
             android:exported="false"
             android:theme="@style/Theme.MVVM.Template" />
+        <activity
+            android:name="com.app.ulife.creator.ui.userTypeActivities.customer.productActivity.ProductDetailsActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.app.ulife.creator.ui.userTypeActivities.customer.cartActivity.BagActivity"
+            android:exported="false"
+            android:theme="@style/Theme.MVVM.Template" />
+        <activity android:name="com.app.ulife.creator.ui.userTypeActivities.customer.mainActivity.fragments.rechargeDash.mobPlanList.PlanListActivity" />
+        <activity android:name="com.app.ulife.creator.ui.userTypeActivities.customer.mainActivity.fragments.rechargeDash.dthPlanList.DthListActivity" />
 
         <service
             android:name="com.app.ulife.creator.services.FCMService"

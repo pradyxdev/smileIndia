@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ /**
+  ~  * Created by Prady on 6/23/23, 12:25 PM
+  ~  * Copyright (c) 2023 . All rights reserved.
+  ~  * Last modified 6/23/23, 12:25 PM
+  ~  */
+  -->
+
+<!--<HorizontalScrollView xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="wrap_content"-->
+<!--    android:scrollbars="none">-->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="4">
+
+        <com.google.android.material.divider.MaterialDivider
+            android:id="@+id/md_1"
+            android:layout_width="0.3dp"
+            android:layout_height="match_parent" />
+
+        <TextView
+            android:id="@+id/tv_h1"
+            style="@style/HeaderStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:paddingStart="6dp"
+            android:paddingTop="4dp"
+            android:paddingEnd="6dp"
+            android:paddingBottom="4dp"
+            android:text="N/A"
+            android:textSize="14sp" />
+
+        <com.google.android.material.divider.MaterialDivider
+            android:id="@+id/md_2"
+            android:layout_width="0.3dp"
+            android:layout_height="match_parent" />
+
+        <TextView
+            android:id="@+id/tv_h2"
+            style="@style/HeaderStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:paddingStart="6dp"
+            android:paddingTop="4dp"
+            android:paddingEnd="6dp"
+            android:paddingBottom="4dp"
+            android:text="N/A"
+            android:textSize="14sp" />
+
+        <com.google.android.material.divider.MaterialDivider
+            android:id="@+id/md_3"
+            android:layout_width="0.3dp"
+            android:layout_height="match_parent" />
+
+        <TextView
+            android:id="@+id/tv_h3"
+            style="@style/HeaderStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:paddingStart="6dp"
+            android:paddingTop="4dp"
+            android:paddingEnd="6dp"
+            android:paddingBottom="4dp"
+            android:text="N/A"
+            android:textSize="14sp" />
+
+        <com.google.android.material.divider.MaterialDivider
+            android:id="@+id/md_4"
+            android:layout_width="0.3dp"
+            android:layout_height="match_parent" />
+
+        <TextView
+            android:id="@+id/tv_h4"
+            style="@style/HeaderStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:paddingStart="6dp"
+            android:paddingTop="4dp"
+            android:paddingEnd="6dp"
+            android:paddingBottom="4dp"
+            android:text="N/A"
+            android:textSize="14sp" />
+
+        <com.google.android.material.divider.MaterialDivider
+            android:id="@+id/md_5"
+            android:layout_width="0.3dp"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+
+    <com.google.android.material.divider.MaterialDivider
+        android:layout_width="match_parent"
+        android:layout_height="0.3dp" />
+</LinearLayout>
+
+    <!--</HorizontalScrollView>-->

@@ -11,7 +11,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.androidlover5842.androidUtils.Validator.StringValidator
 import com.app.ulife.creator.helpers.Coroutines
+import com.app.ulife.creator.models.pincodeStateCity.GetPincodeStateCityReq
+import com.app.ulife.creator.models.signUp.tmp.SignUpNewReq
 import com.app.ulife.creator.models.signin.SigninReq
+import com.app.ulife.creator.models.userDetails.UserDetailsReq
 import com.app.ulife.creator.repositories.AuthRepo
 
 class AuthVM(private val repository: AuthRepo) : ViewModel() {
@@ -59,17 +62,31 @@ class AuthVM(private val repository: AuthRepo) : ViewModel() {
         userType.value = type
     }
 
-//    var signUp = MutableLiveData<String>()
-//    fun signUp(request: SignupReq) {
-//        Coroutines.main {
-//            signUp.postValue(repository.signUp(request))
-//        }
-//    }
+    var signUp = MutableLiveData<String>()
+    fun signUp(request: SignUpNewReq) {
+        Coroutines.main {
+            signUp.postValue(repository.signUp(request))
+        }
+    }
 
     var signIn = MutableLiveData<String>()
     fun signIn(request: SigninReq) {
         Coroutines.main {
             signIn.postValue(repository.signIn(request))
+        }
+    }
+
+    var getUserDetails = MutableLiveData<String>()
+    fun getUserDetails(request: UserDetailsReq) {
+        Coroutines.main {
+            getUserDetails.postValue(repository.getUserDetails(request))
+        }
+    }
+
+    var getPincodeStateCity = MutableLiveData<String>()
+    fun getPincodeStateCity(request: GetPincodeStateCityReq) {
+        Coroutines.main {
+            getPincodeStateCity.postValue(repository.getPincodeStateCity(request))
         }
     }
 }

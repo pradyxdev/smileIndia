@@ -9,5 +9,5 @@
 package com.app.ulife.creator.models
 
 class UserIdRequest(
-    val userID: String,
+    val userid: String,
 )

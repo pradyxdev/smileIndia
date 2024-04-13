@@ -9,7 +9,7 @@
 package com.app.ulife.creator.models.userDetails
 
 data class UserDetailsRes(
-    val msg: String,
-    val response: Response,
+    val `data`: List<Data>,
+    val message: String,
     val status: Boolean
 )

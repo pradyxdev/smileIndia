@@ -11,8 +11,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="3dp"
-    android:clickable="false"
-    android:focusable="false"
+    android:clickable="true"
+    android:focusable="true"
     app:cardCornerRadius="20dp"
     app:strokeColor="@color/light_gray">
 
@@ -22,12 +22,11 @@
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/materialCardView6"
-            android:layout_width="100dp"
+            android:layout_width="110dp"
             android:layout_height="110dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
-            app:cardBackgroundColor="@color/light_gray"
             app:cardCornerRadius="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -38,66 +37,61 @@
                 android:id="@+id/image"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/rings"
-                app:lottie_autoPlay="true"
-                app:lottie_loop="false"
-                app:lottie_rawRes="@raw/checked" />
+                android:scaleType="centerCrop"
+                android:src="@drawable/logo" />
         </com.google.android.material.card.MaterialCardView>
 
         <TextView
-            android:id="@+id/textView16"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:text="Category"
-            android:visibility="invisible"
-            app:layout_constraintStart_toEndOf="@+id/materialCardView6"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/product_name"
+            android:id="@+id/tv_name"
             style="@style/HeaderStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:text="@string/dummy"
-            android:maxLines="2"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
             android:ellipsize="end"
-            android:textSize="14sp"
+            android:maxLines="1"
+            android:text="Product Name"
+            android:textSize="16sp"
             app:layout_constraintEnd_toStartOf="@+id/btn_delete"
-            app:layout_constraintStart_toStartOf="@+id/textView16"
-            app:layout_constraintTop_toBottomOf="@+id/textView16" />
+            app:layout_constraintStart_toEndOf="@+id/materialCardView6"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tv_pro_amount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:text="500"
+            android:text="0.0"
             android:textColor="?attr/colorTertiary"
             android:textSize="14sp"
             app:drawableStartCompat="@drawable/ic_rupee_txt"
             app:drawableTint="?attr/colorTertiary"
-            app:layout_constraintBottom_toBottomOf="@+id/linearLayout10"
-            app:layout_constraintStart_toEndOf="@+id/materialCardView6"
-            app:layout_constraintTop_toTopOf="@+id/linearLayout10" />
+            app:layout_constraintStart_toStartOf="@+id/tv_name"
+            app:layout_constraintTop_toBottomOf="@+id/tv_name" />
 
         <TextView
-            android:id="@+id/cutprice"
+            android:id="@+id/tv_mrp_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="6dp"
-            android:text="MRP ₹ 600"
-            android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_pro_amount"
+            android:layout_marginStart="16dp"
+            android:text="MRP"
+            android:textSize="14sp"
             app:layout_constraintStart_toEndOf="@+id/tv_pro_amount"
-            app:layout_constraintTop_toTopOf="@+id/tv_pro_amount" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_name" />
+
+        <TextView
+            android:id="@+id/tv_mrp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0.0"
+            android:textSize="14sp"
+            app:drawableStartCompat="@drawable/ic_rupee_txt"
+            app:layout_constraintStart_toEndOf="@+id/tv_mrp_title"
+            app:layout_constraintTop_toBottomOf="@+id/tv_name" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_delete"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:insetLeft="0dp"
@@ -115,39 +109,38 @@
             app:rippleColor="@color/red" />
 
         <LinearLayout
-            android:id="@+id/linearLayout10"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_pro_amount">
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/minus"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginBottom="8dp"
                 android:clickable="true"
                 android:focusable="true"
-                app:cardElevation="0dp"
-                app:rippleColor="?attr/colorPrimary"
-                app:strokeColor="?attr/colorPrimary"
-                app:strokeWidth="0.5dp">
+                app:cardElevation="3dp"
+                app:rippleColor="?attr/colorTertiary"
+                app:strokeColor="@android:color/transparent">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="?attr/colorSurface"
                     android:gravity="center"
                     android:text="-"
                     android:textColor="?attr/colorPrimary"
-                    android:textSize="14sp"
+                    android:textSize="20sp"
                     android:textStyle="bold" />
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
-                android:layout_width="25dp"
-                android:layout_height="25dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_marginStart="8dp"
                 app:rippleColor="?attr/colorPrimary"
                 app:strokeColor="@android:color/transparent">
@@ -158,30 +151,28 @@
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:text="0"
-                    android:textSize="16sp" />
+                    android:textSize="18sp" />
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/plus"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="6dp"
                 android:clickable="true"
                 android:focusable="true"
-                app:cardElevation="0dp"
+                app:cardElevation="3dp"
                 app:rippleColor="?attr/colorPrimary"
-                app:strokeColor="?attr/colorPrimary"
-                app:strokeWidth="0.5dp">
+                app:strokeColor="@android:color/transparent">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="?attr/colorSurface"
                     android:gravity="center"
                     android:text="+"
                     android:textColor="?attr/colorPrimary"
-                    android:textSize="14sp"
+                    android:textSize="20sp"
                     android:textStyle="bold" />
             </com.google.android.material.card.MaterialCardView>
         </LinearLayout>

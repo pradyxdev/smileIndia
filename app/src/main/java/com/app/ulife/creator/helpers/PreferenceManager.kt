@@ -52,6 +52,12 @@ class PreferenceManager private constructor(context: Context) {
             editor.putString("userType", userType)
             editor.commit()
         }
+    var userName: String?
+        get() = sharedPreferences.getString("userName", "")
+        set(userName) {
+            editor.putString("userName", userName)
+            editor.commit()
+        }
     var phone: String?
         get() = sharedPreferences.getString("phone", "")
         set(phone) {
@@ -224,6 +230,12 @@ class PreferenceManager private constructor(context: Context) {
         get() = sharedPreferences.getString("session", "")
         set(session) {
             editor.putString("session", session)
+            editor.commit()
+        }
+    var token: String?
+        get() = sharedPreferences.getString("token", "")
+        set(token) {
+            editor.putString("token", token)
             editor.commit()
         }
 }
