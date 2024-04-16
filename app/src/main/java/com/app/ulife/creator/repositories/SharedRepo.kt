@@ -16,10 +16,13 @@ import com.app.ulife.creator.models.addToCart.AddToCartReq
 import com.app.ulife.creator.models.bbpsRecharge.mobPlan.GetPlanListReq
 import com.app.ulife.creator.models.bbpsRecharge.mobileLookup.GetMobileLookupReq
 import com.app.ulife.creator.models.bbpsRecharge.operator.GetOperatorReq
+import com.app.ulife.creator.models.bbpsRecharge.operatorLocal.GetOperatorLocalReq
 import com.app.ulife.creator.models.checkout.CheckoutOrderReq
 import com.app.ulife.creator.models.deleteCart.DeleteCartReq
 import com.app.ulife.creator.models.epinManage.epinGenerate.EpinGenerateReq
 import com.app.ulife.creator.models.epinManage.epinReport.EPinReportReq
+import com.app.ulife.creator.models.epinManage.epinReqReport.EpinReqReportReq
+import com.app.ulife.creator.models.epinManage.epinRequest.EpinRequestReq
 import com.app.ulife.creator.models.epinManage.epinTopup.EpinTopupReq
 import com.app.ulife.creator.models.epinManage.epinTransfer.EpinTransferReq
 import com.app.ulife.creator.models.epinManage.epinTransferReport.EpinTransferReportReq
@@ -27,6 +30,7 @@ import com.app.ulife.creator.models.fcm.SaveFcmReq
 import com.app.ulife.creator.models.fundsManage.add.AddFundsReq
 import com.app.ulife.creator.models.fundsManage.addFundReport.AddFundsReportReq
 import com.app.ulife.creator.models.fundsManage.transferFund.GetTransferFundsReq
+import com.app.ulife.creator.models.fundsManage.transferFundReport.GetTransFundReportReq
 import com.app.ulife.creator.models.getCat.GetCategoryReq
 import com.app.ulife.creator.models.getCity.GetCityReq
 import com.app.ulife.creator.models.networkManage.directTeam.GetDirectTeamReq
@@ -35,10 +39,15 @@ import com.app.ulife.creator.models.networkManage.levelWise.GetLevelWiseReq
 import com.app.ulife.creator.models.networkManage.teamBv.GetTeamBvReq
 import com.app.ulife.creator.models.orderHistory.OrderHistoryReq
 import com.app.ulife.creator.models.orderItems.OrderItemsReq
+import com.app.ulife.creator.models.payoutManage.directIncome.GetDirectIncomeReq
+import com.app.ulife.creator.models.payoutManage.rechargeIncome.GetRechargeIncomeReq
+import com.app.ulife.creator.models.payoutManage.shoppingIncome.GetShoppingIncomeReq
 import com.app.ulife.creator.models.productList.GetProductListReq
 import com.app.ulife.creator.models.recharge.DoRechargeNewReq
 import com.app.ulife.creator.models.shippingDetails.add.AddShippiDetailsReq
 import com.app.ulife.creator.models.wallet.WalletReq
+import com.app.ulife.creator.models.withdrawManage.withdrawReport.WithdrawReportReq
+import com.app.ulife.creator.models.withdrawManage.withdrawalReq.StartWithdrawalReq
 import com.google.gson.Gson
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody.Companion.toRequestBody
@@ -292,13 +301,13 @@ class SharedRepo(
         return response
     }
 
-    suspend fun getOperatorNew(request: EmptyRequest): String {
+    suspend fun getOperatorLocal(request: GetOperatorLocalReq): String {
         var response = String()
         try {
-            val jsonObject = Gson().toJson(request, EmptyRequest::class.java)
+            val jsonObject = Gson().toJson(request, GetOperatorLocalReq::class.java)
             val body = jsonObject.toString()
                 .toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
-            response = apiRequest { api.getOperatorNew(body) }
+            response = apiRequest { api.getUserRequest(body) }
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -306,6 +315,19 @@ class SharedRepo(
     }
 
     suspend fun doRecharge(request: DoRechargeNewReq): String {
+        var response = String()
+        try {
+            val jsonObject = Gson().toJson(request, DoRechargeNewReq::class.java)
+            val body = jsonObject.toString()
+                .toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
+            response = apiRequest { api.doRecharge(body) }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return response
+    }
+
+    suspend fun fetchBill(request: DoRechargeNewReq): String {
         var response = String()
         try {
             val jsonObject = Gson().toJson(request, DoRechargeNewReq::class.java)
@@ -461,6 +483,19 @@ class SharedRepo(
         return response
     }
 
+    suspend fun getTransFundReport(request: GetTransFundReportReq): String {
+        var response = String()
+        try {
+            val jsonObject = Gson().toJson(request, GetTransFundReportReq::class.java)
+            val body = jsonObject.toString()
+                .toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
+            response = apiRequest { api.getUserRequest(body) }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return response
+    }
+
     suspend fun startFundTransfer(request: GetTransferFundsReq): String {
         var response = String()
         try {
@@ -530,6 +565,123 @@ class SharedRepo(
         var response = String()
         try {
             val jsonObject = Gson().toJson(request, EpinTransferReq::class.java)
+            val body = jsonObject.toString()
+                .toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
+            response = apiRequest { api.getUserRequest(body) }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return response
+    }
+
+    suspend fun getDeduction(request: EmptyRequest): String {
+        var response = String()
+        try {
+            val jsonObject = Gson().toJson(request, EmptyRequest::class.java)
+            val body = jsonObject.toString()
+                .toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
+            response = apiRequest { api.getUserRequest(body) }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return response
+    }
+
+    suspend fun startWithdrawal(request: StartWithdrawalReq): String {
+        var response = String()
+        try {
+            val jsonObject = Gson().toJson(request, StartWithdrawalReq::class.java)
+            val body = jsonObject.toString()
+                .toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
+            response = apiRequest { api.getUserRequest(body) }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return response
+    }
+
+    suspend fun getWithdrawReport(request: WithdrawReportReq): String {
+        var response = String()
+        try {
+            val jsonObject = Gson().toJson(request, WithdrawReportReq::class.java)
+            val body = jsonObject.toString()
+                .toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
+            response = apiRequest { api.getUserRequest(body) }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return response
+    }
+
+    suspend fun getDirectIncomeHistory(request: GetDirectIncomeReq): String {
+        var response = String()
+        try {
+            val jsonObject = Gson().toJson(request, GetDirectIncomeReq::class.java)
+            val body = jsonObject.toString()
+                .toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
+            response = apiRequest { api.getUserRequest(body) }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return response
+    }
+
+    suspend fun getShoppingIncomeHistory(request: GetShoppingIncomeReq): String {
+        var response = String()
+        try {
+            val jsonObject = Gson().toJson(request, GetShoppingIncomeReq::class.java)
+            val body = jsonObject.toString()
+                .toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
+            response = apiRequest { api.getUserRequest(body) }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return response
+    }
+
+    suspend fun getRechargeIncomeHistory(request: GetRechargeIncomeReq): String {
+        var response = String()
+        try {
+            val jsonObject = Gson().toJson(request, GetRechargeIncomeReq::class.java)
+            val body = jsonObject.toString()
+                .toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
+            response = apiRequest { api.getUserRequest(body) }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return response
+    }
+
+    suspend fun getCompanyDetails(request: EmptyRequest): String {
+        var response = String()
+        try {
+            val jsonObject = Gson().toJson(request, EmptyRequest::class.java)
+            val body = jsonObject.toString()
+                .toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
+            response = apiRequest { api.getUserRequest(body) }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return response
+    }
+
+    suspend fun epinRequest(request: EpinRequestReq): String {
+        var response = String()
+        try {
+            val jsonObject = Gson().toJson(request, EpinRequestReq::class.java)
+            val body = jsonObject.toString()
+                .toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
+            response = apiRequest { api.getUserRequest(body) }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return response
+    }
+
+    suspend fun getEpinReqReport(request: EpinReqReportReq): String {
+        var response = String()
+        try {
+            val jsonObject = Gson().toJson(request, EpinReqReportReq::class.java)
             val body = jsonObject.toString()
                 .toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
             response = apiRequest { api.getUserRequest(body) }

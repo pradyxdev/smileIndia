@@ -157,17 +157,17 @@ class EpinGenerateFragment : Fragment(), KodeinAware {
                     etNumEpin.text.toString().isEmpty() -> etNumEpin.error =
                         "Please enter num of e-pin"
 
-                    else -> epinGenerate(
-                        EpinGenerateReq(
-                            apiname = "GenerateEpinByUser",
-                            obj = com.app.ulife.creator.models.epinManage.epinGenerate.Obj(
-                                entryby = "" + preferenceManager.userid,
-                                noofpin = "" + etNumEpin.text,
-                                planid = "" + pkgId,
-                                userid = "" + preferenceManager.userid
-                            )
-                        )
-                    )
+//                    else -> epinGenerate(
+//                        EpinGenerateReq(
+//                            apiname = "GenerateEpinByUser",
+//                            obj = com.app.ulife.creator.models.epinManage.epinRequest.Obj(
+//                                entryby = "" + preferenceManager.userid,
+//                                noofpin = "" + etNumEpin.text,
+//                                planid = "" + pkgId,
+//                                userid = "" + preferenceManager.userid
+//                            )
+//                        )
+//                    )
                 }
             }
         }

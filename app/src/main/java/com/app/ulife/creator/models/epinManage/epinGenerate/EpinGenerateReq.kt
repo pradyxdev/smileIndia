@@ -8,6 +8,8 @@
 
 package com.app.ulife.creator.models.epinManage.epinGenerate
 
+import com.app.ulife.creator.models.epinManage.epinRequest.Obj
+
 data class EpinGenerateReq(
     val apiname: String,
     val obj: Obj

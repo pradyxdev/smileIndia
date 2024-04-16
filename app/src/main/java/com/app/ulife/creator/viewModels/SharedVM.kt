@@ -17,10 +17,13 @@ import com.app.ulife.creator.models.addToCart.AddToCartReq
 import com.app.ulife.creator.models.bbpsRecharge.mobPlan.GetPlanListReq
 import com.app.ulife.creator.models.bbpsRecharge.mobileLookup.GetMobileLookupReq
 import com.app.ulife.creator.models.bbpsRecharge.operator.GetOperatorReq
+import com.app.ulife.creator.models.bbpsRecharge.operatorLocal.GetOperatorLocalReq
 import com.app.ulife.creator.models.checkout.CheckoutOrderReq
 import com.app.ulife.creator.models.deleteCart.DeleteCartReq
 import com.app.ulife.creator.models.epinManage.epinGenerate.EpinGenerateReq
 import com.app.ulife.creator.models.epinManage.epinReport.EPinReportReq
+import com.app.ulife.creator.models.epinManage.epinReqReport.EpinReqReportReq
+import com.app.ulife.creator.models.epinManage.epinRequest.EpinRequestReq
 import com.app.ulife.creator.models.epinManage.epinTopup.EpinTopupReq
 import com.app.ulife.creator.models.epinManage.epinTransfer.EpinTransferReq
 import com.app.ulife.creator.models.epinManage.epinTransferReport.EpinTransferReportReq
@@ -28,6 +31,7 @@ import com.app.ulife.creator.models.fcm.SaveFcmReq
 import com.app.ulife.creator.models.fundsManage.add.AddFundsReq
 import com.app.ulife.creator.models.fundsManage.addFundReport.AddFundsReportReq
 import com.app.ulife.creator.models.fundsManage.transferFund.GetTransferFundsReq
+import com.app.ulife.creator.models.fundsManage.transferFundReport.GetTransFundReportReq
 import com.app.ulife.creator.models.getCat.GetCategoryReq
 import com.app.ulife.creator.models.getCity.GetCityReq
 import com.app.ulife.creator.models.networkManage.directTeam.GetDirectTeamReq
@@ -36,10 +40,15 @@ import com.app.ulife.creator.models.networkManage.levelWise.GetLevelWiseReq
 import com.app.ulife.creator.models.networkManage.teamBv.GetTeamBvReq
 import com.app.ulife.creator.models.orderHistory.OrderHistoryReq
 import com.app.ulife.creator.models.orderItems.OrderItemsReq
+import com.app.ulife.creator.models.payoutManage.directIncome.GetDirectIncomeReq
+import com.app.ulife.creator.models.payoutManage.rechargeIncome.GetRechargeIncomeReq
+import com.app.ulife.creator.models.payoutManage.shoppingIncome.GetShoppingIncomeReq
 import com.app.ulife.creator.models.productList.GetProductListReq
 import com.app.ulife.creator.models.recharge.DoRechargeNewReq
 import com.app.ulife.creator.models.shippingDetails.add.AddShippiDetailsReq
 import com.app.ulife.creator.models.wallet.WalletReq
+import com.app.ulife.creator.models.withdrawManage.withdrawReport.WithdrawReportReq
+import com.app.ulife.creator.models.withdrawManage.withdrawalReq.StartWithdrawalReq
 import com.app.ulife.creator.repositories.SharedRepo
 
 class SharedVM(private val repository: SharedRepo) : ViewModel() {
@@ -201,10 +210,10 @@ class SharedVM(private val repository: SharedRepo) : ViewModel() {
         }
     }
 
-    var getOperatorNew = MutableLiveData<String>()
-    fun getOperatorNew(request: EmptyRequest) {
+    var getOperatorLocal = MutableLiveData<String>()
+    fun getOperatorLocal(request: GetOperatorLocalReq) {
         Coroutines.main {
-            getOperatorNew.postValue(repository.getOperatorNew(request))
+            getOperatorLocal.postValue(repository.getOperatorLocal(request))
         }
     }
 
@@ -212,6 +221,13 @@ class SharedVM(private val repository: SharedRepo) : ViewModel() {
     fun doRecharge(request: DoRechargeNewReq) {
         Coroutines.main {
             doRecharge.postValue(repository.doRecharge(request))
+        }
+    }
+
+    var fetchBill = MutableLiveData<String>()
+    fun fetchBill(request: DoRechargeNewReq) {
+        Coroutines.main {
+            fetchBill.postValue(repository.fetchBill(request))
         }
     }
 
@@ -292,6 +308,13 @@ class SharedVM(private val repository: SharedRepo) : ViewModel() {
         }
     }
 
+    var getTransFundReport = MutableLiveData<String>()
+    fun getTransFundReport(request: GetTransFundReportReq) {
+        Coroutines.main {
+            getTransFundReport.postValue(repository.getTransFundReport(request))
+        }
+    }
+
     var startFundTransfer = MutableLiveData<String>()
     fun startFundTransfer(request: GetTransferFundsReq) {
         Coroutines.main {
@@ -331,6 +354,69 @@ class SharedVM(private val repository: SharedRepo) : ViewModel() {
     fun epinTransfer(request: EpinTransferReq) {
         Coroutines.main {
             epinTransfer.postValue(repository.epinTransfer(request))
+        }
+    }
+
+    var getDeduction = MutableLiveData<String>()
+    fun getDeduction(request: EmptyRequest) {
+        Coroutines.main {
+            getDeduction.postValue(repository.getDeduction(request))
+        }
+    }
+
+    var startWithdrawal = MutableLiveData<String>()
+    fun startWithdrawal(request: StartWithdrawalReq) {
+        Coroutines.main {
+            startWithdrawal.postValue(repository.startWithdrawal(request))
+        }
+    }
+
+    var getWithdrawReport = MutableLiveData<String>()
+    fun getWithdrawReport(request: WithdrawReportReq) {
+        Coroutines.main {
+            getWithdrawReport.postValue(repository.getWithdrawReport(request))
+        }
+    }
+
+    var getDirectIncomeHistory = MutableLiveData<String>()
+    fun getDirectIncomeHistory(request: GetDirectIncomeReq) {
+        Coroutines.main {
+            getDirectIncomeHistory.postValue(repository.getDirectIncomeHistory(request))
+        }
+    }
+
+    var getShoppingIncomeHistory = MutableLiveData<String>()
+    fun getShoppingIncomeHistory(request: GetShoppingIncomeReq) {
+        Coroutines.main {
+            getShoppingIncomeHistory.postValue(repository.getShoppingIncomeHistory(request))
+        }
+    }
+
+    var getRechargeIncomeHistory = MutableLiveData<String>()
+    fun getRechargeIncomeHistory(request: GetRechargeIncomeReq) {
+        Coroutines.main {
+            getRechargeIncomeHistory.postValue(repository.getRechargeIncomeHistory(request))
+        }
+    }
+
+    var getCompanyDetails = MutableLiveData<String>()
+    fun getCompanyDetails(request: EmptyRequest) {
+        Coroutines.main {
+            getCompanyDetails.postValue(repository.getCompanyDetails(request))
+        }
+    }
+
+    var epinRequest = MutableLiveData<String>()
+    fun epinRequest(request: EpinRequestReq) {
+        Coroutines.main {
+            epinRequest.postValue(repository.epinRequest(request))
+        }
+    }
+
+    var getEpinReqReport = MutableLiveData<String>()
+    fun getEpinReqReport(request: EpinReqReportReq) {
+        Coroutines.main {
+            getEpinReqReport.postValue(repository.getEpinReqReport(request))
         }
     }
 }

@@ -25,6 +25,14 @@
             android:icon="@drawable/password_1"
             android:title="E-PIN Management" />
         <item
+            android:id="@+id/nav_withdraw_manage"
+            android:icon="@drawable/request_money"
+            android:title="Withdrawal Management" />
+        <item
+            android:id="@+id/nav_payout_manage"
+            android:icon="@drawable/business_report"
+            android:title="Payout Management" />
+        <item
             android:id="@+id/nav_help"
             android:icon="@drawable/help"
             android:title="Help" />

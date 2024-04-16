@@ -75,7 +75,15 @@ class EpinContainerFragment : Fragment(), KodeinAware {
             card2.setOnClickListener {
                 val args = Bundle()
                 args.putString("", "")
-                findNavController().navigate(R.id.epinGenerateFragment, args, getNavOptions())
+//                findNavController().navigate(R.id.epinGenerateFragment, args, getNavOptions())
+                findNavController().navigate(R.id.epinRequestFragment, args, getNavOptions())
+            }
+
+            card22.setOnClickListener {
+                val args = Bundle()
+                args.putString("", "")
+//                findNavController().navigate(R.id.epinGenerateFragment, args, getNavOptions())
+                findNavController().navigate(R.id.epinRequestReportFragment, args, getNavOptions())
             }
 
             card3.setOnClickListener {

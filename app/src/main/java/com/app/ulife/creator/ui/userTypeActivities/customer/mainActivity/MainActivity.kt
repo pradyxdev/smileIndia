@@ -13,6 +13,7 @@ import android.app.Dialog
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.res.Configuration
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
@@ -22,6 +23,7 @@ import android.view.View
 import android.view.WindowManager
 import android.widget.PopupMenu
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.lifecycle.MutableLiveData
@@ -174,9 +176,10 @@ class MainActivity : AppCompatActivity(), KodeinAware {
         viewModel.getUserDetails(mobileNoReq)
     }
 
-    fun checkLoginSession(errMsg: String) {
+    private fun checkLoginSession(errMsg: String) {
         Log.e("checkLoginSession ", "--$errMsg--")
-        if (errMsg.equals("Error Code: 401")) {
+//        if (errMsg.contains("Error Code: 401", ignoreCase = true)) {
+        if (errMsg.contains("401", ignoreCase = true)) {
             this.toast("Login session expired !")
             preferenceManager.clear()
             startActivity(Intent(this, SplashActivity::class.java))
@@ -321,13 +324,29 @@ class MainActivity : AppCompatActivity(), KodeinAware {
                     true
                 }
 
+                R.id.nav_withdraw_manage -> {
+                    binding.drawerlayout.closeDrawer(GravityCompat.START)
+                    val navController = findNavController(R.id.fragmentContainerView)
+                    navController.navigate(R.id.withdrawalContainerFragment)
+                    true
+                }
+
+                R.id.nav_payout_manage -> {
+                    binding.drawerlayout.closeDrawer(GravityCompat.START)
+                    val navController = findNavController(R.id.fragmentContainerView)
+                    navController.navigate(R.id.payoutContainerFragment)
+                    true
+                }
+
                 R.id.nav_help -> {
                     binding.drawerlayout.closeDrawer(GravityCompat.START)
+                    openWebIntent("https://wa.link/rigii4")
                     true
                 }
 
                 R.id.nav_about -> {
                     binding.drawerlayout.closeDrawer(GravityCompat.START)
+                    openWebIntent("https://ulifecreator.com/#about")
                     true
                 }
 
@@ -340,6 +359,18 @@ class MainActivity : AppCompatActivity(), KodeinAware {
                 else -> false
             }
             false
+        }
+    }
+
+    fun openWebIntent(url: String) {
+        try {
+            val webpage = Uri.parse("" + url)
+            val webIntent = Intent(Intent.ACTION_VIEW, webpage)
+            startActivity(webIntent)
+        } catch (e: java.lang.Exception) {
+            // show message to user
+            Log.e("Exception ", "" + e)
+            Toast.makeText(this@MainActivity, "" + e, Toast.LENGTH_LONG).show()
         }
     }
 

@@ -12,6 +12,7 @@ import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
 import android.text.InputFilter
+import android.text.InputType
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -37,7 +38,9 @@ import com.app.ulife.creator.models.bbpsRecharge.mobileLookup.GetMobileLookupReq
 import com.app.ulife.creator.models.bbpsRecharge.mobileLookup.GetMobileLookupRes
 import com.app.ulife.creator.models.bbpsRecharge.operator.GetOperatorReq
 import com.app.ulife.creator.models.bbpsRecharge.operator.GetOperatorRes
-import com.app.ulife.creator.models.bbpsRecharge.operatorNew.GetOperatorListNewRes
+import com.app.ulife.creator.models.bbpsRecharge.operatorLocal.GetOperatorLocalReq
+import com.app.ulife.creator.models.bbpsRecharge.operatorLocal.GetOperatorLocalRes
+import com.app.ulife.creator.models.fetchBill.FetchBillRes
 import com.app.ulife.creator.models.recharge.DoRechargeNewReq
 import com.app.ulife.creator.models.wallet.WalletReq
 import com.app.ulife.creator.models.wallet.balance.GetWalletBalRes
@@ -74,6 +77,8 @@ class RechargeCommonFragment : Fragment(), KodeinAware {
     private val opListName = mutableListOf<String>()
     private val opListId = mutableListOf<String>()
     private val opListSpKey = mutableListOf<String>()
+    private var fetchBillID = ""
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -166,22 +171,24 @@ class RechargeCommonFragment : Fragment(), KodeinAware {
                         }
                     }
 
-                    "Electricity" -> {
-                        etlNumber.prefixText = ""
-                        etlNumber.hint = "Consumer ID"
-                        etlNumber.counterMaxLength = 10
-                        etNumber.filters = arrayOf(InputFilter.LengthFilter(10))
-                        llSelectPlan.visibility = View.GONE
-                        actlCircle.visibility = View.GONE
-                    }
+//                    "Electricity" -> {
+//                        etlNumber.prefixText = ""
+//                        etlNumber.hint = "Consumer ID"
+//                        etlNumber.counterMaxLength = 10
+//                        etNumber.filters = arrayOf(InputFilter.LengthFilter(10))
+//                        llSelectPlan.visibility = View.GONE
+//                        actlCircle.visibility = View.GONE
+//                    }
 
                     else -> {
                         Log.e("rechargeTypeErr ", "undefined for --$rechargeType--")
                         etlNumber.prefixText = ""
                         etlNumber.hint = "Consumer ID"
-                        etlNumber.counterMaxLength = 25
-                        etNumber.filters = arrayOf(InputFilter.LengthFilter(25))
-                        llSelectPlan.visibility = View.GONE
+                        etlNumber.counterMaxLength = 30
+                        etNumber.filters = arrayOf(InputFilter.LengthFilter(30))
+                        etNumber.inputType = InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS
+                        llSelectPlan.visibility = View.VISIBLE
+                        tvPlanName.text = "Fetch Bill"
                         actlCircle.visibility = View.GONE
                     }
                 }
@@ -258,6 +265,12 @@ class RechargeCommonFragment : Fragment(), KodeinAware {
                         context?.toast("Insufficient fund !")
                         etAmount.error = "Insufficient fund !"
                         btnSubmit.isEnabled = false
+                    } else if (etAmount.text.toString().equals("0")
+                        || etAmount.text.toString().equals("0.0")
+                        || etAmount.text.toString().equals("0.00")
+                    ) {
+                        etAmount.error = "Amount can't be zero !"
+                        btnSubmit.isEnabled = false
                     } else {
                         btnSubmit.isEnabled = true
                         etAmount.error = null
@@ -269,12 +282,14 @@ class RechargeCommonFragment : Fragment(), KodeinAware {
             }
 
             cardPlans.setOnClickListener {
-                when {
-                    operatorId.isEmpty() -> actOperator.error = "Please select your operator"
-                    circleId.isEmpty() -> actCircle.error = "Please select your circle"
-                    else -> {
-                        when (rechargeType) {
-                            "Prepaid" -> {
+                when (rechargeType) {
+                    "Prepaid" -> {
+                        when {
+                            operatorId.isEmpty() -> actOperator.error =
+                                "Please select your operator"
+
+                            circleId.isEmpty() -> actCircle.error = "Please select your circle"
+                            else -> {
                                 val i = Intent(requireContext(), PlanListActivity::class.java)
                                 i.putExtra("type", "mobile")
                                 i.putExtra("circle", circleId)
@@ -282,8 +297,16 @@ class RechargeCommonFragment : Fragment(), KodeinAware {
                                 startActivityForResult(i, 69)
                                 activity?.overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
                             }
+                        }
+                    }
 
-                            "Postpaid" -> {
+                    "Postpaid" -> {
+                        when {
+                            operatorId.isEmpty() -> actOperator.error =
+                                "Please select your operator"
+
+                            circleId.isEmpty() -> actCircle.error = "Please select your circle"
+                            else -> {
                                 val i = Intent(requireContext(), PlanListActivity::class.java)
                                 i.putExtra("type", "mobile")
                                 i.putExtra("circle", circleId)
@@ -291,8 +314,19 @@ class RechargeCommonFragment : Fragment(), KodeinAware {
                                 startActivityForResult(i, 69)
                                 activity?.overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
                             }
+                        }
+                    }
 
-                            "DTH" -> {
+                    "DTH" -> {
+                        when {
+                            etNumber.text.toString().isEmpty() -> etNumber.error =
+                                "Please enter Consumer ID"
+
+                            operatorId.isEmpty() -> actOperator.error =
+                                "Please select your operator"
+
+                            circleId.isEmpty() -> actCircle.error = "Please select your circle"
+                            else -> {
                                 val i = Intent(requireContext(), DthListActivity::class.java)
                                 i.putExtra("type", "mobile")
                                 i.putExtra("circle", circleId)
@@ -300,8 +334,29 @@ class RechargeCommonFragment : Fragment(), KodeinAware {
                                 startActivityForResult(i, 69)
                                 activity?.overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
                             }
+                        }
+                    }
 
-                            else -> context?.toast("Sorry currently no plans are available !")
+                    else -> {
+                        when {
+                            operatorId.isEmpty() -> actOperator.error =
+                                "Please select your operator"
+
+                            else -> fetchBill(
+                                DoRechargeNewReq(
+                                    member_Id = "" + preferenceManager.userid,
+                                    mobileNo = "" + etNumber.text,
+                                    operatorID = "$operatorId",
+                                    operatorName = "" + actOperator.text,
+                                    operatorType = "FetchBill",
+                                    rechargeAmount = "50",
+                                    transactionPass = "" + etPass.text,
+                                    walletAmount = "$walletAmt",
+                                    walletType = "RC",
+                                    planId = "" + planTypesId,
+                                    FetchBillID = ""
+                                )
+                            )
                         }
                     }
                 }
@@ -325,7 +380,8 @@ class RechargeCommonFragment : Fragment(), KodeinAware {
                                 transactionPass = "" + etPass.text,
                                 walletAmount = "$walletAmt",
                                 walletType = "RC",
-                                planId = "" + planTypesId
+                                planId = "" + planTypesId,
+                                FetchBillID = "" + fetchBillID,
                             )
                         )
                     }
@@ -432,70 +488,72 @@ class RechargeCommonFragment : Fragment(), KodeinAware {
         viewModel.getOperator(req)
     }
 
-    private fun getOperatorNew(req: EmptyRequest) {
-        viewModel.getOperatorNew = MutableLiveData()
-        viewModel.getOperatorNew.observe(requireActivity()) {
-            try {
-                val response = Gson().fromJson(it, GetOperatorListNewRes::class.java)
-                if (response != null) {
-                    if (response.status) {
-                        opListName.clear()
-                        opListId.clear()
-                        opListSpKey.clear()
-
-                        if (!response.data.data.isNullOrEmpty()) {
-                            for (i in response.data.data.indices) {
-                                when (rechargeType) {
-                                    "Prepaid" -> {
-                                        if (response.data.data[i].serviceName.equals("Prepaid Info")) {
-                                            opListName.add("" + response.data.data[i].operatorName)
-                                            //opListId.add("" + response.data[i].OperatorCode)
-                                            opListSpKey.add("" + response.data.data[i].spKey)
-                                        } else {
-                                            context?.toast("Operator not found !")
-                                        }
-                                    }
-
-                                    "DTH" -> {
-                                        if (response.data.data[i].serviceName.equals("DTH Plan")) {
-                                            opListName.add("" + response.data.data[i].operatorName)
-                                            //opListId.add("" + response.data[i].OperatorCode)
-                                            opListSpKey.add("" + response.data.data[i].spKey)
-                                        } else {
-                                            context?.toast("Operator not found !")
-                                        }
-                                    }
-
-                                    else -> context?.toast("Recharge type undefined !")
-                                }
-                            }
-
-                            val adapter = ArrayAdapter(
-                                requireContext(),
-                                android.R.layout.simple_list_item_1,
-                                opListName
-                            )
-                            binding.actOperator.setAdapter(adapter)
-                            binding.actOperator.onItemClickListener =
-                                AdapterView.OnItemClickListener { parent, view, position, id ->
-                                    operatorId = opListName[position]
-                                    operatorSpKeyId = opListSpKey[position]
-                                }
-                        } else {
-                            (activity as MainActivity).apiErrorDialog(it)
-                        }
-                    } else {
-                        (activity as MainActivity).apiErrorDialog(response.message)
-                    }
-                } else {
-                    (activity as MainActivity).apiErrorDialog(Constants.apiErrors)
-                }
-            } catch (e: Exception) {
-                (activity as MainActivity).apiErrorDialog("$it\n$e")
-            }
-        }
-        viewModel.getOperatorNew(req)
-    }
+    /*
+    //    private fun getOperatorNew(req: EmptyRequest) {
+    //        viewModel.getOperatorNew = MutableLiveData()
+    //        viewModel.getOperatorNew.observe(requireActivity()) {
+    //            try {
+    //                val response = Gson().fromJson(it, GetOperatorListNewRes::class.java)
+    //                if (response != null) {
+    //                    if (response.status) {
+    //                        opListName.clear()
+    //                        opListId.clear()
+    //                        opListSpKey.clear()
+    //
+    //                        if (!response.data.data.isNullOrEmpty()) {
+    //                            for (i in response.data.data.indices) {
+    //                                when (rechargeType) {
+    //                                    "Prepaid" -> {
+    //                                        if (response.data.data[i].serviceName.equals("Prepaid Info")) {
+    //                                            opListName.add("" + response.data.data[i].operatorName)
+    //                                            //opListId.add("" + response.data[i].OperatorCode)
+    //                                            opListSpKey.add("" + response.data.data[i].spKey)
+    //                                        } else {
+    //                                            context?.toast("Operator not found !")
+    //                                        }
+    //                                    }
+    //
+    //                                    "DTH" -> {
+    //                                        if (response.data.data[i].serviceName.equals("DTH Plan")) {
+    //                                            opListName.add("" + response.data.data[i].operatorName)
+    //                                            //opListId.add("" + response.data[i].OperatorCode)
+    //                                            opListSpKey.add("" + response.data.data[i].spKey)
+    //                                        } else {
+    //                                            context?.toast("Operator not found !")
+    //                                        }
+    //                                    }
+    //
+    //                                    else -> context?.toast("Recharge type undefined !")
+    //                                }
+    //                            }
+    //
+    //                            val adapter = ArrayAdapter(
+    //                                requireContext(),
+    //                                android.R.layout.simple_list_item_1,
+    //                                opListName
+    //                            )
+    //                            binding.actOperator.setAdapter(adapter)
+    //                            binding.actOperator.onItemClickListener =
+    //                                AdapterView.OnItemClickListener { parent, view, position, id ->
+    //                                    operatorId = opListName[position]
+    //                                    operatorSpKeyId = opListSpKey[position]
+    //                                }
+    //                        } else {
+    //                            (activity as MainActivity).apiErrorDialog(it)
+    //                        }
+    //                    } else {
+    //                        (activity as MainActivity).apiErrorDialog(response.message)
+    //                    }
+    //                } else {
+    //                    (activity as MainActivity).apiErrorDialog(Constants.apiErrors)
+    //                }
+    //            } catch (e: Exception) {
+    //                (activity as MainActivity).apiErrorDialog("$it\n$e")
+    //            }
+    //        }
+    //        viewModel.getOperatorNew(req)
+    //    }
+    */
 
     private fun getCircle(req: EmptyRequest) {
         LoadingUtils.showDialog(requireContext(), isCancelable = false)
@@ -598,15 +656,23 @@ class RechargeCommonFragment : Fragment(), KodeinAware {
                                             }
 
                                             else -> {
-                                                actOperator.setText("")
-                                                actlOperator.isEnabled = true
-                                                actCircle.setText("")
-                                                actlCircle.isEnabled = true
-
-                                                if (i + 1 == opListId.size && operatorId.equals("5905")) {
-                                                    // end
-                                                    context?.toast("Couldn't find operator, please select manually !")
-                                                }
+                                                getOperatorLocal(
+                                                    GetOperatorLocalReq(
+                                                        apiname = "GetRechargeOperator",
+                                                        obj = com.app.ulife.creator.models.bbpsRecharge.operatorLocal.Obj(
+                                                            Type = "" + rechargeType,
+                                                            name = "" + response.data.rootNode[0].operator
+                                                        )
+                                                    )
+                                                )
+//                                                actOperator.setText("")
+//                                                actlOperator.isEnabled = true
+//                                                actCircle.setText("")
+//                                                actlCircle.isEnabled = true
+//                                                if (i + 1 == opListId.size && operatorId.equals("5905")) {
+//                                                    // end
+//                                                    context?.toast("Couldn't find operator, please select manually !")
+//                                                }
                                             }
                                         }
                                     }
@@ -650,5 +716,98 @@ class RechargeCommonFragment : Fragment(), KodeinAware {
             }
         }
         viewModel.doMobileLookUp(req)
+    }
+
+    private fun getOperatorLocal(req: GetOperatorLocalReq) {
+        viewModel.getOperatorLocal = MutableLiveData()
+        viewModel.getOperatorLocal.observe(requireActivity()) {
+            try {
+                val response = Gson().fromJson(it, GetOperatorLocalRes::class.java)
+                if (response != null) {
+                    if (response.status) {
+                        binding.apply {
+                            if (!response.data.isNullOrEmpty()) {
+                                actOperator.setText("" + response.data[0].Service)
+                                actlOperator.isEnabled = false
+                                operatorId = "" + response.data[0].OperatorCode
+                                operatorSpKeyId = "" + response.data[0].PlanSPKey
+
+                            } else {
+                                actOperator.setText("")
+                                actlOperator.isEnabled = true
+                                actCircle.setText("")
+                                actlCircle.isEnabled = true
+                                context?.toast("Couldn't find operator, please select manually !")
+                            }
+                        }
+                    } else {
+                        (activity as MainActivity).apiErrorDialog(it)
+                    }
+                } else {
+                    (activity as MainActivity).apiErrorDialog("" + response?.message)
+                }
+            } catch (e: Exception) {
+                (activity as MainActivity).apiErrorDialog("$it\n$e")
+            }
+        }
+        viewModel.getOperatorLocal(req)
+    }
+
+    private fun fetchBill(req: DoRechargeNewReq) {
+        LoadingUtils.showDialog(context, isCancelable = false)
+        viewModel.fetchBill = MutableLiveData()
+        viewModel.fetchBill.observe(requireActivity()) {
+            try {
+                val response = Gson().fromJson(it, FetchBillRes::class.java)
+                if (response != null) {
+                    if (response.status) {
+                        LoadingUtils.hideDialog()
+                        fetchBillID = response.data[0].table[0].fetchBillID
+                        binding.apply {
+                            tvPlanDesc.visibility = View.VISIBLE
+                            tvPlanDesc.text =
+                                "Name : ${response.data[0].table[0].name.ifEmpty { " N/A" }}\n" +
+                                        "Service Name : ${
+                                            response.data[0].table[0]?.serviceName.toString()
+                                                .ifEmpty { " N/A" }
+                                        }\n" +
+                                        "RPID : ${
+                                            response.data[0].table[0]?.rpid.toString()
+                                                .ifEmpty { " N/A" }
+                                        }\n" +
+                                        "Balance : ${
+                                            response.data[0].table[0]?.bal.toString()
+                                                .ifEmpty { " N/A" }
+                                        }\n" +
+                                        "Due Date : ${
+                                            response.data[0].table[0]?.duedate.toString()
+                                                .ifEmpty { " N/A" }
+                                        }\n" +
+                                        "Due Amount : ${
+                                            response.data[0].table[0]?.dueamount.toString()
+                                                .ifEmpty { " N/A" }
+                                        }"
+
+                            etAmount.setText(
+                                "${
+                                    response.data[0].table[0]?.dueamount.toString()
+                                        .ifEmpty { "0.0" }
+                                }"
+                            )
+                        }
+                    } else {
+                        LoadingUtils.hideDialog()
+                        (activity as MainActivity).apiErrorDialog(response.message)
+                    }
+                } else {
+                    LoadingUtils.hideDialog()
+                    (activity as MainActivity).apiErrorDialog(Constants.apiErrors)
+                }
+            } catch (e: Exception) {
+                LoadingUtils.hideDialog()
+                (activity as MainActivity).apiErrorDialog("$it\n$e")
+            }
+        }
+        viewModel.fetchBill(req)
     }
 }

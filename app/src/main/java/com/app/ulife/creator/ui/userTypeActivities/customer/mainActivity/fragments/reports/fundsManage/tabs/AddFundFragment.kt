@@ -155,7 +155,8 @@ class AddFundFragment : Fragment(), KodeinAware {
                                 toaccount = "0",
                                 transactionid = "" + etTransId.text,
                                 transfercoin = "0",
-                                userid = "" + preferenceManager.userid
+                                userid = "" + preferenceManager.userid,
+                                RequestFrom = "App"
                             )
                         )
                     )

@@ -144,7 +144,7 @@ object Constants {
     val itemRecharge2 = listOf(
         CategoryMD(img = R.drawable.wi_fi_router, name = "Broadband"),
         CategoryMD(img = R.drawable.office_phone, name = "Landline"),
-//        CategoryMD(img = R.drawable.retro_tv, name = "Cable Tv"),
+        CategoryMD(img = R.drawable.retro_tv, name = "Cable Tv"),
         CategoryMD(img = R.drawable.electricity, name = "Electricity"),
         CategoryMD(img = R.drawable.commit_git, name = "Gas Line"),
         CategoryMD(img = R.drawable.gas_bottle, name = "Cylinder"),

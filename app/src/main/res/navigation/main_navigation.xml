@@ -181,6 +181,46 @@
         android:id="@+id/transferEpinReportFragment"
         android:name="com.app.ulife.creator.ui.userTypeActivities.customer.mainActivity.fragments.reports.epinManage.tabs.TransferEpinReportFragment"
         android:label="TransferEpinReportFragment" />
+    <fragment
+        android:id="@+id/withdrawalContainerFragment"
+        android:name="com.app.ulife.creator.ui.userTypeActivities.customer.mainActivity.fragments.reports.withdrawalManage.WithdrawalContainerFragment"
+        android:label="WithdrawalContainerFragment" />
+    <fragment
+        android:id="@+id/withdrawalRequestFragment"
+        android:name="com.app.ulife.creator.ui.userTypeActivities.customer.mainActivity.fragments.reports.withdrawalManage.tabs.WithdrawalRequestFragment"
+        android:label="WithdrawalRequestFragment" />
+    <fragment
+        android:id="@+id/withdrawalReportFragment"
+        android:name="com.app.ulife.creator.ui.userTypeActivities.customer.mainActivity.fragments.reports.withdrawalManage.tabs.WithdrawalReportFragment"
+        android:label="WithdrawalReportFragment" />
+    <fragment
+        android:id="@+id/payoutContainerFragment"
+        android:name="com.app.ulife.creator.ui.userTypeActivities.customer.mainActivity.fragments.reports.payout.PayoutContainerFragment"
+        android:label="PayoutContainerFragment" />
+    <fragment
+        android:id="@+id/sponsorIncomeFragment"
+        android:name="com.app.ulife.creator.ui.userTypeActivities.customer.mainActivity.fragments.reports.payout.tabs.SponsorIncomeFragment"
+        android:label="SponsorIncomeFragment" />
+    <fragment
+        android:id="@+id/matchingIncomeFragment"
+        android:name="com.app.ulife.creator.ui.userTypeActivities.customer.mainActivity.fragments.reports.payout.tabs.MatchingIncomeFragment"
+        android:label="MatchingIncomeFragment" />
+    <fragment
+        android:id="@+id/shoppingIncomeFragment"
+        android:name="com.app.ulife.creator.ui.userTypeActivities.customer.mainActivity.fragments.reports.payout.tabs.ShoppingIncomeFragment"
+        android:label="ShoppingIncomeFragment" />
+    <fragment
+        android:id="@+id/rechargeIncomeFragment"
+        android:name="com.app.ulife.creator.ui.userTypeActivities.customer.mainActivity.fragments.reports.payout.tabs.RechargeIncomeFragment"
+        android:label="RechargeIncomeFragment" />
+    <fragment
+        android:id="@+id/epinRequestFragment"
+        android:name="com.app.ulife.creator.ui.userTypeActivities.customer.mainActivity.fragments.reports.epinManage.tabs.EpinRequestFragment"
+        android:label="EpinRequestFragment" />
+    <fragment
+        android:id="@+id/epinRequestReportFragment"
+        android:name="com.app.ulife.creator.ui.userTypeActivities.customer.mainActivity.fragments.reports.epinManage.tabs.EpinRequestReportFragment"
+        android:label="EpinRequestReportFragment" />
 </navigation>
 
     <!--    app:popUpTo="@id/homeFragment"-->

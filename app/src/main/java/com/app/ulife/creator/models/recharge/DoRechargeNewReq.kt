@@ -18,5 +18,6 @@ data class DoRechargeNewReq(
     val transactionPass: String,
     val walletAmount: String,
     val walletType: String,
-    val planId: String
+    val planId: String,
+    val FetchBillID: String,
 )

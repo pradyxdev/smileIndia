@@ -85,6 +85,6 @@ class InternationalFragment : Fragment(), KodeinAware, PlanListAdapter.OnItemCli
     }
 
     override fun onItemClick(rs: String, desc: String, typesId: Int) {
-        (activity as PlanListActivity).getPlanDetails(rs, desc, typesId)
+        (activity as PlanListActivity).getPlanDetails(rs, desc, "" + typesId)
     }
 }

@@ -51,6 +51,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
+                    android:id="@+id/textView3"
                     style="@style/HeaderStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -58,6 +59,23 @@
                     android:text="My Profile"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/btn_back"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_refresh"
+                    style="@style/Widget.Material3.Button.TextButton.Icon"
+                    android:layout_width="45dp"
+                    android:layout_height="40dp"
+                    android:insetLeft="0dp"
+                    android:insetTop="0dp"
+                    android:insetRight="0dp"
+                    android:insetBottom="0dp"
+                    app:icon="@drawable/refresh"
+                    app:iconGravity="textStart"
+                    app:iconPadding="0dp"
+                    app:iconTint="?attr/colorSurfaceInverse"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -75,7 +93,7 @@
 
                     <com.google.android.material.card.MaterialCardView
                         android:layout_width="match_parent"
-                        android:layout_height="145dp"
+                        android:layout_height="175dp"
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="4dp"
                         android:layout_marginEnd="8dp"
@@ -124,6 +142,8 @@
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:layout_marginStart="16dp"
+                                android:layout_marginEnd="16dp"
                                 android:gravity="center"
                                 android:orientation="vertical"
                                 app:layout_constraintBottom_toBottomOf="parent"
@@ -132,13 +152,13 @@
                                 app:layout_constraintTop_toTopOf="parent">
 
                                 <com.google.android.material.card.MaterialCardView
-                                    android:layout_width="50dp"
-                                    android:layout_height="50dp"
+                                    android:layout_width="60dp"
+                                    android:layout_height="60dp"
                                     app:cardCornerRadius="50dp"
                                     app:strokeColor="@android:color/transparent">
 
                                     <ImageView
-                                        android:id="@+id/image"
+                                        android:id="@+id/iv_profile_img"
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
                                         android:scaleType="centerCrop"
@@ -163,7 +183,9 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:text="Username"
-                                        android:textColor="@color/white" />
+                                        android:textAlignment="center"
+                                        android:textColor="@color/white"
+                                        android:textSize="14.5sp" />
 
                                     <TextView
                                         android:id="@+id/tv_number"

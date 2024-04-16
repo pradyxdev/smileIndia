@@ -19,13 +19,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import com.app.ulife.creator.R
-import com.app.ulife.creator.adapters.fundsManage.AddFundsReportAdapter
+import com.app.ulife.creator.adapters.fundsManage.TransferFundsReportAdapter
 import com.app.ulife.creator.databinding.FragmentSeeAllBinding
 import com.app.ulife.creator.factories.SharedVMF
 import com.app.ulife.creator.helpers.Constants
 import com.app.ulife.creator.helpers.PreferenceManager
-import com.app.ulife.creator.models.fundsManage.addFundReport.AddFundsReportReq
-import com.app.ulife.creator.models.fundsManage.addFundReport.AddFundsReportRes
+import com.app.ulife.creator.models.fundsManage.transferFundReport.GetTransFundReportReq
+import com.app.ulife.creator.models.fundsManage.transferFundReport.GetTransReportRes
+import com.app.ulife.creator.models.fundsManage.transferFundReport.Obj
 import com.app.ulife.creator.ui.userTypeActivities.customer.mainActivity.MainActivity
 import com.app.ulife.creator.utils.LoadingUtils
 import com.app.ulife.creator.viewModels.SharedVM
@@ -37,7 +38,7 @@ import org.kodein.di.generic.instance
 import org.kodein.di.generic.kcontext
 
 class TransferFundReportFragment : Fragment(), KodeinAware,
-    AddFundsReportAdapter.OnItemClickListener {
+    TransferFundsReportAdapter.OnItemClickListener {
     private lateinit var binding: FragmentSeeAllBinding
     override val kodeinContext = kcontext<Fragment>(this)
     override val kodein: Kodein by kodein()
@@ -68,7 +69,7 @@ class TransferFundReportFragment : Fragment(), KodeinAware,
             toolbar.visibility = View.VISIBLE
             binding.tvToolbarTitle.text = "Transfer Funds Report"
             binding.containerEmpty.visibility = View.VISIBLE
-//            hitApis()
+            hitApis()
         }
     }
 
@@ -82,25 +83,25 @@ class TransferFundReportFragment : Fragment(), KodeinAware,
 
     private fun hitApis() {
         getReport(
-            AddFundsReportReq(
-                apiname = "GetDepositRequestList",
-                obj = com.app.ulife.creator.models.fundsManage.addFundReport.Obj(
+            GetTransFundReportReq(
+                apiname = "GetTransferFundList", obj = Obj(
                     Type = "",
+                    WalletType = "",
                     from = "",
-                    status = "",
                     to = "",
+                    touserid = "",
                     userid = "" + preferenceManager.userid
                 )
             )
         )
     }
 
-    private fun getReport(req: AddFundsReportReq) {
+    private fun getReport(req: GetTransFundReportReq) {
         LoadingUtils.showDialog(context, isCancelable = false)
-        viewModel.getAddFundsReport = MutableLiveData()
-        viewModel.getAddFundsReport.observe(requireActivity()) {
+        viewModel.getTransFundReport = MutableLiveData()
+        viewModel.getTransFundReport.observe(requireActivity()) {
             try {
-                val response = Gson().fromJson(it, AddFundsReportRes::class.java)
+                val response = Gson().fromJson(it, GetTransReportRes::class.java)
                 if (response != null) {
                     if (response.status) {
                         LoadingUtils.hideDialog()
@@ -108,7 +109,7 @@ class TransferFundReportFragment : Fragment(), KodeinAware,
                             containerEmpty.visibility = View.GONE
                             rvList.visibility = View.VISIBLE
                             rvList.apply {
-                                adapter = AddFundsReportAdapter(
+                                adapter = TransferFundsReportAdapter(
                                     context,
                                     response.data,
                                     this@TransferFundReportFragment
@@ -141,7 +142,7 @@ class TransferFundReportFragment : Fragment(), KodeinAware,
                 (activity as MainActivity).apiErrorDialog("$it\n$e")
             }
         }
-        viewModel.getAddFundsReport(req)
+        viewModel.getTransFundReport(req)
     }
 
     override fun onItemsClick() {

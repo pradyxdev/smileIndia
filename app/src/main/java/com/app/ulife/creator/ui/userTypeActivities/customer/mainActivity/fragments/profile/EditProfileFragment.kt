@@ -8,28 +8,42 @@
 
 package com.app.ulife.creator.ui.userTypeActivities.customer.mainActivity.fragments.profile
 
-import android.content.Context
-import android.content.res.ColorStateList
-import android.graphics.Color
+import android.app.Activity
+import android.graphics.Bitmap
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
+import android.util.Base64
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
+import android.widget.ArrayAdapter
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
-import com.app.ulife.creator.R
+import coil.load
 import com.app.ulife.creator.databinding.FragmentEditProfileBinding
 import com.app.ulife.creator.factories.SharedVMF
+import com.app.ulife.creator.helpers.Constants
 import com.app.ulife.creator.helpers.PreferenceManager
+import com.app.ulife.creator.models.CommonUserIdReq
+import com.app.ulife.creator.models.UserIdObj
+import com.app.ulife.creator.models.userDetails.UserDetailsRes
+import com.app.ulife.creator.ui.userTypeActivities.customer.mainActivity.MainActivity
+import com.app.ulife.creator.utils.LoadingUtils
+import com.app.ulife.creator.utils.toast
 import com.app.ulife.creator.viewModels.SharedVM
-import com.google.android.material.chip.Chip
+import com.github.dhaval2404.imagepicker.ImagePicker
+import com.google.gson.Gson
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.kodein
 import org.kodein.di.generic.instance
 import org.kodein.di.generic.kcontext
-import kotlin.random.Random
+import java.io.ByteArrayOutputStream
 
 class EditProfileFragment : Fragment(), KodeinAware {
     private lateinit var binding: FragmentEditProfileBinding
@@ -38,8 +52,7 @@ class EditProfileFragment : Fragment(), KodeinAware {
     private val factory: SharedVMF by instance()
     private lateinit var viewModel: SharedVM
     private lateinit var preferenceManager: PreferenceManager
-    private val sessionNames: MutableList<String> = ArrayList()
-    private var sessionNumber = ""
+    private var imgUri = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -57,97 +70,134 @@ class EditProfileFragment : Fragment(), KodeinAware {
     }
 
     private fun setupViews() {
-//        (activity as MainActivity?)?.setToolbarVisibility(true)
-        binding.actSession.setText(preferenceManager.session)
-        hitApis()
-    }
-
-    private fun hitApis() {
-//        getUserDetails(UserIdRequest("" + preferenceManager.userid))
+        getUserDetails(
+            CommonUserIdReq(
+                apiname = "GetUserDetail",
+                obj = UserIdObj(userId = "" + preferenceManager.userid)
+            )
+        )
     }
 
     private fun setupListeners() {
+        binding.apply {
+            ivProfileImg.setOnClickListener {
+                ImagePicker.with(requireActivity())
+                    .crop()
+                    .createIntent { intent ->
+                        startForProfileImageResult.launch(intent)
+                    }
+            }
+        }
     }
 
-//    private fun getUserDetails(mobileNoReq: UserIdRequest) {
-//        LoadingUtils.showDialog(requireContext(), false)
-//        viewModel.getUserDetails = MutableLiveData()
-//        viewModel.getUserDetails.observe(requireActivity()) {
-//            val response = Gson().fromJson(it, UserDetailsRes::class.java)
-////            Log.e("getUserDetails ", "$response")
-//            if (response != null) {
-//                if (response.status) {
-//                    LoadingUtils.hideDialog()
-//
-////                    binding.apply {
-////                        etUsername.setText(response.response?.fullName)
-////                        etFather.setText(response.response?.fatherName)
-////                        etMother.setText(response.response?.motherName)
-////                        etAddress.setText(response.response?.address)
-////
-////                        etEnrollNum.setText(response.response?.enrollmentNo)
-////                        etCourseName.setText(response.response?.courseName)
-////
-////                        try {
-////                            val getDob = response.response?.dob
-////                            if (!getDob.isNullOrEmpty()) {
-////                                val terms = getDob.split("-")
-////                                etDay.setText(terms[0])
-////                                etMonth.setText(terms[1])
-////                                etYear.setText(terms[2])
-////                            }
-////
-////                            val subjectList = response.response?.subjectName
-////                            if (!subjectList.isNullOrEmpty()) {
-////                                val chunks = subjectList.split(",")
-////                                for (i in chunks.indices) {
-////                                    Log.e("subjectsName ", "" + chunks[i])
-////                                    chipGroup.addView(
-////                                        createTagChip(
-////                                            requireContext(),
-////                                            chunks[i]
-////                                        )
-////                                    )
-////                                }
-////                            }
-////
-////                        } catch (e: Exception) {
-////                            Log.e("getUserDetails ", "$e")
-////                        }
-////                    }
-//                } else {
-//                    LoadingUtils.hideDialog()
-////                    binding.root.snackbar("error: ${response.response}")
-//                }
-//            } else {
-//                LoadingUtils.hideDialog()
-//                (activity as MainActivity)?.apiErrorDialog(Constants.apiErrors)
-//            }
-//        }
-//        viewModel.getUserDetails(mobileNoReq)
-//    }
+    private fun getUserDetails(mobileNoReq: CommonUserIdReq) {
+        LoadingUtils.showDialog(requireActivity(), false)
+        viewModel.getUserDetails = MutableLiveData()
+        viewModel.getUserDetails.observe(requireActivity()) {
+            try {
+                val response = Gson().fromJson(it, UserDetailsRes::class.java)
+                if (response != null) {
+                    if (response.status) {
+                        LoadingUtils.hideDialog()
+                        binding.apply {
+                            ivProfileImg.load(Constants.imgBaseUrl + response.data[0]?.Photo) {
+                                error(null)
+                                placeholder(null)
+                            }
 
-    private fun createTagChip(context: Context, chipName: String): Chip {
-        return Chip(context).apply {
-            text = chipName
-            setTextColor(ContextCompat.getColor(context, R.color.white))
-            /* Creating a random color and setting it as the background color of the chip. */
-//            val rnd = Random
-//            val color: Int = Color.rgb(rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256)) // any random color
-            val color =
-                Color.argb(
-                    225,
-                    Random.nextInt(180),
-                    Random.nextInt(180),
-                    Random.nextInt(180)
-                ) // darker random color
-            chipBackgroundColor = ColorStateList.valueOf(color)
-            /* Setting the stroke color of the chip to transparent. */
-            val transparentColor = Color.parseColor("#00ff0000")
-            chipStrokeColor = ColorStateList.valueOf(transparentColor)
-//            setChipBackgroundColorResource(R.color.purple_500)
-//            isCloseIconVisible = true
-//            setTextAppearance(R.style.ChipTextAppearance)
+                            etUsername.setText("" + response.data[0]?.UserName)
+                            etEmail.setText("" + response.data[0]?.Email)
+                            etNumber.setText("+91-" + response.data[0]?.Mobile)
+                            etParentsName.setText("" + response.data[0]?.ParentName)
+                            etGender.setText("" + response.data[0]?.Gender)
+                            etAddress.setText("" + response.data[0]?.Address)
+                            etPincode.setText("" + response.data[0]?.Pincode)
+                            etProfession.setText("" + response.data[0]?.Profession)
+                            etNomineName.setText("" + response.data[0]?.Nominee_Name)
+
+                            etBankName.setText("" + response.data[0]?.BankName)
+                            etBankBranch.setText("" + response.data[0]?.BranchName)
+                            etBankHolderName.setText("" + response.data[0]?.AccHolderName)
+                            etBankAcNum.setText("" + response.data[0]?.AccNo)
+                            etBankIfsc.setText("" + response.data[0]?.IFSC)
+
+                            if (!response.data[0]?.DateOfBirth.toString().isNullOrEmpty()) {
+                                if (response.data[0]?.DateOfBirth.toString().contains("-")) {
+                                    val dob = response.data[0]?.DateOfBirth.toString().split("-")
+                                    etDay.setText("" + dob[2])
+                                    etMonth.setText("" + dob[1])
+                                    etYear.setText("" + dob[0])
+                                }
+                            }
+
+                            etPanNo.setText("" + response.data[0]?.PanNo)
+                            etAadhaarNumber.setText("" + response.data[0]?.Aadhar)
+                            etGstName.setText("" + response.data[0]?.Gst_No)
+                            etVoterName.setText("" + response.data[0]?.Voter_No)
+
+                            val adapter = ArrayAdapter(
+                                requireContext(),
+                                android.R.layout.simple_list_item_1,
+                                Constants.genderArray
+                            )
+                            binding.etGender.setAdapter(adapter)
+                        }
+                    } else {
+                        LoadingUtils.hideDialog()
+                        (activity as MainActivity).apiErrorDialog(response.message)
+                    }
+                } else {
+                    LoadingUtils.hideDialog()
+                    (activity as MainActivity).apiErrorDialog(Constants.apiErrors)
+                }
+            } catch (e: Exception) {
+                (activity as MainActivity).apiErrorDialog("$it\n$e")
+            }
         }
+        viewModel.getUserDetails(mobileNoReq)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        (activity as MainActivity).setBottombarVisibility(isVisible = false)
+    }
+
+    private val startForProfileImageResult =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
+            val resultCode = result.resultCode
+            val data = result.data
+            Log.e("onActivityResult ", "$resultCode // $data")
+            try {
+                when (resultCode) {
+                    Activity.RESULT_OK -> {
+                        //Image Uri will not be null for RESULT_OK
+                        val fileUri = data?.data!!
+                        Log.e("fileUri ", "" + fileUri)
+                        binding.ivProfileImg.setImageURI(fileUri)
+                        convertToBase64(fileUri)
+                    }
+
+                    ImagePicker.RESULT_ERROR -> {
+                        context?.toast(ImagePicker.getError(data))
+                    }
+
+                    else -> {
+                        context?.toast("Image upload failed, please try again !")
+                    }
+                }
+            } catch (e: Exception) {
+                context?.toast("Image upload failed, please try again !")
+            }
+        }
+
+    private fun convertToBase64(fileUri: Uri) {
+        val bitmap = MediaStore.Images.Media.getBitmap(
+            context?.contentResolver,
+            fileUri
+        ) // initialize byte stream
+        val stream = ByteArrayOutputStream() // compress Bitmap
+        bitmap.compress(Bitmap.CompressFormat.PNG, 50, stream) // Initialize byte array
+        val bytes = stream.toByteArray()
+        imgUri = Base64.encodeToString(bytes, Base64.DEFAULT)
     }
 }

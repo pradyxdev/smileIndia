@@ -79,6 +79,16 @@ class RechargeDashboardFragment : Fragment(), KodeinAware,
             btnBack.setOnClickListener {
                 Navigation.findNavController(it).popBackStack()
             }
+            llAddFunds.setOnClickListener {
+                val args = Bundle()
+                args.putString("", "")
+                findNavController().navigate(R.id.addFundFragment, args, getNavOptions())
+            }
+            llWithdraw.setOnClickListener {
+                val args = Bundle()
+                args.putString("", "")
+                findNavController().navigate(R.id.withdrawalRequestFragment, args, getNavOptions())
+            }
             llWallHistory.setOnClickListener {
                 val args = Bundle()
                 args.putString("fundType", "RC")
@@ -252,6 +262,13 @@ class RechargeDashboardFragment : Fragment(), KodeinAware,
             }
 
             "Insurance" -> {
+                val args = Bundle()
+                args.putString("rechargeTypeName", "Insurance")
+                args.putString("rechargeType", "Insurance")
+                findNavController().navigate(R.id.rechargeCommonFragment, args, getNavOptions())
+            }
+
+            "Cable" -> {
                 val args = Bundle()
                 args.putString("rechargeTypeName", "Insurance")
                 args.putString("rechargeType", "Insurance")

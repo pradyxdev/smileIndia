@@ -85,6 +85,6 @@ class InflightFragment : Fragment(), KodeinAware, PlanListAdapter.OnItemClickLis
     }
 
     override fun onItemClick(rs: String, desc: String, typesId: Int) {
-        (activity as PlanListActivity).getPlanDetails(rs, desc, typesId)
+        (activity as PlanListActivity).getPlanDetails(rs, desc, "" + typesId)
     }
 }

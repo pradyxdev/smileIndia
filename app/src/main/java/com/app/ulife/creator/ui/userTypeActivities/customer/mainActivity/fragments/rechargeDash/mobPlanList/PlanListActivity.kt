@@ -148,7 +148,7 @@ class PlanListActivity : AppCompatActivity(), KodeinAware {
         viewModel.getPlansList(request)
     }
 
-    fun getPlanDetails(amt: String, desc: String, typesId: Int) {
+    fun getPlanDetails(amt: String, desc: String, typesId: String) {
         amount = amt
         Log.e("amt_selected", amount)
 

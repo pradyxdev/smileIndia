@@ -141,6 +141,7 @@
                             android:layout_marginTop="16dp">
 
                             <LinearLayout
+                                android:id="@+id/ll_add_funds"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
@@ -164,11 +165,12 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="4dp"
-                                    android:text="Top Up"
+                                    android:text="Add Funds"
                                     android:textColor="@color/white" />
                             </LinearLayout>
 
                             <LinearLayout
+                                android:id="@+id/ll_withdraw"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="32dp"

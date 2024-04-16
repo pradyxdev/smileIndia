@@ -49,7 +49,6 @@ import com.app.ulife.creator.models.getCat.Obj
 import com.app.ulife.creator.models.productList.GetProductListReq
 import com.app.ulife.creator.models.productList.GetProductListRes
 import com.app.ulife.creator.ui.SplashActivity
-import com.app.ulife.creator.ui.authActivity.AuthActivity
 import com.app.ulife.creator.ui.userTypeActivities.customer.cartActivity.BagActivity
 import com.app.ulife.creator.ui.userTypeActivities.customer.mainActivity.MainActivity
 import com.app.ulife.creator.ui.userTypeActivities.customer.productActivity.ProductDetailsActivity
@@ -148,16 +147,20 @@ class HomeFragment : Fragment(), KodeinAware, CategoryAdapter.OnItemClickListene
                 if (response != null) {
                     if (response.status) {
                         LoadingUtils.hideDialog()
-                        when (response.data[0].Id) {
-                            1 -> {
-                                binding.rvCategory.apply {
-                                    adapter =
-                                        CategoryAdapter(context, response.data, this@HomeFragment)
-                                }
-                            }
-
-                            else -> (activity as AuthActivity).apiErrorDialog("" + response?.message)
+                        binding.rvCategory.apply {
+                            adapter =
+                                CategoryAdapter(context, response.data, this@HomeFragment)
                         }
+//                        when (response.data[0].Id) {
+//                            1 -> {
+//                                binding.rvCategory.apply {
+//                                    adapter =
+//                                        CategoryAdapter(context, response.data, this@HomeFragment)
+//                                }
+//                            }
+//
+//                            else -> (activity as MainActivity).apiErrorDialog("" + response?.message)
+//                        }
                     } else {
                         LoadingUtils.hideDialog()
                         (activity as MainActivity).apiErrorDialog(response.message)

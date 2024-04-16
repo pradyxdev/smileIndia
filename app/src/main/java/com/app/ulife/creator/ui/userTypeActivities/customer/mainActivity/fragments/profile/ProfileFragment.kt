@@ -19,8 +19,10 @@ import android.view.animation.LayoutAnimationController
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.Navigation
+import androidx.navigation.Navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import coil.load
 import com.app.ulife.creator.R
 import com.app.ulife.creator.adapters.DashboardItemsAdapter
 import com.app.ulife.creator.databinding.FragmentProfileBinding
@@ -148,8 +150,13 @@ class ProfileFragment : Fragment(), KodeinAware, DashboardItemsAdapter.OnItemCli
                         preferenceManager.phone = response.data[0]?.Mobile
                         preferenceManager.userName = response.data[0]?.UserName
                         binding.apply {
-                            tvName.text = "" + response.data[0]?.UserName
+                            tvName.text =
+                                "${response.data[0]?.UserName}\n(${response.data[0]?.UserId})"
                             tvNumber.text = "+91-" + response.data[0]?.Mobile
+                            ivProfileImg.load(Constants.imgBaseUrl + response.data[0]?.Photo) {
+                                error(R.drawable.dummy_user)
+                                placeholder(R.drawable.dummy_user)
+                            }
                         }
                     } else {
                         LoadingUtils.hideDialog()
@@ -168,18 +175,26 @@ class ProfileFragment : Fragment(), KodeinAware, DashboardItemsAdapter.OnItemCli
 
     private fun setupListeners() {
         binding.apply {
-//            editProfile.setOnClickListener {
-//                val action = ProfileFragmentDirections.actionProfileFragmentToEditProfileFragment()
-//                findNavController().navigate(action)
-////                context?.toast("Sorry this section is currently locked.")
-//            }
+            btnEdit.setOnClickListener {
+                val action = ProfileFragmentDirections.actionProfileFragmentToEditProfileFragment()
+                findNavController().navigate(action)
+            }
+
+            btnRefresh.setOnClickListener {
+                getDashboardItems(
+                    CommonUserIdReq(
+                        apiname = "getDashboardCounts",
+                        obj = UserIdObj(userId = "" + preferenceManager.userid)
+                    )
+                )
+            }
 
 //            cardLogout.setOnClickListener {
 //                showLogoutDialog()
 //            }
 
             btnBack.setOnClickListener {
-                Navigation.findNavController(it).popBackStack()
+                findNavController(it).popBackStack()
             }
 
 //            cardSaveAddress.setOnClickListener {
