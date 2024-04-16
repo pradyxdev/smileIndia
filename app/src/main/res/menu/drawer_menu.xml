@@ -33,6 +33,10 @@
             android:icon="@drawable/business_report"
             android:title="Payout Management" />
         <item
+            android:id="@+id/nav_password_manage"
+            android:icon="@drawable/password"
+            android:title="Password Management" />
+        <item
             android:id="@+id/nav_help"
             android:icon="@drawable/help"
             android:title="Help" />

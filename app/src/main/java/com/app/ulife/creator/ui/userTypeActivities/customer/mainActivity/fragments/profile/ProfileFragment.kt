@@ -167,6 +167,7 @@ class ProfileFragment : Fragment(), KodeinAware, DashboardItemsAdapter.OnItemCli
                     (activity as MainActivity).apiErrorDialog(Constants.apiErrors)
                 }
             } catch (e: Exception) {
+                LoadingUtils.hideDialog()
                 (activity as MainActivity).apiErrorDialog("$it\n$e")
             }
         }

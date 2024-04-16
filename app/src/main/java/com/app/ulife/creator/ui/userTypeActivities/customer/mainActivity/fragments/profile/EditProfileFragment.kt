@@ -24,6 +24,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
 import coil.load
 import com.app.ulife.creator.databinding.FragmentEditProfileBinding
 import com.app.ulife.creator.factories.SharedVMF
@@ -31,6 +32,9 @@ import com.app.ulife.creator.helpers.Constants
 import com.app.ulife.creator.helpers.PreferenceManager
 import com.app.ulife.creator.models.CommonUserIdReq
 import com.app.ulife.creator.models.UserIdObj
+import com.app.ulife.creator.models.passwordManage.changePassword.ChangePasswordRes
+import com.app.ulife.creator.models.updateProfile.Obj
+import com.app.ulife.creator.models.updateProfile.UpdateProfileReq
 import com.app.ulife.creator.models.userDetails.UserDetailsRes
 import com.app.ulife.creator.ui.userTypeActivities.customer.mainActivity.MainActivity
 import com.app.ulife.creator.utils.LoadingUtils
@@ -80,12 +84,47 @@ class EditProfileFragment : Fragment(), KodeinAware {
 
     private fun setupListeners() {
         binding.apply {
+            btnBack.setOnClickListener {
+                Navigation.findNavController(root).popBackStack()
+            }
+
             ivProfileImg.setOnClickListener {
                 ImagePicker.with(requireActivity())
                     .crop()
                     .createIntent { intent ->
                         startForProfileImageResult.launch(intent)
                     }
+            }
+
+            btnSubmit.setOnClickListener {
+                updateUserDetails(
+                    UpdateProfileReq(
+                        apiname = "UpdateProfile", obj = Obj(
+                            Aadhar = "" + etAadhaarNumber.text,
+                            AccHolderName = "" + etBankHolderName.text,
+                            AccNo = "" + etBankAcNum.text,
+                            BankName = "" + etBankName.text,
+                            BranchName = "" + etBankBranch.text,
+                            DateOfBirth = "${etMonth.text}-${etDay.text}-${etYear.text}",
+                            Gst_No = "" + etGstName.text,
+                            IFSC = "" + etBankIfsc.text,
+                            Nominee_Name = "" + etNomineName.text,
+                            Nominee_Relation = "",
+                            PanNo = "" + etPanNo.text,
+                            Pincode = "" + etPincode.text,
+                            Profession = "" + etProfession.text,
+                            Voter_No = "" + etVoterName.text,
+                            address = "" + etAddress.text,
+                            email = "" + etEmail.text,
+                            gender = "" + etGender.text,
+                            guardian = "" + etParentsName.text,
+                            phone = "" + etNumber.text,
+                            photo = "" + imgUri,
+                            userid = "" + preferenceManager.userid,
+                            username = "" + etUsername.text
+                        )
+                    )
+                )
             }
         }
     }
@@ -114,6 +153,19 @@ class EditProfileFragment : Fragment(), KodeinAware {
                             etPincode.setText("" + response.data[0]?.Pincode)
                             etProfession.setText("" + response.data[0]?.Profession)
                             etNomineName.setText("" + response.data[0]?.Nominee_Name)
+
+                            if (response.data[0]?.KycStatus.equals("Approved")) {
+                                etlBankName.isEnabled = false
+                                etlBankBranch.isEnabled = false
+                                etlBankHolderName.isEnabled = false
+                                etlBankAcNum.isEnabled = false
+                                etlBankIfsc.isEnabled = false
+
+                                etlPanNo.isEnabled = false
+                                etlAadhaarNumber.isEnabled = false
+                                etlGstName.isEnabled = false
+                                etlVoterName.isEnabled = false
+                            }
 
                             etBankName.setText("" + response.data[0]?.BankName)
                             etBankBranch.setText("" + response.data[0]?.BranchName)
@@ -151,10 +203,48 @@ class EditProfileFragment : Fragment(), KodeinAware {
                     (activity as MainActivity).apiErrorDialog(Constants.apiErrors)
                 }
             } catch (e: Exception) {
+                LoadingUtils.hideDialog()
                 (activity as MainActivity).apiErrorDialog("$it\n$e")
             }
         }
         viewModel.getUserDetails(mobileNoReq)
+    }
+
+    private fun updateUserDetails(mobileNoReq: UpdateProfileReq) {
+        LoadingUtils.showDialog(requireActivity(), false)
+        viewModel.updateUserDetails = MutableLiveData()
+        viewModel.updateUserDetails.observe(requireActivity()) {
+            try {
+                val response = Gson().fromJson(it, ChangePasswordRes::class.java)
+                if (response != null) {
+                    if (response.status) {
+                        LoadingUtils.hideDialog()
+                        when (response.data[0].id) {
+                            1 -> (activity as MainActivity).apiSuccessDialog("Profile updated successfully !") {
+                                getUserDetails(
+                                    CommonUserIdReq(
+                                        apiname = "GetUserDetail",
+                                        obj = UserIdObj(userId = "" + preferenceManager.userid)
+                                    )
+                                )
+                            }
+
+                            else -> (activity as MainActivity).apiErrorDialog(response.data[0].msg)
+                        }
+                    } else {
+                        LoadingUtils.hideDialog()
+                        (activity as MainActivity).apiErrorDialog(response.message)
+                    }
+                } else {
+                    LoadingUtils.hideDialog()
+                    (activity as MainActivity).apiErrorDialog(Constants.apiErrors)
+                }
+            } catch (e: Exception) {
+                LoadingUtils.hideDialog()
+                (activity as MainActivity).apiErrorDialog("$it\n$e")
+            }
+        }
+        viewModel.updateUserDetails(mobileNoReq)
     }
 
     override fun onResume() {

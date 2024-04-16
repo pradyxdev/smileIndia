@@ -221,6 +221,18 @@
         android:id="@+id/epinRequestReportFragment"
         android:name="com.app.ulife.creator.ui.userTypeActivities.customer.mainActivity.fragments.reports.epinManage.tabs.EpinRequestReportFragment"
         android:label="EpinRequestReportFragment" />
+    <fragment
+        android:id="@+id/passwordContainerFragment"
+        android:name="com.app.ulife.creator.ui.userTypeActivities.customer.mainActivity.fragments.reports.passwordManage.PasswordContainerFragment"
+        android:label="PasswordContainerFragment" />
+    <fragment
+        android:id="@+id/changePasswordFragment"
+        android:name="com.app.ulife.creator.ui.userTypeActivities.customer.mainActivity.fragments.reports.passwordManage.tabs.ChangePasswordFragment"
+        android:label="ChangePasswordFragment" />
+    <fragment
+        android:id="@+id/changeTransPasswordFragment"
+        android:name="com.app.ulife.creator.ui.userTypeActivities.customer.mainActivity.fragments.reports.passwordManage.tabs.ChangeTransPasswordFragment"
+        android:label="ChangeTransPasswordFragment" />
 </navigation>
 
     <!--    app:popUpTo="@id/homeFragment"-->

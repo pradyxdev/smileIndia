@@ -40,12 +40,15 @@ import com.app.ulife.creator.models.networkManage.levelWise.GetLevelWiseReq
 import com.app.ulife.creator.models.networkManage.teamBv.GetTeamBvReq
 import com.app.ulife.creator.models.orderHistory.OrderHistoryReq
 import com.app.ulife.creator.models.orderItems.OrderItemsReq
+import com.app.ulife.creator.models.passwordManage.accPassword.AccountPasswordReq
+import com.app.ulife.creator.models.passwordManage.changePassword.ChangePasswordReq
 import com.app.ulife.creator.models.payoutManage.directIncome.GetDirectIncomeReq
 import com.app.ulife.creator.models.payoutManage.rechargeIncome.GetRechargeIncomeReq
 import com.app.ulife.creator.models.payoutManage.shoppingIncome.GetShoppingIncomeReq
 import com.app.ulife.creator.models.productList.GetProductListReq
 import com.app.ulife.creator.models.recharge.DoRechargeNewReq
 import com.app.ulife.creator.models.shippingDetails.add.AddShippiDetailsReq
+import com.app.ulife.creator.models.updateProfile.UpdateProfileReq
 import com.app.ulife.creator.models.wallet.WalletReq
 import com.app.ulife.creator.models.withdrawManage.withdrawReport.WithdrawReportReq
 import com.app.ulife.creator.models.withdrawManage.withdrawalReq.StartWithdrawalReq
@@ -417,6 +420,27 @@ class SharedVM(private val repository: SharedRepo) : ViewModel() {
     fun getEpinReqReport(request: EpinReqReportReq) {
         Coroutines.main {
             getEpinReqReport.postValue(repository.getEpinReqReport(request))
+        }
+    }
+
+    var changePassword = MutableLiveData<String>()
+    fun changePassword(request: AccountPasswordReq) {
+        Coroutines.main {
+            changePassword.postValue(repository.changePassword(request))
+        }
+    }
+
+    var changeTransPassword = MutableLiveData<String>()
+    fun changeTransPassword(request: ChangePasswordReq) {
+        Coroutines.main {
+            changeTransPassword.postValue(repository.changeTransPassword(request))
+        }
+    }
+
+    var updateUserDetails = MutableLiveData<String>()
+    fun updateUserDetails(request: UpdateProfileReq) {
+        Coroutines.main {
+            updateUserDetails.postValue(repository.updateUserDetails(request))
         }
     }
 }

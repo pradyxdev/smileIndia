@@ -50,5 +50,6 @@ data class Data(
     val UserName: String,
     val VillageName: String,
     val Voter_No: String,
-    val guardian: String
+    val guardian: String,
+    val KycStatus: String
 )

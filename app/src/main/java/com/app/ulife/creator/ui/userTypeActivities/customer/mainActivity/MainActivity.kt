@@ -338,6 +338,13 @@ class MainActivity : AppCompatActivity(), KodeinAware {
                     true
                 }
 
+                R.id.nav_password_manage -> {
+                    binding.drawerlayout.closeDrawer(GravityCompat.START)
+                    val navController = findNavController(R.id.fragmentContainerView)
+                    navController.navigate(R.id.passwordContainerFragment)
+                    true
+                }
+
                 R.id.nav_help -> {
                     binding.drawerlayout.closeDrawer(GravityCompat.START)
                     openWebIntent("https://wa.link/rigii4")
