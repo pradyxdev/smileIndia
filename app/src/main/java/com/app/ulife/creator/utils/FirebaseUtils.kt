@@ -13,7 +13,7 @@ import com.app.ulife.creator.helpers.Constants
 import com.google.firebase.database.FirebaseDatabase
 
 fun Context.getAppVersioning() = FirebaseDatabase.getInstance(Constants.FirebaseDBUrl)
-    .getReference("AppName/Prophecify/Versioning")
+    .getReference("AppName/ulife/Versioning")
 
 fun Context.getUserDetails() =
-    FirebaseDatabase.getInstance(Constants.FirebaseDBUrl).getReference("AppName/Prophecify/Users")
+    FirebaseDatabase.getInstance(Constants.FirebaseDBUrl).getReference("AppName/ulife/Users")

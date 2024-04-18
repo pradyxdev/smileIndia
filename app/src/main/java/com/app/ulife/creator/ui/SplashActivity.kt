@@ -89,10 +89,10 @@ class SplashActivity : AppCompatActivity(), KodeinAware {
 
     private fun checkInternet() {
         if (applicationContext.isNetworkConnected) {
-//            getAppVersioningFromFB()
-            Handler().postDelayed({
-                setupViews()
-            }, 3000)
+            getAppVersioningFromFB()
+//            Handler().postDelayed({
+//                setupViews()
+//            }, 3000)
         } else {
             CFAlertDialog.Builder(this)
                 .setDialogStyle(CFAlertDialog.CFAlertStyle.ALERT)
