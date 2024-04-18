@@ -67,6 +67,10 @@ class SignInFragment : Fragment(), KodeinAware {
 //            etUserId.setText("SC000001")
 //            etPass.setText("019144")
 //        }
+//        binding.apply {
+//            etUserId.setText("SC002265")
+//            etPass.setText("1234")
+//        }
     }
 
     private fun setupListeners() {

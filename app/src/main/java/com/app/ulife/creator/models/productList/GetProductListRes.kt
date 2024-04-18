@@ -18,10 +18,10 @@ data class Data(
     val bv: Int,
     val desc: String,
     val img: String,
-    val mrp: Int,
+    val mrp: Double,
     val name: String,
     val prodid: Int,
-    val sp: Int,
+    val sp: Double,
     val type: String,
     val AvailableStock: Int
 )

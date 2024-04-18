@@ -89,6 +89,12 @@ class PayoutContainerFragment : Fragment(), KodeinAware {
                 args.putString("", "")
                 findNavController().navigate(R.id.matchingIncomeFragment, args, getNavOptions())
             }
+
+            card5.setOnClickListener {
+                val args = Bundle()
+                args.putString("", "")
+                findNavController().navigate(R.id.ldcFragment, args, getNavOptions())
+            }
         }
     }
 }

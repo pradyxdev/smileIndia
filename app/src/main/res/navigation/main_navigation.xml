@@ -233,6 +233,10 @@
         android:id="@+id/changeTransPasswordFragment"
         android:name="com.app.ulife.creator.ui.userTypeActivities.customer.mainActivity.fragments.reports.passwordManage.tabs.ChangeTransPasswordFragment"
         android:label="ChangeTransPasswordFragment" />
+    <fragment
+        android:id="@+id/ldcFragment"
+        android:name="com.app.ulife.creator.ui.userTypeActivities.customer.mainActivity.fragments.reports.payout.tabs.LdcFragment"
+        android:label="LdcFragment" />
 </navigation>
 
     <!--    app:popUpTo="@id/homeFragment"-->

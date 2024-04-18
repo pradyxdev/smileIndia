@@ -12,6 +12,7 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -214,7 +215,8 @@ class HomeFragment : Fragment(), KodeinAware, CategoryAdapter.OnItemClickListene
                 }
             } catch (e: Exception) {
                 LoadingUtils.hideDialog()
-                (activity as MainActivity).apiErrorDialog("$it\n$e")
+                Log.e("getArrivalExc ", "$e")
+                (activity as MainActivity).apiErrorDialog("$e")
             }
         }
         viewModel.getProductListReq(req)

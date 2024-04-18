@@ -43,6 +43,7 @@ import com.app.ulife.creator.models.orderItems.OrderItemsReq
 import com.app.ulife.creator.models.passwordManage.accPassword.AccountPasswordReq
 import com.app.ulife.creator.models.passwordManage.changePassword.ChangePasswordReq
 import com.app.ulife.creator.models.payoutManage.directIncome.GetDirectIncomeReq
+import com.app.ulife.creator.models.payoutManage.ldc.report.GetLdcReportReq
 import com.app.ulife.creator.models.payoutManage.rechargeIncome.GetRechargeIncomeReq
 import com.app.ulife.creator.models.payoutManage.shoppingIncome.GetShoppingIncomeReq
 import com.app.ulife.creator.models.productList.GetProductListReq
@@ -441,6 +442,20 @@ class SharedVM(private val repository: SharedRepo) : ViewModel() {
     fun updateUserDetails(request: UpdateProfileReq) {
         Coroutines.main {
             updateUserDetails.postValue(repository.updateUserDetails(request))
+        }
+    }
+
+    var getLdcDates = MutableLiveData<String>()
+    fun getLdcDates(request: EmptyRequest) {
+        Coroutines.main {
+            getLdcDates.postValue(repository.getLdcDates(request))
+        }
+    }
+
+    var getLdcReport = MutableLiveData<String>()
+    fun getLdcReport(request: GetLdcReportReq) {
+        Coroutines.main {
+            getLdcReport.postValue(repository.getLdcReport(request))
         }
     }
 }

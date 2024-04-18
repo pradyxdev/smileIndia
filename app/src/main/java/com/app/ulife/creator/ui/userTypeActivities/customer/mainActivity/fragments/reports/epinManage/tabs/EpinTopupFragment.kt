@@ -143,7 +143,7 @@ class EpinTopupFragment : Fragment(), KodeinAware {
                             apiname = "TopupUserWithWallet",
                             obj = com.app.ulife.creator.models.epinManage.epinTopup.Obj(
                                 epinid = "" + epinTypeId,
-                                paymenttype = "",
+                                paymenttype = "EPin",
                                 planid = "" + pkgId,
                                 topupuserid = "" + etToUserid.text,
                                 userid = "" + preferenceManager.userid

@@ -42,6 +42,7 @@ import com.app.ulife.creator.models.orderItems.OrderItemsReq
 import com.app.ulife.creator.models.passwordManage.accPassword.AccountPasswordReq
 import com.app.ulife.creator.models.passwordManage.changePassword.ChangePasswordReq
 import com.app.ulife.creator.models.payoutManage.directIncome.GetDirectIncomeReq
+import com.app.ulife.creator.models.payoutManage.ldc.report.GetLdcReportReq
 import com.app.ulife.creator.models.payoutManage.rechargeIncome.GetRechargeIncomeReq
 import com.app.ulife.creator.models.payoutManage.shoppingIncome.GetShoppingIncomeReq
 import com.app.ulife.creator.models.productList.GetProductListReq
@@ -724,6 +725,32 @@ class SharedRepo(
         var response = String()
         try {
             val jsonObject = Gson().toJson(request, UpdateProfileReq::class.java)
+            val body = jsonObject.toString()
+                .toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
+            response = apiRequest { api.getUserRequest(body) }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return response
+    }
+
+    suspend fun getLdcDates(request: EmptyRequest): String {
+        var response = String()
+        try {
+            val jsonObject = Gson().toJson(request, EmptyRequest::class.java)
+            val body = jsonObject.toString()
+                .toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
+            response = apiRequest { api.getUserRequest(body) }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return response
+    }
+
+    suspend fun getLdcReport(request: GetLdcReportReq): String {
+        var response = String()
+        try {
+            val jsonObject = Gson().toJson(request, GetLdcReportReq::class.java)
             val body = jsonObject.toString()
                 .toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
             response = apiRequest { api.getUserRequest(body) }

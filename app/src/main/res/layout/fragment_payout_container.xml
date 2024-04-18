@@ -176,7 +176,38 @@
             android:paddingTop="13dp"
             android:paddingEnd="16dp"
             android:paddingBottom="13dp"
-            android:text="Matching Income "
+            android:text="Matching Income Report"
+            app:drawableEndCompat="@drawable/ic_baseline_keyboard_arrow_right_24"
+            app:drawableStartCompat="@drawable/business_report" />
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.divider.MaterialDivider
+        android:layout_width="match_parent"
+        android:layout_height="0.3dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginEnd="16dp"
+        android:alpha="0.5" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card_5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+        app:rippleColor="?attr/colorPrimaryContainer"
+        app:strokeWidth="0dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawablePadding="8dp"
+            android:gravity="center|start"
+            android:paddingStart="16dp"
+            android:paddingTop="13dp"
+            android:paddingEnd="16dp"
+            android:paddingBottom="13dp"
+            android:text="LDC Report"
             app:drawableEndCompat="@drawable/ic_baseline_keyboard_arrow_right_24"
             app:drawableStartCompat="@drawable/business_report" />
     </com.google.android.material.card.MaterialCardView>
