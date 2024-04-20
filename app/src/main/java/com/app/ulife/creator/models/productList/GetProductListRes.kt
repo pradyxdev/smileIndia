@@ -15,7 +15,7 @@ data class GetProductListRes(
 )
 
 data class Data(
-    val bv: Int,
+    val bv: Double,
     val desc: String,
     val img: String,
     val mrp: Double,
