@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModel
 import com.app.ulife.creator.helpers.Coroutines
 import com.app.ulife.creator.models.CommonUserIdReq
 import com.app.ulife.creator.models.EmptyRequest
+import com.app.ulife.creator.models.UserIdRequest
 import com.app.ulife.creator.models.addToCart.AddToCartReq
 import com.app.ulife.creator.models.bbpsRecharge.mobPlan.GetPlanListReq
 import com.app.ulife.creator.models.bbpsRecharge.mobileLookup.GetMobileLookupReq
@@ -46,6 +47,9 @@ import com.app.ulife.creator.models.payoutManage.directIncome.GetDirectIncomeReq
 import com.app.ulife.creator.models.payoutManage.ldc.report.GetLdcReportReq
 import com.app.ulife.creator.models.payoutManage.rechargeIncome.GetRechargeIncomeReq
 import com.app.ulife.creator.models.payoutManage.shoppingIncome.GetShoppingIncomeReq
+import com.app.ulife.creator.models.paysprint.doPsRecharge.DoPsRechargeReq
+import com.app.ulife.creator.models.paysprint.hlrCheck.HlrCheckReq
+import com.app.ulife.creator.models.paysprint.psMobPlanList.GetPsMobPlanListReq
 import com.app.ulife.creator.models.productList.GetProductListReq
 import com.app.ulife.creator.models.recharge.DoRechargeNewReq
 import com.app.ulife.creator.models.shippingDetails.add.AddShippiDetailsReq
@@ -456,6 +460,49 @@ class SharedVM(private val repository: SharedRepo) : ViewModel() {
     fun getLdcReport(request: GetLdcReportReq) {
         Coroutines.main {
             getLdcReport.postValue(repository.getLdcReport(request))
+        }
+    }
+
+    // paysprint api's
+    var getPsOperator = MutableLiveData<String>()
+    fun getPsOperator(request: UserIdRequest) {
+        Coroutines.main {
+            getPsOperator.postValue(repository.getPsOperator(request))
+        }
+    }
+
+    var hlrCheck = MutableLiveData<String>()
+    fun hlrCheck(request: HlrCheckReq) {
+        Coroutines.main {
+            hlrCheck.postValue(repository.hlrCheck(request))
+        }
+    }
+
+    var getPsMobPlanList = MutableLiveData<String>()
+    fun getPsMobPlanList(request: GetPsMobPlanListReq) {
+        Coroutines.main {
+            getPsMobPlanList.postValue(repository.getPsMobPlanList(request))
+        }
+    }
+
+    var doPsMobRecharge = MutableLiveData<String>()
+    fun doPsMobRecharge(request: DoPsRechargeReq) {
+        Coroutines.main {
+            doPsMobRecharge.postValue(repository.doPsMobRecharge(request))
+        }
+    }
+
+    var getPsBbpsOperator = MutableLiveData<String>()
+    fun getPsBbpsOperator(request: UserIdRequest) {
+        Coroutines.main {
+            getPsBbpsOperator.postValue(repository.getPsBbpsOperator(request))
+        }
+    }
+
+    var getPsFastagOperator = MutableLiveData<String>()
+    fun getPsFastagOperator(request: UserIdRequest) {
+        Coroutines.main {
+            getPsFastagOperator.postValue(repository.getPsFastagOperator(request))
         }
     }
 }

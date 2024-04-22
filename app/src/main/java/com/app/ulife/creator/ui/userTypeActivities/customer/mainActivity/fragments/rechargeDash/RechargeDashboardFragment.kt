@@ -195,84 +195,97 @@ class RechargeDashboardFragment : Fragment(), KodeinAware,
                 val args = Bundle()
                 args.putString("rechargeTypeName", "Mobile Recharge")
                 args.putString("rechargeType", "Prepaid")
-                findNavController().navigate(R.id.rechargeCommonFragment, args, getNavOptions())
+//                findNavController().navigate(R.id.rechargeCommonFragment, args, getNavOptions()) // roundpay
+                findNavController().navigate(R.id.mobileRechargeFragment, args, getNavOptions())
             }
 
             "DTH Recharge" -> {
                 val args = Bundle()
                 args.putString("rechargeTypeName", "DTH Recharge")
                 args.putString("rechargeType", "DTH")
-                findNavController().navigate(R.id.rechargeCommonFragment, args, getNavOptions())
+//                findNavController().navigate(R.id.rechargeCommonFragment, args, getNavOptions()) // roundpay
+                findNavController().navigate(R.id.dthRechargeFragment, args, getNavOptions())
             }
 
             "Post-Paid Recharge" -> {
                 val args = Bundle()
                 args.putString("rechargeTypeName", "Post-Paid Recharge")
                 args.putString("rechargeType", "Postpaid")
-                findNavController().navigate(R.id.rechargeCommonFragment, args, getNavOptions())
+//                findNavController().navigate(R.id.rechargeCommonFragment, args, getNavOptions()) // roundpay
+                findNavController().navigate(R.id.bbpsRechargeFragment, args, getNavOptions())
             }
 
             "Electricity" -> {
                 val args = Bundle()
                 args.putString("rechargeTypeName", "Electricity Recharge")
                 args.putString("rechargeType", "Electricity")
-                findNavController().navigate(R.id.rechargeCommonFragment, args, getNavOptions())
+//                findNavController().navigate(R.id.rechargeCommonFragment, args, getNavOptions()) // roundpay
+                findNavController().navigate(R.id.bbpsRechargeFragment, args, getNavOptions())
             }
 
             "Broadband" -> {
                 val args = Bundle()
                 args.putString("rechargeTypeName", "Broadband Recharge")
                 args.putString("rechargeType", "Broadband")
-                findNavController().navigate(R.id.rechargeCommonFragment, args, getNavOptions())
+//                findNavController().navigate(R.id.rechargeCommonFragment, args, getNavOptions()) // roundpay
+                findNavController().navigate(R.id.bbpsRechargeFragment, args, getNavOptions())
             }
 
             "Landline" -> {
                 val args = Bundle()
                 args.putString("rechargeTypeName", "Landline Recharge")
                 args.putString("rechargeType", "Landline")
-                findNavController().navigate(R.id.rechargeCommonFragment, args, getNavOptions())
+//                findNavController().navigate(R.id.rechargeCommonFragment, args, getNavOptions()) // roundpay
+                findNavController().navigate(R.id.bbpsRechargeFragment, args, getNavOptions())
             }
 
             "Gas Line" -> {
                 val args = Bundle()
                 args.putString("rechargeTypeName", "Gas Recharge")
                 args.putString("rechargeType", "Gas")
-                findNavController().navigate(R.id.rechargeCommonFragment, args, getNavOptions())
+//                findNavController().navigate(R.id.rechargeCommonFragment, args, getNavOptions()) // roundpay
+                findNavController().navigate(R.id.bbpsRechargeFragment, args, getNavOptions())
             }
 
             "Fastag" -> {
                 val args = Bundle()
                 args.putString("rechargeTypeName", "Fastag Recharge")
                 args.putString("rechargeType", "Fastag")
-                findNavController().navigate(R.id.rechargeCommonFragment, args, getNavOptions())
+//                findNavController().navigate(R.id.rechargeCommonFragment, args, getNavOptions()) // roundpay
+                findNavController().navigate(R.id.fastagRechargeFragment, args, getNavOptions())
             }
 
             "Cylinder" -> {
                 val args = Bundle()
                 args.putString("rechargeTypeName", "Cylinder")
-                args.putString("rechargeType", "Cylinder")
-                findNavController().navigate(R.id.rechargeCommonFragment, args, getNavOptions())
+//                args.putString("rechargeType", "Cylinder") // roundpay
+                args.putString("rechargeType", "LPG")
+//                findNavController().navigate(R.id.rechargeCommonFragment, args, getNavOptions()) // roundpay
+                findNavController().navigate(R.id.bbpsRechargeFragment, args, getNavOptions())
             }
 
             "Water Bill" -> {
                 val args = Bundle()
                 args.putString("rechargeTypeName", "Water Bill")
                 args.putString("rechargeType", "Water")
-                findNavController().navigate(R.id.rechargeCommonFragment, args, getNavOptions())
+//                findNavController().navigate(R.id.rechargeCommonFragment, args, getNavOptions()) // roundpay
+                findNavController().navigate(R.id.bbpsRechargeFragment, args, getNavOptions())
             }
 
             "Insurance" -> {
                 val args = Bundle()
                 args.putString("rechargeTypeName", "Insurance")
                 args.putString("rechargeType", "Insurance")
-                findNavController().navigate(R.id.rechargeCommonFragment, args, getNavOptions())
+//                findNavController().navigate(R.id.rechargeCommonFragment, args, getNavOptions()) // roundpay
+                findNavController().navigate(R.id.bbpsRechargeFragment, args, getNavOptions())
             }
 
-            "Cable" -> {
+            "Cable Tv" -> {
                 val args = Bundle()
-                args.putString("rechargeTypeName", "Insurance")
-                args.putString("rechargeType", "Insurance")
-                findNavController().navigate(R.id.rechargeCommonFragment, args, getNavOptions())
+                args.putString("rechargeTypeName", "Cable Recharge")
+                args.putString("rechargeType", "Cable")
+//                findNavController().navigate(R.id.rechargeCommonFragment, args, getNavOptions()) // roundpay
+                findNavController().navigate(R.id.bbpsRechargeFragment, args, getNavOptions())
             }
 
             else -> context?.toast("Coming soon !")

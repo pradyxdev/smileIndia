@@ -101,7 +101,7 @@
         tools:layout="@layout/fragment_order_detailsl" />
     <fragment
         android:id="@+id/rechargeCommonFragment"
-        android:name="com.app.ulife.creator.ui.userTypeActivities.customer.mainActivity.fragments.rechargeDash.RechargeCommonFragment"
+        android:name="com.app.ulife.creator.ui.userTypeActivities.customer.mainActivity.fragments.rechargeDash.roundPay.RechargeCommonFragment"
         android:label="RechargeCommonFragment"
         tools:layout="@layout/fragment_recharge_common" />
     <fragment
@@ -237,6 +237,23 @@
         android:id="@+id/ldcFragment"
         android:name="com.app.ulife.creator.ui.userTypeActivities.customer.mainActivity.fragments.reports.payout.tabs.LdcFragment"
         android:label="LdcFragment" />
+    <!-- paysprint screens -->
+    <fragment
+        android:id="@+id/mobileRechargeFragment"
+        android:name="com.app.ulife.creator.ui.userTypeActivities.customer.mainActivity.fragments.rechargeDash.paysprint.mobile.MobileRechargeFragment"
+        android:label="MobileRechargeFragment" />
+    <fragment
+        android:id="@+id/dthRechargeFragment"
+        android:name="com.app.ulife.creator.ui.userTypeActivities.customer.mainActivity.fragments.rechargeDash.paysprint.dth.DthRechargeFragment"
+        android:label="DthRechargeFragment" />
+    <fragment
+        android:id="@+id/bbpsRechargeFragment"
+        android:name="com.app.ulife.creator.ui.userTypeActivities.customer.mainActivity.fragments.rechargeDash.paysprint.bbps.BbpsRechargeFragment"
+        android:label="BbpsRechargeFragment" />
+    <fragment
+        android:id="@+id/fastagRechargeFragment"
+        android:name="com.app.ulife.creator.ui.userTypeActivities.customer.mainActivity.fragments.rechargeDash.paysprint.fastag.FastagRechargeFragment"
+        android:label="FastagRechargeFragment" />
 </navigation>
 
     <!--    app:popUpTo="@id/homeFragment"-->

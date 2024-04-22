@@ -12,6 +12,7 @@ import com.app.ulife.creator.data.remote.MyApi
 import com.app.ulife.creator.data.remote.SafeApiRequest
 import com.app.ulife.creator.models.CommonUserIdReq
 import com.app.ulife.creator.models.EmptyRequest
+import com.app.ulife.creator.models.UserIdRequest
 import com.app.ulife.creator.models.addToCart.AddToCartReq
 import com.app.ulife.creator.models.bbpsRecharge.mobPlan.GetPlanListReq
 import com.app.ulife.creator.models.bbpsRecharge.mobileLookup.GetMobileLookupReq
@@ -45,6 +46,9 @@ import com.app.ulife.creator.models.payoutManage.directIncome.GetDirectIncomeReq
 import com.app.ulife.creator.models.payoutManage.ldc.report.GetLdcReportReq
 import com.app.ulife.creator.models.payoutManage.rechargeIncome.GetRechargeIncomeReq
 import com.app.ulife.creator.models.payoutManage.shoppingIncome.GetShoppingIncomeReq
+import com.app.ulife.creator.models.paysprint.doPsRecharge.DoPsRechargeReq
+import com.app.ulife.creator.models.paysprint.hlrCheck.HlrCheckReq
+import com.app.ulife.creator.models.paysprint.psMobPlanList.GetPsMobPlanListReq
 import com.app.ulife.creator.models.productList.GetProductListReq
 import com.app.ulife.creator.models.recharge.DoRechargeNewReq
 import com.app.ulife.creator.models.shippingDetails.add.AddShippiDetailsReq
@@ -84,6 +88,7 @@ class SharedRepo(
         }
         return response
     }
+
     suspend fun getBanner(request: EmptyRequest): String {
         var response = String()
         try {
@@ -754,6 +759,85 @@ class SharedRepo(
             val body = jsonObject.toString()
                 .toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
             response = apiRequest { api.getUserRequest(body) }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return response
+    }
+
+    // paysprint api's
+    suspend fun getPsOperator(request: UserIdRequest): String {
+        var response = String()
+        try {
+            val jsonObject = Gson().toJson(request, UserIdRequest::class.java)
+            val body = jsonObject.toString()
+                .toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
+            response = apiRequest { api.getPsOperator(body) }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return response
+    }
+
+    suspend fun hlrCheck(request: HlrCheckReq): String {
+        var response = String()
+        try {
+            val jsonObject = Gson().toJson(request, HlrCheckReq::class.java)
+            val body = jsonObject.toString()
+                .toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
+            response = apiRequest { api.hlrCheck(body) }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return response
+    }
+
+    suspend fun getPsMobPlanList(request: GetPsMobPlanListReq): String {
+        var response = String()
+        try {
+            val jsonObject = Gson().toJson(request, GetPsMobPlanListReq::class.java)
+            val body = jsonObject.toString()
+                .toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
+            response = apiRequest { api.getPsMobPlanList(body) }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return response
+    }
+
+    suspend fun doPsMobRecharge(request: DoPsRechargeReq): String {
+        var response = String()
+        try {
+            val jsonObject = Gson().toJson(request, DoPsRechargeReq::class.java)
+            val body = jsonObject.toString()
+                .toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
+            response = apiRequest { api.doPsMobRecharge(body) }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return response
+    }
+
+    suspend fun getPsBbpsOperator(request: UserIdRequest): String {
+        var response = String()
+        try {
+            val jsonObject = Gson().toJson(request, UserIdRequest::class.java)
+            val body = jsonObject.toString()
+                .toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
+            response = apiRequest { api.getPsBbpsOperator(body) }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return response
+    }
+
+    suspend fun getPsFastagOperator(request: UserIdRequest): String {
+        var response = String()
+        try {
+            val jsonObject = Gson().toJson(request, UserIdRequest::class.java)
+            val body = jsonObject.toString()
+                .toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
+            response = apiRequest { api.getPsFastagOperator(body) }
         } catch (e: Exception) {
             e.printStackTrace()
         }

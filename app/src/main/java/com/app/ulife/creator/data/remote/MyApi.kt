@@ -93,6 +93,38 @@ interface MyApi {
         @Body parameter: RequestBody
     ): Response<String>
 
+    // paysprint api's
+    @POST("PaysPrint/OperatorList")
+    suspend fun getPsOperator(
+        @Body parameter: RequestBody
+    ): Response<String>
+
+    @POST("PaysPrint/HLRCheck")
+    suspend fun hlrCheck(
+        @Body parameter: RequestBody
+    ): Response<String>
+
+    @POST("PaysPrint/PlanList")
+    suspend fun getPsMobPlanList(
+        @Body parameter: RequestBody
+    ): Response<String>
+
+    @POST("PaysPrint/DoRecharge")
+    suspend fun doPsMobRecharge(
+        @Body parameter: RequestBody
+    ): Response<String>
+
+    @POST("PaysPrint/BillOperatorList")
+    suspend fun getPsBbpsOperator(
+        @Body parameter: RequestBody
+    ): Response<String>
+
+    @POST("PaysPrint/FastagOperatorList")
+    suspend fun getPsFastagOperator(
+        @Body parameter: RequestBody
+    ): Response<String>
+
+
     /* Creating a singleton object of MyApi. */
     companion object {
         /**
