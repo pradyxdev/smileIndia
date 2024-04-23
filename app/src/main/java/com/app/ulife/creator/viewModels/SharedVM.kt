@@ -47,7 +47,11 @@ import com.app.ulife.creator.models.payoutManage.directIncome.GetDirectIncomeReq
 import com.app.ulife.creator.models.payoutManage.ldc.report.GetLdcReportReq
 import com.app.ulife.creator.models.payoutManage.rechargeIncome.GetRechargeIncomeReq
 import com.app.ulife.creator.models.payoutManage.shoppingIncome.GetShoppingIncomeReq
+import com.app.ulife.creator.models.paysprint.bbpsFetchBill.GetPsFetchBbpsReq
 import com.app.ulife.creator.models.paysprint.doPsRecharge.DoPsRechargeReq
+import com.app.ulife.creator.models.paysprint.fastag.psFastagRecharge.DoPsFastagRechargeReq
+import com.app.ulife.creator.models.paysprint.fastag.psFetchFastag.GetPsFetchFastagReq
+import com.app.ulife.creator.models.paysprint.history.mobHistory.GetMobRechargeHistReq
 import com.app.ulife.creator.models.paysprint.hlrCheck.HlrCheckReq
 import com.app.ulife.creator.models.paysprint.psMobPlanList.GetPsMobPlanListReq
 import com.app.ulife.creator.models.productList.GetProductListReq
@@ -499,10 +503,38 @@ class SharedVM(private val repository: SharedRepo) : ViewModel() {
         }
     }
 
+    var getPsFetchBbpsOperator = MutableLiveData<String>()
+    fun getPsFetchBbpsOperator(request: GetPsFetchBbpsReq) {
+        Coroutines.main {
+            getPsFetchBbpsOperator.postValue(repository.getPsFetchBbpsOperator(request))
+        }
+    }
+
     var getPsFastagOperator = MutableLiveData<String>()
     fun getPsFastagOperator(request: UserIdRequest) {
         Coroutines.main {
             getPsFastagOperator.postValue(repository.getPsFastagOperator(request))
+        }
+    }
+
+    var getPsFetchFastagOperator = MutableLiveData<String>()
+    fun getPsFetchFastagOperator(request: GetPsFetchFastagReq) {
+        Coroutines.main {
+            getPsFetchFastagOperator.postValue(repository.getPsFetchFastagOperator(request))
+        }
+    }
+
+    var doPsFastagRecharge = MutableLiveData<String>()
+    fun doPsFastagRecharge(request: DoPsFastagRechargeReq) {
+        Coroutines.main {
+            doPsFastagRecharge.postValue(repository.doPsFastagRecharge(request))
+        }
+    }
+
+    var getMobRechargeHistory = MutableLiveData<String>()
+    fun getMobRechargeHistory(request: GetMobRechargeHistReq) {
+        Coroutines.main {
+            getMobRechargeHistory.postValue(repository.getMobRechargeHistory(request))
         }
     }
 }

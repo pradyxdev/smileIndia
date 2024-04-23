@@ -8,31 +8,45 @@
 
 package com.app.ulife.creator.ui.userTypeActivities.customer.mainActivity.fragments.rechargeDash.paysprint.fastag
 
+import android.app.Dialog
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
+import com.app.ulife.creator.R
 import com.app.ulife.creator.databinding.FragmentFastagRechargeBinding
 import com.app.ulife.creator.factories.SharedVMF
 import com.app.ulife.creator.helpers.Constants
+import com.app.ulife.creator.helpers.Coroutines
 import com.app.ulife.creator.helpers.PreferenceManager
+import com.app.ulife.creator.models.EmptyResponse
 import com.app.ulife.creator.models.UserIdRequest
 import com.app.ulife.creator.models.paysprint.fastag.psFastagOp.GetPsFastagOpListRes
+import com.app.ulife.creator.models.paysprint.fastag.psFastagRecharge.DoPsFastagRechargeReq
+import com.app.ulife.creator.models.paysprint.fastag.psFetchFastag.GetPsFetchFastagReq
+import com.app.ulife.creator.models.paysprint.fastag.psFetchFastag.GetPsFetchFastagRes
 import com.app.ulife.creator.models.wallet.WalletReq
 import com.app.ulife.creator.models.wallet.balance.GetWalletBalRes
 import com.app.ulife.creator.ui.userTypeActivities.customer.mainActivity.MainActivity
+import com.app.ulife.creator.utils.GPSTracker
+import com.app.ulife.creator.utils.LoadingUtils
 import com.app.ulife.creator.utils.afterTextChanged
 import com.app.ulife.creator.utils.onDebouncedListener
+import com.app.ulife.creator.utils.snackbar
 import com.app.ulife.creator.utils.toast
 import com.app.ulife.creator.viewModels.SharedVM
+import com.google.android.material.button.MaterialButton
 import com.google.gson.Gson
+import kotlinx.coroutines.delay
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.kodein
@@ -79,6 +93,11 @@ class FastagRechargeFragment : Fragment(), KodeinAware {
         rechargeType = "" + arguments?.getString("rechargeType")
         binding.tvToolbarTitle.text = rechargeTypeName
 
+        Coroutines.main {
+            delay(1500)
+            setupLocation()
+        }
+
         if (!rechargeType.isNullOrEmpty()) {
             Log.e("rechargeType ", "--$rechargeType--")
 
@@ -109,6 +128,19 @@ class FastagRechargeFragment : Fragment(), KodeinAware {
         } else {
             context?.toast("No recharge type defined for $rechargeTypeName !")
             Navigation.findNavController(binding.root).popBackStack()
+        }
+    }
+
+    private fun setupLocation() {
+        try {
+            if (GPSTracker(context).canGetLocation()) {
+                latitude = "" + GPSTracker(context).latitude
+                longitude = "" + GPSTracker(context).latitude
+            } else {
+                GPSTracker(context).showSettingsAlert()
+            }
+        } catch (e: Exception) {
+            binding.root.snackbar("$e")
         }
     }
 
@@ -150,13 +182,47 @@ class FastagRechargeFragment : Fragment(), KodeinAware {
                         if (canContinue) {
                             etAmount.error = "Please check your amount !"
                         } else {
-//                            fetchBill(
-//                                FetchFastTagBillReq(
-//                                    "" + etNumber.text, opId.toInt()
-//                                )
-//                            )
+                            getPsFetchFastagOperator(
+                                GetPsFetchFastagReq(
+                                    canumber = "" + etNumber.text,
+                                    mode = "online",
+                                    operator = "" + opId,
+                                    userid = "" + preferenceManager.userid
+                                )
+                            )
                         }
                     }
+                }
+            }
+
+            btnPay.setOnClickListener {
+                when {
+                    etNumber.text.toString().isEmpty() -> etNumber.error =
+                        "Please enter vehicle number"
+
+                    etAmount.text.toString().isEmpty() -> etAmount.error = "Please enter amount"
+                    opId.isEmpty() -> root.snackbar("Select your operator")
+                    latitude.isEmpty() -> {
+                        context?.toast("Please turn on your location")
+                        setupLocation()
+                    }
+
+                    longitude.isEmpty() -> {
+                        context?.toast("Please turn on your location")
+                        setupLocation()
+                    }
+
+                    else -> doPsFastagRecharge(
+                        DoPsFastagRechargeReq(
+                            amount = etAmount.text.toString().toDouble(),
+                            billfetch = "",
+                            canumber = "" + etNumber.text,
+                            latitude = "" + latitude,
+                            longitude = "" + longitude,
+                            operator = opId.toInt(),
+                            userid = "" + preferenceManager.userid
+                        )
+                    )
                 }
             }
         }
@@ -238,48 +304,73 @@ class FastagRechargeFragment : Fragment(), KodeinAware {
         viewModel.getPsFastagOperator(req)
     }
 
-//    private fun doPsMobRecharge(req: DoPsRechargeReq) {
-//        LoadingUtils.showDialog(context, isCancelable = false)
-//        viewModel.doPsMobRecharge = MutableLiveData()
-//        viewModel.doPsMobRecharge.observe(requireActivity()) {
-//            try {
-//                val response = Gson().fromJson(it, EmptyResponse::class.java)
-//                if (response != null) {
-//                    if (response.status) {
-//                        LoadingUtils.hideDialog()
-//                        val dialog = Dialog(requireContext())
-//                        dialog.setCancelable(false)
-//                        dialog.setContentView(R.layout.dialog_header_success)
-//                        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
-//
-//                        val lp = WindowManager.LayoutParams()
-//                        lp.copyFrom(dialog.window?.attributes)
-//                        lp.width = WindowManager.LayoutParams.MATCH_PARENT
-//                        lp.height = WindowManager.LayoutParams.WRAP_CONTENT
-//
-//                        dialog.findViewById<MaterialButton>(R.id.btn_close)
-//                            .setOnClickListener {
-//                                Navigation.findNavController(binding.root).popBackStack()
-//                                dialog.dismiss()
-//                            }
-//
-//                        dialog.findViewById<TextView>(R.id.tv_amount).text =
-//                            "Recharge successfully completed of ₹${binding.etAmount.text}, for operator ${binding.actOperator.text}."
-//                        dialog.show()
-//                        dialog.window?.attributes = lp
-//                    } else {
-//                        LoadingUtils.hideDialog()
-//                        (activity as MainActivity).apiErrorDialog(response.message)
-//                    }
-//                } else {
-//                    LoadingUtils.hideDialog()
-//                    (activity as MainActivity).apiErrorDialog(Constants.apiErrors)
-//                }
-//            } catch (e: Exception) {
-//                LoadingUtils.hideDialog()
-//                (activity as MainActivity).apiErrorDialog("$it\n$e")
-//            }
-//        }
-//        viewModel.doPsMobRecharge(req)
-//    }
+    private fun getPsFetchFastagOperator(req: GetPsFetchFastagReq) {
+        viewModel.getPsFetchFastagOperator = MutableLiveData()
+        viewModel.getPsFetchFastagOperator.observe(requireActivity()) {
+            try {
+                val response = Gson().fromJson(it, GetPsFetchFastagRes::class.java)
+                if (response != null) {
+                    if (response.status) {
+//                        if (response.data.status) {
+//                            binding.apply {}
+//                        } else {
+//                            (activity as MainActivity).apiErrorDialog(response.message)
+//                        }
+                    } else {
+                        (activity as MainActivity).apiErrorDialog("" + response?.data)
+                    }
+                } else {
+                    (activity as MainActivity).apiErrorDialog(Constants.apiErrors)
+                }
+            } catch (e: Exception) {
+                (activity as MainActivity).apiErrorDialog("$e\n$it")
+            }
+        }
+        viewModel.getPsFetchFastagOperator(req)
+    }
+
+    private fun doPsFastagRecharge(req: DoPsFastagRechargeReq) {
+        LoadingUtils.showDialog(context, isCancelable = false)
+        viewModel.doPsFastagRecharge = MutableLiveData()
+        viewModel.doPsFastagRecharge.observe(requireActivity()) {
+            try {
+                val response = Gson().fromJson(it, EmptyResponse::class.java)
+                if (response != null) {
+                    if (response.status) {
+                        LoadingUtils.hideDialog()
+                        val dialog = Dialog(requireContext())
+                        dialog.setCancelable(false)
+                        dialog.setContentView(R.layout.dialog_header_success)
+                        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+
+                        val lp = WindowManager.LayoutParams()
+                        lp.copyFrom(dialog.window?.attributes)
+                        lp.width = WindowManager.LayoutParams.MATCH_PARENT
+                        lp.height = WindowManager.LayoutParams.WRAP_CONTENT
+
+                        dialog.findViewById<MaterialButton>(R.id.btn_close)
+                            .setOnClickListener {
+                                Navigation.findNavController(binding.root).popBackStack()
+                                dialog.dismiss()
+                            }
+
+                        dialog.findViewById<TextView>(R.id.tv_amount).text =
+                            "Recharge successfully completed of ₹${binding.etAmount.text}, for operator ${binding.autoCompleteOperator.text}."
+                        dialog.show()
+                        dialog.window?.attributes = lp
+                    } else {
+                        LoadingUtils.hideDialog()
+                        (activity as MainActivity).apiErrorDialog(response.message)
+                    }
+                } else {
+                    LoadingUtils.hideDialog()
+                    (activity as MainActivity).apiErrorDialog(Constants.apiErrors)
+                }
+            } catch (e: Exception) {
+                LoadingUtils.hideDialog()
+                (activity as MainActivity).apiErrorDialog("$it\n$e")
+            }
+        }
+        viewModel.doPsFastagRecharge(req)
+    }
 }

@@ -24,8 +24,10 @@ import com.app.ulife.creator.factories.SharedVMF
 import com.app.ulife.creator.helpers.Constants
 import com.app.ulife.creator.helpers.PreferenceManager
 import com.app.ulife.creator.models.UserIdRequest
+import com.app.ulife.creator.models.paysprint.bbpsFetchBill.GetPsFetchBbpsReq
 import com.app.ulife.creator.models.paysprint.bbpsOpList.DataX
 import com.app.ulife.creator.models.paysprint.bbpsOpList.GetBbpsOpListRes
+import com.app.ulife.creator.models.paysprint.fastag.psFetchFastag.GetPsFetchFastagRes
 import com.app.ulife.creator.models.wallet.WalletReq
 import com.app.ulife.creator.models.wallet.balance.GetWalletBalRes
 import com.app.ulife.creator.ui.userTypeActivities.customer.mainActivity.MainActivity
@@ -142,7 +144,7 @@ class BbpsRechargeFragment : Fragment(), KodeinAware {
                 Navigation.findNavController(it).popBackStack()
             }
 
-            btnSubmit.onDebouncedListener {
+            btnFetch.onDebouncedListener {
                 when {
                     categoryOpName.isEmpty() -> binding.autoCompleteOperator.error =
                         "Please select a existing operator !"
@@ -151,14 +153,17 @@ class BbpsRechargeFragment : Fragment(), KodeinAware {
                         "Please select a existing category !"
 
                     else -> {
-//                        doPsMobRecharge(
-//                            DoPsRechargeReq(
-//                                amount = ""+ etAmount.text,
-//                                canumber = "" + etNumber.text,
-//                                operator = "" + operatorId,
-//                                userid = ""+ preferenceManager.userid
-//                            )
-//                        )
+                        getPsFetchBbpsOperator(
+                            GetPsFetchBbpsReq(
+                                ad1 = "" + etAd1.text,
+                                ad2 = "" + etAd2.text,
+                                ad3 = "" + etAd3.text,
+                                canumber = "" + etNumber.text,
+                                mode = "online",
+                                operator = "" + opId,
+                                userid = "" + preferenceManager.userid
+                            )
+                        )
                     }
                 }
             }
@@ -275,6 +280,7 @@ class BbpsRechargeFragment : Fragment(), KodeinAware {
                                         val indexOfName =
                                             categoryOpName.indexOf(autoCompleteOperator.text.toString())
                                         categoryId = categoryIdArr[indexOfName]
+                                        opId = categoryIdArr[indexOfName]
                                         Log.e(
                                             "opId ",
                                             "" + categoryIdArr[position] + " // " + "$categoryId"
@@ -355,10 +361,35 @@ class BbpsRechargeFragment : Fragment(), KodeinAware {
         }
     }
 
-//    private fun doPsMobRecharge(req: DoPsRechargeReq) {
+    private fun getPsFetchBbpsOperator(req: GetPsFetchBbpsReq) {
+        viewModel.getPsFetchBbpsOperator = MutableLiveData()
+        viewModel.getPsFetchBbpsOperator.observe(requireActivity()) {
+            try {
+                val response = Gson().fromJson(it, GetPsFetchFastagRes::class.java)
+                if (response != null) {
+                    if (response.status) {
+//                        if (response.data.status) {
+//                            binding.apply {}
+//                        } else {
+//                            (activity as MainActivity).apiErrorDialog(response.message)
+//                        }
+                    } else {
+                        (activity as MainActivity).apiErrorDialog("" + response?.data)
+                    }
+                } else {
+                    (activity as MainActivity).apiErrorDialog(Constants.apiErrors)
+                }
+            } catch (e: Exception) {
+                (activity as MainActivity).apiErrorDialog("$e\n$it")
+            }
+        }
+        viewModel.getPsFetchBbpsOperator(req)
+    }
+
+//    private fun doPsFastagRecharge(req: DoPsFastagRechargeReq) {
 //        LoadingUtils.showDialog(context, isCancelable = false)
-//        viewModel.doPsMobRecharge = MutableLiveData()
-//        viewModel.doPsMobRecharge.observe(requireActivity()) {
+//        viewModel.doPsFastagRecharge = MutableLiveData()
+//        viewModel.doPsFastagRecharge.observe(requireActivity()) {
 //            try {
 //                val response = Gson().fromJson(it, EmptyResponse::class.java)
 //                if (response != null) {
@@ -381,7 +412,7 @@ class BbpsRechargeFragment : Fragment(), KodeinAware {
 //                            }
 //
 //                        dialog.findViewById<TextView>(R.id.tv_amount).text =
-//                            "Recharge successfully completed of ₹${binding.etAmount.text}, for operator ${binding.actOperator.text}."
+//                            "Recharge successfully completed of ₹${binding.etAmount.text}, for operator ${binding.autoCompleteOperator.text}."
 //                        dialog.show()
 //                        dialog.window?.attributes = lp
 //                    } else {
@@ -397,6 +428,6 @@ class BbpsRechargeFragment : Fragment(), KodeinAware {
 //                (activity as MainActivity).apiErrorDialog("$it\n$e")
 //            }
 //        }
-//        viewModel.doPsMobRecharge(req)
+//        viewModel.doPsFastagRecharge(req)
 //    }
 }

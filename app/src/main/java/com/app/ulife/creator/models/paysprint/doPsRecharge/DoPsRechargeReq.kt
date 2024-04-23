@@ -12,5 +12,8 @@ data class DoPsRechargeReq(
     val amount: String,
     val canumber: String,
     val operator: String,
-    val userid: String
+    val userid: String,
+    val OperatorName: String,
+    val Circle: String,
+    val PlanDescription: String
 )

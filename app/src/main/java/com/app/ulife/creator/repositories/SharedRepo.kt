@@ -46,7 +46,11 @@ import com.app.ulife.creator.models.payoutManage.directIncome.GetDirectIncomeReq
 import com.app.ulife.creator.models.payoutManage.ldc.report.GetLdcReportReq
 import com.app.ulife.creator.models.payoutManage.rechargeIncome.GetRechargeIncomeReq
 import com.app.ulife.creator.models.payoutManage.shoppingIncome.GetShoppingIncomeReq
+import com.app.ulife.creator.models.paysprint.bbpsFetchBill.GetPsFetchBbpsReq
 import com.app.ulife.creator.models.paysprint.doPsRecharge.DoPsRechargeReq
+import com.app.ulife.creator.models.paysprint.fastag.psFastagRecharge.DoPsFastagRechargeReq
+import com.app.ulife.creator.models.paysprint.fastag.psFetchFastag.GetPsFetchFastagReq
+import com.app.ulife.creator.models.paysprint.history.mobHistory.GetMobRechargeHistReq
 import com.app.ulife.creator.models.paysprint.hlrCheck.HlrCheckReq
 import com.app.ulife.creator.models.paysprint.psMobPlanList.GetPsMobPlanListReq
 import com.app.ulife.creator.models.productList.GetProductListReq
@@ -831,6 +835,19 @@ class SharedRepo(
         return response
     }
 
+    suspend fun getPsFetchBbpsOperator(request: GetPsFetchBbpsReq): String {
+        var response = String()
+        try {
+            val jsonObject = Gson().toJson(request, GetPsFetchBbpsReq::class.java)
+            val body = jsonObject.toString()
+                .toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
+            response = apiRequest { api.getPsFetchBbpsOperator(body) }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return response
+    }
+
     suspend fun getPsFastagOperator(request: UserIdRequest): String {
         var response = String()
         try {
@@ -838,6 +855,45 @@ class SharedRepo(
             val body = jsonObject.toString()
                 .toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
             response = apiRequest { api.getPsFastagOperator(body) }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return response
+    }
+
+    suspend fun getPsFetchFastagOperator(request: GetPsFetchFastagReq): String {
+        var response = String()
+        try {
+            val jsonObject = Gson().toJson(request, GetPsFetchFastagReq::class.java)
+            val body = jsonObject.toString()
+                .toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
+            response = apiRequest { api.getPsFetchFastagOperator(body) }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return response
+    }
+
+    suspend fun doPsFastagRecharge(request: DoPsFastagRechargeReq): String {
+        var response = String()
+        try {
+            val jsonObject = Gson().toJson(request, DoPsFastagRechargeReq::class.java)
+            val body = jsonObject.toString()
+                .toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
+            response = apiRequest { api.doPsFastagRecharge(body) }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return response
+    }
+
+    suspend fun getMobRechargeHistory(request: GetMobRechargeHistReq): String {
+        var response = String()
+        try {
+            val jsonObject = Gson().toJson(request, GetMobRechargeHistReq::class.java)
+            val body = jsonObject.toString()
+                .toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
+            response = apiRequest { api.getUserRequest(body) }
         } catch (e: Exception) {
             e.printStackTrace()
         }

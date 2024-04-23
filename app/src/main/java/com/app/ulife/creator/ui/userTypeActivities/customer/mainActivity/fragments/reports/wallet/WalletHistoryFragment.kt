@@ -17,15 +17,19 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import com.app.ulife.creator.adapters.WalletListAdapter
-import com.app.ulife.creator.databinding.FragmentSeeAllBinding
+import com.app.ulife.creator.adapters.rechargeHist.MobRechargeAdapter
+import com.app.ulife.creator.databinding.FragmentRechargeHistoryBinding
 import com.app.ulife.creator.factories.SharedVMF
 import com.app.ulife.creator.helpers.Constants
 import com.app.ulife.creator.helpers.PreferenceManager
+import com.app.ulife.creator.models.paysprint.history.mobHistory.GetMobRechargeHistReq
+import com.app.ulife.creator.models.paysprint.history.mobHistory.GetMobRechargeHistRes
 import com.app.ulife.creator.models.wallet.Obj
 import com.app.ulife.creator.models.wallet.WalletReq
 import com.app.ulife.creator.models.wallet.balance.GetWalletBalRes
 import com.app.ulife.creator.models.wallet.history.GetWalletHistoryRes
 import com.app.ulife.creator.ui.userTypeActivities.customer.mainActivity.MainActivity
+import com.app.ulife.creator.utils.LoadingUtils
 import com.app.ulife.creator.utils.toast
 import com.app.ulife.creator.viewModels.SharedVM
 import com.google.gson.Gson
@@ -36,7 +40,7 @@ import org.kodein.di.generic.instance
 import org.kodein.di.generic.kcontext
 
 class WalletHistoryFragment : Fragment(), KodeinAware {
-    private lateinit var binding: FragmentSeeAllBinding
+    private lateinit var binding: FragmentRechargeHistoryBinding
     override val kodeinContext = kcontext<Fragment>(this)
     override val kodein: Kodein by kodein()
     private val factory: SharedVMF by instance()
@@ -48,7 +52,7 @@ class WalletHistoryFragment : Fragment(), KodeinAware {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentSeeAllBinding.inflate(layoutInflater)
+        binding = FragmentRechargeHistoryBinding.inflate(layoutInflater)
         return binding.root
     }
 
@@ -72,7 +76,8 @@ class WalletHistoryFragment : Fragment(), KodeinAware {
                 }
 
                 "RC" -> {
-                    tvToolbarTitle.text = "Recharge Wallet History"
+                    tvToolbarTitle.text = "Recharge History"
+                    containerChipFilter.visibility = View.VISIBLE
                     hitApis()
                 }
 
@@ -120,6 +125,23 @@ class WalletHistoryFragment : Fragment(), KodeinAware {
             btnBack.setOnClickListener {
                 Navigation.findNavController(it).popBackStack()
             }
+
+            chipAll.setOnClickListener {
+                hitApis()
+            }
+
+            chipPrepaid.setOnClickListener {
+                getMobRechargeHistory(
+                    GetMobRechargeHistReq(
+                        apiname = "PPRechargeHistory",
+                        obj = com.app.ulife.creator.models.paysprint.history.mobHistory.Obj(
+                            from = "",
+                            to = "",
+                            userid = "" + preferenceManager.userid
+                        )
+                    )
+                )
+            }
         }
     }
 
@@ -156,12 +178,14 @@ class WalletHistoryFragment : Fragment(), KodeinAware {
     }
 
     private fun getWalletHistory(req: WalletReq) {
+        LoadingUtils.showDialog(context, isCancelable = false)
         viewModel.getWalletHistory = MutableLiveData()
         viewModel.getWalletHistory.observe(requireActivity()) {
             try {
                 val response = Gson().fromJson(it, GetWalletHistoryRes::class.java)
                 if (response != null) {
                     if (response.status) {
+                        LoadingUtils.hideDialog()
                         binding.apply {
                             containerEmpty.visibility = View.GONE
                             rvList.visibility = View.VISIBLE
@@ -170,6 +194,7 @@ class WalletHistoryFragment : Fragment(), KodeinAware {
                             }
                         }
                     } else {
+                        LoadingUtils.hideDialog()
                         binding.apply {
                             containerEmpty.visibility = View.VISIBLE
                             rvList.visibility = View.GONE
@@ -177,6 +202,7 @@ class WalletHistoryFragment : Fragment(), KodeinAware {
                         (activity as MainActivity).apiErrorDialog(response.message)
                     }
                 } else {
+                    LoadingUtils.hideDialog()
                     binding.apply {
                         containerEmpty.visibility = View.VISIBLE
                         rvList.visibility = View.GONE
@@ -184,6 +210,7 @@ class WalletHistoryFragment : Fragment(), KodeinAware {
                     (activity as MainActivity).apiErrorDialog(Constants.apiErrors)
                 }
             } catch (e: Exception) {
+                LoadingUtils.hideDialog()
                 binding.apply {
                     containerEmpty.visibility = View.VISIBLE
                     rvList.visibility = View.GONE
@@ -192,5 +219,49 @@ class WalletHistoryFragment : Fragment(), KodeinAware {
             }
         }
         viewModel.getWalletHistory(req)
+    }
+
+    private fun getMobRechargeHistory(req: GetMobRechargeHistReq) {
+        LoadingUtils.showDialog(context, isCancelable = false)
+        viewModel.getMobRechargeHistory = MutableLiveData()
+        viewModel.getMobRechargeHistory.observe(requireActivity()) {
+            try {
+                val response = Gson().fromJson(it, GetMobRechargeHistRes::class.java)
+                if (response != null) {
+                    if (response.status) {
+                        LoadingUtils.hideDialog()
+                        binding.apply {
+                            containerEmpty.visibility = View.GONE
+                            rvList.visibility = View.VISIBLE
+                            rvList.apply {
+                                adapter = MobRechargeAdapter(context, response.data)
+                            }
+                        }
+                    } else {
+                        LoadingUtils.hideDialog()
+                        binding.apply {
+                            containerEmpty.visibility = View.VISIBLE
+                            rvList.visibility = View.GONE
+                        }
+                        (activity as MainActivity).apiErrorDialog(response.message)
+                    }
+                } else {
+                    LoadingUtils.hideDialog()
+                    binding.apply {
+                        containerEmpty.visibility = View.VISIBLE
+                        rvList.visibility = View.GONE
+                    }
+                    (activity as MainActivity).apiErrorDialog(Constants.apiErrors)
+                }
+            } catch (e: Exception) {
+                LoadingUtils.hideDialog()
+                binding.apply {
+                    containerEmpty.visibility = View.VISIBLE
+                    rvList.visibility = View.GONE
+                }
+                (activity as MainActivity).apiErrorDialog("$it\n$e")
+            }
+        }
+        viewModel.getMobRechargeHistory(req)
     }
 }

@@ -157,7 +157,8 @@
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
                                         android:layout_margin="6dp"
-                                        android:src="@drawable/wallet" />
+                                        android:src="@drawable/plus_math"
+                                        app:tint="?attr/colorPrimary" />
 
                                 </com.google.android.material.card.MaterialCardView>
 
@@ -187,7 +188,8 @@
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
                                         android:layout_margin="6dp"
-                                        android:src="@drawable/wallet" />
+                                        android:src="@drawable/cash_in_hand"
+                                        app:tint="?attr/colorPrimary" />
 
                                 </com.google.android.material.card.MaterialCardView>
 
@@ -217,7 +219,8 @@
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
                                         android:layout_margin="6dp"
-                                        android:src="@drawable/wallet" />
+                                        android:src="@drawable/purchase_order"
+                                        app:tint="?attr/colorPrimary" />
 
                                 </com.google.android.material.card.MaterialCardView>
 

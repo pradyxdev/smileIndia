@@ -119,8 +119,23 @@ interface MyApi {
         @Body parameter: RequestBody
     ): Response<String>
 
+    @POST("PaysPrint/BillFetch")
+    suspend fun getPsFetchBbpsOperator(
+        @Body parameter: RequestBody
+    ): Response<String>
+
     @POST("PaysPrint/FastagOperatorList")
     suspend fun getPsFastagOperator(
+        @Body parameter: RequestBody
+    ): Response<String>
+
+    @POST("PaysPrint/FastagBillFetch")
+    suspend fun getPsFetchFastagOperator(
+        @Body parameter: RequestBody
+    ): Response<String>
+
+    @POST("PaysPrint/FastagRecharge")
+    suspend fun doPsFastagRecharge(
         @Body parameter: RequestBody
     ): Response<String>
 

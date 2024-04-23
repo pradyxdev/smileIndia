@@ -73,6 +73,7 @@ fun View.snackbar(message: String, duration: String) {
                 }
             }.show()
         }
+
         "long" -> {
             Snackbar.make(this, message, Snackbar.LENGTH_LONG).also { snackbar ->
 //                snackbar.setBackgroundTint(resources.getColor(R.color.md_theme_light_error))
@@ -82,6 +83,7 @@ fun View.snackbar(message: String, duration: String) {
                 }
             }.show()
         }
+
         "indefinite" -> {
             Snackbar.make(this, message, Snackbar.LENGTH_INDEFINITE).also { snackbar ->
 //                snackbar.setBackgroundTint(resources.getColor(R.color.md_theme_light_error))
@@ -310,3 +312,9 @@ fun Context.getColorFromAttr(
     typedArray.recycle()
     return textColor
 }
+
+fun String.mask() =
+    if (isEmpty())
+        ""
+    else
+        replaceRange(4, length, "*".repeat(length).replaceFirstChar { first() })

@@ -196,7 +196,10 @@ class DthRechargeFragment : Fragment(), KodeinAware {
                                 amount = "" + etAmount.text,
                                 canumber = "" + etNumber.text,
                                 operator = "" + operatorId,
-                                userid = "" + preferenceManager.userid
+                                userid = "" + preferenceManager.userid,
+                                OperatorName = "" + actOperator.text,
+                                Circle = "" + actCircle.text,
+                                PlanDescription = "" + tvPlanDesc.text
                             )
                         )
                     }
