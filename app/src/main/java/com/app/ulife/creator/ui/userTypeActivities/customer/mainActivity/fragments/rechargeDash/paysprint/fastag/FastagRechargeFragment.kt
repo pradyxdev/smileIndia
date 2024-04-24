@@ -72,6 +72,7 @@ class FastagRechargeFragment : Fragment(), KodeinAware {
     private var opId = ""
     var reffNo = ""
     private var canContinue = false
+    private lateinit var billFetchData: Any
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -185,7 +186,6 @@ class FastagRechargeFragment : Fragment(), KodeinAware {
                             getPsFetchFastagOperator(
                                 GetPsFetchFastagReq(
                                     canumber = "" + etNumber.text,
-                                    mode = "online",
                                     operator = "" + opId,
                                     userid = "" + preferenceManager.userid
                                 )
@@ -215,7 +215,7 @@ class FastagRechargeFragment : Fragment(), KodeinAware {
                     else -> doPsFastagRecharge(
                         DoPsFastagRechargeReq(
                             amount = etAmount.text.toString().toDouble(),
-                            billfetch = "",
+                            billfetch = billFetchData,
                             canumber = "" + etNumber.text,
                             latitude = "" + latitude,
                             longitude = "" + longitude,
@@ -305,24 +305,54 @@ class FastagRechargeFragment : Fragment(), KodeinAware {
     }
 
     private fun getPsFetchFastagOperator(req: GetPsFetchFastagReq) {
+        LoadingUtils.showDialog(context, isCancelable = false)
         viewModel.getPsFetchFastagOperator = MutableLiveData()
         viewModel.getPsFetchFastagOperator.observe(requireActivity()) {
             try {
                 val response = Gson().fromJson(it, GetPsFetchFastagRes::class.java)
                 if (response != null) {
                     if (response.status) {
-//                        if (response.data.status) {
-//                            binding.apply {}
-//                        } else {
-//                            (activity as MainActivity).apiErrorDialog(response.message)
-//                        }
+                        LoadingUtils.hideDialog()
+                        if (response.data.status) {
+                            binding.apply {
+                                cardResult.visibility = View.VISIBLE
+                                tvBillUsername.text = response.data.bill_fetch.userName
+                                tvBillDueDate.text = response.data.bill_fetch.dueDate
+                                tvBillCellNumber.text = response.data.bill_fetch.cellNumber
+                                tvBillAcceptPay.text = "" + response.data.bill_fetch.acceptPayment
+                                tvAcceptPartPay.text = "" + response.data.bill_fetch.acceptPartPay
+                                tvBillAmount.text = "" + response.data.bill_fetch.billAmount
+
+
+                                billFetchData = response.data.bill_fetch
+//                                billFetchData.addAll(listOf(response.data.bill_fetch))
+                                println("billFetchData: $billFetchData")
+                            }
+                        } else {
+                            binding.apply {
+                                cardResult.visibility = View.GONE
+                            }
+                            (activity as MainActivity).apiErrorDialog(response.message)
+                        }
                     } else {
+                        LoadingUtils.hideDialog()
+                        binding.apply {
+                            cardResult.visibility = View.GONE
+                        }
                         (activity as MainActivity).apiErrorDialog("" + response?.data)
                     }
                 } else {
+                    LoadingUtils.hideDialog()
+                    binding.apply {
+                        cardResult.visibility = View.GONE
+                    }
                     (activity as MainActivity).apiErrorDialog(Constants.apiErrors)
                 }
             } catch (e: Exception) {
+                LoadingUtils.hideDialog()
+                binding.apply {
+                    cardResult.visibility = View.GONE
+                }
                 (activity as MainActivity).apiErrorDialog("$e\n$it")
             }
         }
@@ -360,7 +390,7 @@ class FastagRechargeFragment : Fragment(), KodeinAware {
                         dialog.window?.attributes = lp
                     } else {
                         LoadingUtils.hideDialog()
-                        (activity as MainActivity).apiErrorDialog(response.message)
+                        (activity as MainActivity).apiErrorDialog("$it")
                     }
                 } else {
                     LoadingUtils.hideDialog()

@@ -10,10 +10,10 @@ package com.app.ulife.creator.models.paysprint.fastag.psFastagRecharge
 
 data class DoPsFastagRechargeReq(
     val amount: Double,
-    val billfetch: String,
+    val billfetch: Any,
     val canumber: String,
     val latitude: String,
     val longitude: String,
-    val `operator`: Int,
+    val operator: Int,
     val userid: String
 )

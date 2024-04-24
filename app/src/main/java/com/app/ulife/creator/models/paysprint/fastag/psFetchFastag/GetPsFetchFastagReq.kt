@@ -10,7 +10,6 @@ package com.app.ulife.creator.models.paysprint.fastag.psFetchFastag
 
 data class GetPsFetchFastagReq(
     val canumber: String,
-    val mode: String,
     val `operator`: String,
     val userid: String
 )

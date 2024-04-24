@@ -8,9 +8,12 @@
 
 package com.app.ulife.creator.models.paysprint.fastag.psFetchFastag
 
-data class GetPsFetchFastagRes(
-    val `data`: Data,
+data class Data(
+    val amount: String,
+    val bill_fetch: BillFetch,
+    val duedate: String,
     val message: String,
-    val requestId: Any,
+    val name: String,
+    val response_code: Int,
     val status: Boolean
 )
