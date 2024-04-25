@@ -11,13 +11,14 @@ package com.app.ulife.creator.models.paysprint.psMobPlanList
 import com.google.gson.annotations.SerializedName
 
 data class Info(
-    @SerializedName("2G")
-    val G2: List<G4G>,
     @SerializedName("3G/4G")
-    val G23: List<G4G>,
-    val COMBO: List<G4G>,
-    val FULLTT: List<G4G>,
-    val Romaing: List<G4G>,
-    val SMS: List<G4G>,
-    val TOPUP: List<G4G>
+    val G34: List<G4G>,
+    @SerializedName("TOPUP")
+    val topup: List<G4G>,
+    @SerializedName("COMBO")
+    val combo: List<G4G>,
+    @SerializedName("RATE CUTTER")
+    val rateCutter: List<G4G>,
+    @SerializedName("Romaing")
+    val romaing: List<G4G>
 )

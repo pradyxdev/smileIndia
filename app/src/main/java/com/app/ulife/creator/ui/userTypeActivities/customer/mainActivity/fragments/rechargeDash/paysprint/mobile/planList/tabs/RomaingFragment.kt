@@ -9,6 +9,7 @@
 package com.app.ulife.creator.ui.userTypeActivities.customer.mainActivity.fragments.rechargeDash.paysprint.mobile.planList.tabs
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -54,6 +55,7 @@ class RomaingFragment : Fragment(), KodeinAware, MobPlanListAdapter.OnItemClickL
     }
 
     private fun setupViews() {
+        Log.e("plansRomaingList ", "" + (activity as MobPlanListActivity).plansRomaingList)
         if ((activity as MobPlanListActivity).plansRomaingList.isNullOrEmpty()) {
             binding.animation.visibility = View.VISIBLE
 //            binding.root.snackbar("error: no plans found !!", "i")

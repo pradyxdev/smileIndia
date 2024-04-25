@@ -197,10 +197,13 @@ class MobileRechargeFragment : Fragment(), KodeinAware {
 
                     circleId.isEmpty() -> actCircle.error = "Please select your circle"
                     else -> {
+                        val opName = "" + actOperator.text
+
                         val i = Intent(requireContext(), MobPlanListActivity::class.java)
                         i.putExtra("type", "mobile")
                         i.putExtra("circle", circleId)
-                        i.putExtra("operator", operatorId)
+//                        i.putExtra("operator", operatorId)
+                        i.putExtra("operator", opName)
                         startActivityForResult(i, 69)
                         activity?.overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
                     }

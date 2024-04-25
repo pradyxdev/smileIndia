@@ -54,7 +54,7 @@ class SmsFragment : Fragment(), KodeinAware, MobPlanListAdapter.OnItemClickListe
     }
 
     private fun setupViews() {
-        if ((activity as MobPlanListActivity).plansSmsList.isNullOrEmpty()) {
+        if ((activity as MobPlanListActivity).plansComboList.isNullOrEmpty()) {
             binding.animation.visibility = View.VISIBLE
 //            binding.root.snackbar("error: no plans found !!", "i")
         } else {
@@ -62,7 +62,7 @@ class SmsFragment : Fragment(), KodeinAware, MobPlanListAdapter.OnItemClickListe
                 rvList.adapter =
                     MobPlanListAdapter(
                         requireContext(),
-                        (activity as MobPlanListActivity).plansSmsList,
+                        (activity as MobPlanListActivity).plansComboList,
                         this@SmsFragment
                     )
                 animation.visibility = View.GONE

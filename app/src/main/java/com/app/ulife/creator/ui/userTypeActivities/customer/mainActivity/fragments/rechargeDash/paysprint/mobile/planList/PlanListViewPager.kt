@@ -12,11 +12,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.app.ulife.creator.ui.userTypeActivities.customer.mainActivity.fragments.rechargeDash.paysprint.mobile.planList.tabs.ComboFragment
-import com.app.ulife.creator.ui.userTypeActivities.customer.mainActivity.fragments.rechargeDash.paysprint.mobile.planList.tabs.FullTtFragment
-import com.app.ulife.creator.ui.userTypeActivities.customer.mainActivity.fragments.rechargeDash.paysprint.mobile.planList.tabs.G2Fragment
 import com.app.ulife.creator.ui.userTypeActivities.customer.mainActivity.fragments.rechargeDash.paysprint.mobile.planList.tabs.G34Fragment
+import com.app.ulife.creator.ui.userTypeActivities.customer.mainActivity.fragments.rechargeDash.paysprint.mobile.planList.tabs.RateCutFragment
 import com.app.ulife.creator.ui.userTypeActivities.customer.mainActivity.fragments.rechargeDash.paysprint.mobile.planList.tabs.RomaingFragment
-import com.app.ulife.creator.ui.userTypeActivities.customer.mainActivity.fragments.rechargeDash.paysprint.mobile.planList.tabs.SmsFragment
 import com.app.ulife.creator.ui.userTypeActivities.customer.mainActivity.fragments.rechargeDash.paysprint.mobile.planList.tabs.TopupFragment
 
 class PlanListViewPager(fragmentActivity: FragmentActivity) :
@@ -25,18 +23,19 @@ class PlanListViewPager(fragmentActivity: FragmentActivity) :
         //Initialize fragments views
         //Fragment views are initialized like any other fragment (Extending Fragment)
         //First fragment to be displayed within the pager tab number 1
-        ComboFragment(),
         G34Fragment(),
         TopupFragment(),
-        SmsFragment(),
+        ComboFragment(),
         RomaingFragment(),
-        G2Fragment(),
-        FullTtFragment(),
+        RateCutFragment(),
+//        SmsFragment(),
+//        G2Fragment(),
+//        FullTtFragment(),
     )
 
     val mFragmentNames = arrayOf(
         //Tabs names array
-        "Combo", "4G/3G", "Topup", "SMS", "Roaming", "2G", "Full Talk Time"
+        "3G/4G", "TOPUP", "COMBO", "Romaing", "RATE CUTTER"
     )
 
     override fun getItemCount(): Int {

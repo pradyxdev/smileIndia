@@ -21,15 +21,18 @@ import com.app.ulife.creator.R
 import com.app.ulife.creator.databinding.ActivityPlanListBinding
 import com.app.ulife.creator.factories.SharedVMF
 import com.app.ulife.creator.helpers.Constants
+import com.app.ulife.creator.helpers.Coroutines
 import com.app.ulife.creator.helpers.PreferenceManager
 import com.app.ulife.creator.models.paysprint.psMobPlanList.G4G
 import com.app.ulife.creator.models.paysprint.psMobPlanList.GetPsMobPlanListReq
 import com.app.ulife.creator.models.paysprint.psMobPlanList.GetPsMobPlanListRes
 import com.app.ulife.creator.utils.LoadingUtils
 import com.app.ulife.creator.utils.snackbar
+import com.app.ulife.creator.utils.toast
 import com.app.ulife.creator.viewModels.SharedVM
 import com.google.android.material.tabs.TabLayoutMediator
 import com.google.gson.Gson
+import kotlinx.coroutines.delay
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.kodein
 import org.kodein.di.generic.instance
@@ -47,13 +50,15 @@ class MobPlanListActivity : AppCompatActivity(), KodeinAware {
     var operator = ""
     var amount = ""
 
-    var plansFullTTList = ArrayList<G4G>()
+    //    var plansFullTTList = ArrayList<G4G>()
     var plansTopupList = ArrayList<G4G>()
     var plansG34List = ArrayList<G4G>()
-    var plansG2List = ArrayList<G4G>()
-    var plansSmsList = ArrayList<G4G>()
+
+    //    var plansG2List = ArrayList<G4G>()
+//    var plansSmsList = ArrayList<G4G>()
     var plansComboList = ArrayList<G4G>()
     var plansRomaingList = ArrayList<G4G>()
+    var plansRateCutter = ArrayList<G4G>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -108,111 +113,41 @@ class MobPlanListActivity : AppCompatActivity(), KodeinAware {
                 if (response != null) {
                     if (response.status) {
                         LoadingUtils.hideDialog()
-
-                        plansFullTTList.clear()
-                        plansTopupList.clear()
                         plansG34List.clear()
-                        plansG2List.clear()
-                        plansSmsList.clear()
+                        if (!response.data.info.G34.isNullOrEmpty()) {
+                            for (i in response.data.info.G34.indices) {
+                                plansG34List.addAll(response.data.info.G34)
+                            }
+                        }
+                        plansTopupList.clear()
+                        if (!response.data.info.topup.isNullOrEmpty()) {
+                            for (i in response.data.info.topup.indices) {
+                                plansTopupList.addAll(response.data.info.topup)
+                            }
+                        }
                         plansComboList.clear()
+                        if (!response.data.info.combo.isNullOrEmpty()) {
+                            for (i in response.data.info.combo.indices) {
+                                plansComboList.addAll(response.data.info.combo)
+                            }
+                        }
+                        plansRateCutter.clear()
+                        if (!response.data.info.rateCutter.isNullOrEmpty()) {
+                            for (i in response.data.info.rateCutter.indices) {
+                                plansRateCutter.addAll(response.data.info.rateCutter)
+                            }
+                        }
                         plansRomaingList.clear()
-
-                        if (!response.data.info.FULLTT.isNullOrEmpty()) {
-                            for (i in response.data.info.FULLTT.indices) {
-                                plansFullTTList.add(
-                                    G4G(
-                                        response.data.info.FULLTT[i].desc,
-                                        response.data.info.FULLTT[i].last_update,
-                                        response.data.info.FULLTT[i].rs,
-                                        response.data.info.FULLTT[i].validity
-                                    )
-                                )
-                            }
-                            Log.e("plansTList ", "" + plansFullTTList)
-                        }
-
-                        if (!response.data.info.TOPUP.isNullOrEmpty()) {
-                            for (i in response.data.info.TOPUP.indices) {
-                                plansTopupList.add(
-                                    G4G(
-                                        response.data.info.TOPUP[i].desc,
-                                        response.data.info.TOPUP[i].last_update,
-                                        response.data.info.TOPUP[i].rs,
-                                        response.data.info.TOPUP[i].validity
-                                    )
-                                )
+                        if (!response.data.info.romaing.isNullOrEmpty()) {
+                            for (i in response.data.info.romaing.indices) {
+                                plansRomaingList.addAll(response.data.info.romaing)
                             }
                         }
 
-                        if (!response.data.info.G23.isNullOrEmpty()) {
-                            for (i in response.data.info.G23.indices) {
-                                plansG34List.add(
-                                    G4G(
-                                        response.data.info.G23[i].desc,
-                                        response.data.info.G23[i].last_update,
-                                        response.data.info.G23[i].rs,
-                                        response.data.info.G23[i].validity
-                                    )
-                                )
-                            }
-                        }
-
-                        if (!response.data.info.G2.isNullOrEmpty()) {
-                            for (i in response.data.info.G2.indices) {
-                                plansG2List.add(
-                                    G4G(
-                                        response.data.info.G2[i].desc,
-                                        response.data.info.G2[i].last_update,
-                                        response.data.info.G2[i].rs,
-                                        response.data.info.G2[i].validity
-                                    )
-                                )
-                            }
-                        }
-
-                        if (!response.data.info.SMS.isNullOrEmpty()) {
-                            for (i in response.data.info.SMS.indices) {
-                                plansSmsList.add(
-                                    G4G(
-                                        response.data.info.SMS[i].desc,
-                                        response.data.info.SMS[i].last_update,
-                                        response.data.info.SMS[i].rs,
-                                        response.data.info.SMS[i].validity
-                                    )
-                                )
-                            }
-                        }
-
-                        if (!response.data.info.COMBO.isNullOrEmpty()) {
-                            for (i in response.data.info.COMBO.indices) {
-                                plansComboList.add(
-                                    G4G(
-                                        response.data.info.COMBO[i].desc,
-                                        response.data.info.COMBO[i].last_update,
-                                        response.data.info.COMBO[i].rs,
-                                        response.data.info.COMBO[i].validity
-                                    )
-                                )
-                            }
-                        }
-
-                        if (!response.data.info.Romaing.isNullOrEmpty()) {
-                            for (i in response.data.info.Romaing.indices) {
-                                plansRomaingList.add(
-                                    G4G(
-                                        response.data.info.Romaing[i].desc,
-                                        response.data.info.Romaing[i].last_update,
-                                        response.data.info.Romaing[i].rs,
-                                        response.data.info.Romaing[i].validity
-                                    )
-                                )
-                            }
-
+                        Coroutines.main {
+                            delay(1000)
                             // create a list of tabs
                             createTabs()
-                        } else {
-                            LoadingUtils.hideDialog()
-                            binding.root.snackbar("Sorry no plans found in this section !!", "s")
                         }
                     } else {
                         LoadingUtils.hideDialog()
@@ -224,7 +159,14 @@ class MobPlanListActivity : AppCompatActivity(), KodeinAware {
                     apiErrorDialog(Constants.apiErrors)
                 }
             } catch (e: Exception) {
-                apiErrorDialog("$e\n$it")
+                if (it.contains("Plan Not Available", ignoreCase = true)) {
+                    this.toast("Plan Not Available !")
+                    finish()
+                } else {
+                    this.toast("$e\n$it")
+//                apiErrorDialog("$e\n$it")
+                    finish()
+                }
             }
         }
         viewModel.getPsMobPlanList(request)

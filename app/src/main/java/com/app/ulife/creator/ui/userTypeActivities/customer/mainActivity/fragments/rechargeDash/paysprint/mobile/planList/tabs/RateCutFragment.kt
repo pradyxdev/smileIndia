@@ -9,6 +9,7 @@
 package com.app.ulife.creator.ui.userTypeActivities.customer.mainActivity.fragments.rechargeDash.paysprint.mobile.planList.tabs
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -27,7 +28,7 @@ import org.kodein.di.android.x.kodein
 import org.kodein.di.generic.instance
 import org.kodein.di.generic.kcontext
 
-class FullTtFragment : Fragment(), KodeinAware, MobPlanListAdapter.OnItemClickListener {
+class RateCutFragment : Fragment(), KodeinAware, MobPlanListAdapter.OnItemClickListener {
     private lateinit var binding: FragmentPlanListCommonBinding
     override val kodeinContext = kcontext<Fragment>(this)
     override val kodein: Kodein by kodein()
@@ -55,7 +56,8 @@ class FullTtFragment : Fragment(), KodeinAware, MobPlanListAdapter.OnItemClickLi
     }
 
     private fun setupViews() {
-        if ((activity as MobPlanListActivity).plansComboList.isNullOrEmpty()) {
+        Log.e("plansRateCutter ", "" + (activity as MobPlanListActivity).plansRateCutter)
+        if ((activity as MobPlanListActivity).plansRateCutter.isNullOrEmpty()) {
             binding.animation.visibility = View.VISIBLE
 //            binding.root.snackbar("error: no plans found !!", "i")
         } else {
@@ -63,8 +65,8 @@ class FullTtFragment : Fragment(), KodeinAware, MobPlanListAdapter.OnItemClickLi
                 rvList.adapter =
                     MobPlanListAdapter(
                         requireContext(),
-                        (activity as MobPlanListActivity).plansComboList,
-                        this@FullTtFragment
+                        (activity as MobPlanListActivity).plansRateCutter,
+                        this@RateCutFragment
                     )
                 animation.visibility = View.GONE
             }

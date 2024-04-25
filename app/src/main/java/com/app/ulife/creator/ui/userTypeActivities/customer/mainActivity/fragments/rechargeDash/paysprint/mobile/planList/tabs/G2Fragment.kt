@@ -54,7 +54,7 @@ class G2Fragment : Fragment(), KodeinAware, MobPlanListAdapter.OnItemClickListen
     }
 
     private fun setupViews() {
-        if ((activity as MobPlanListActivity).plansG2List.isNullOrEmpty()) {
+        if ((activity as MobPlanListActivity).plansComboList.isNullOrEmpty()) {
             binding.animation.visibility = View.VISIBLE
 //            binding.root.snackbar("error: no plans found !!", "i")
         } else {
@@ -62,7 +62,7 @@ class G2Fragment : Fragment(), KodeinAware, MobPlanListAdapter.OnItemClickListen
                 rvList.adapter =
                     MobPlanListAdapter(
                         requireContext(),
-                        (activity as MobPlanListActivity).plansG2List,
+                        (activity as MobPlanListActivity).plansComboList,
                         this@G2Fragment
                     )
                 animation.visibility = View.GONE
