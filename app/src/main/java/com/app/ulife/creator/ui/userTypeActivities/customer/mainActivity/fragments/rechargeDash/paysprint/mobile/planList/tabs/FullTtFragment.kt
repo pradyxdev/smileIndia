@@ -55,7 +55,7 @@ class FullTtFragment : Fragment(), KodeinAware, MobPlanListAdapter.OnItemClickLi
     }
 
     private fun setupViews() {
-        if ((activity as MobPlanListActivity).plansComboList.isNullOrEmpty()) {
+        if ((activity as MobPlanListActivity).plansFullTTList.isNullOrEmpty()) {
             binding.animation.visibility = View.VISIBLE
 //            binding.root.snackbar("error: no plans found !!", "i")
         } else {
@@ -63,7 +63,7 @@ class FullTtFragment : Fragment(), KodeinAware, MobPlanListAdapter.OnItemClickLi
                 rvList.adapter =
                     MobPlanListAdapter(
                         requireContext(),
-                        (activity as MobPlanListActivity).plansComboList,
+                        (activity as MobPlanListActivity).plansFullTTList,
                         this@FullTtFragment
                     )
                 animation.visibility = View.GONE

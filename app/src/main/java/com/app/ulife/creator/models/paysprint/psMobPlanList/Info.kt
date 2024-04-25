@@ -20,5 +20,7 @@ data class Info(
     @SerializedName("RATE CUTTER")
     val rateCutter: List<G4G>,
     @SerializedName("Romaing")
-    val romaing: List<G4G>
+    val romaing: List<G4G>,
+    @SerializedName("FULLTT")
+    val fullTT: List<G4G>
 )

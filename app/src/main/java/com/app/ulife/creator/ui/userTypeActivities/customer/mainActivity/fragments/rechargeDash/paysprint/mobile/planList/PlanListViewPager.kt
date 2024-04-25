@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.app.ulife.creator.ui.userTypeActivities.customer.mainActivity.fragments.rechargeDash.paysprint.mobile.planList.tabs.ComboFragment
+import com.app.ulife.creator.ui.userTypeActivities.customer.mainActivity.fragments.rechargeDash.paysprint.mobile.planList.tabs.FullTtFragment
 import com.app.ulife.creator.ui.userTypeActivities.customer.mainActivity.fragments.rechargeDash.paysprint.mobile.planList.tabs.G34Fragment
 import com.app.ulife.creator.ui.userTypeActivities.customer.mainActivity.fragments.rechargeDash.paysprint.mobile.planList.tabs.RateCutFragment
 import com.app.ulife.creator.ui.userTypeActivities.customer.mainActivity.fragments.rechargeDash.paysprint.mobile.planList.tabs.RomaingFragment
@@ -25,17 +26,17 @@ class PlanListViewPager(fragmentActivity: FragmentActivity) :
         //First fragment to be displayed within the pager tab number 1
         G34Fragment(),
         TopupFragment(),
+        FullTtFragment(),
         ComboFragment(),
         RomaingFragment(),
         RateCutFragment(),
 //        SmsFragment(),
 //        G2Fragment(),
-//        FullTtFragment(),
     )
 
     val mFragmentNames = arrayOf(
         //Tabs names array
-        "3G/4G", "TOPUP", "COMBO", "Romaing", "RATE CUTTER"
+        "3G/4G", "TOPUP", "Full Talk Time", "COMBO", "Roaming", "RATE CUTTER"
     )
 
     override fun getItemCount(): Int {

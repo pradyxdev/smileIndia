@@ -50,12 +50,9 @@ class MobPlanListActivity : AppCompatActivity(), KodeinAware {
     var operator = ""
     var amount = ""
 
-    //    var plansFullTTList = ArrayList<G4G>()
+    var plansFullTTList = ArrayList<G4G>()
     var plansTopupList = ArrayList<G4G>()
     var plansG34List = ArrayList<G4G>()
-
-    //    var plansG2List = ArrayList<G4G>()
-//    var plansSmsList = ArrayList<G4G>()
     var plansComboList = ArrayList<G4G>()
     var plansRomaingList = ArrayList<G4G>()
     var plansRateCutter = ArrayList<G4G>()
@@ -141,6 +138,12 @@ class MobPlanListActivity : AppCompatActivity(), KodeinAware {
                         if (!response.data.info.romaing.isNullOrEmpty()) {
                             for (i in response.data.info.romaing.indices) {
                                 plansRomaingList.addAll(response.data.info.romaing)
+                            }
+                        }
+                        plansFullTTList.clear()
+                        if (!response.data.info.fullTT.isNullOrEmpty()) {
+                            for (i in response.data.info.fullTT.indices) {
+                                plansFullTTList.addAll(response.data.info.fullTT)
                             }
                         }
 
