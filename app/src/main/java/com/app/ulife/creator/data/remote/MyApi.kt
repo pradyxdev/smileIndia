@@ -139,6 +139,16 @@ interface MyApi {
         @Body parameter: RequestBody
     ): Response<String>
 
+    @POST("PaysPrint/HLRDTHInfo")
+    suspend fun getHlrDthInfo(
+        @Body parameter: RequestBody
+    ): Response<String>
+
+    @POST("PaysPrint/PayBill")
+    suspend fun doPsBbpsBillPay(
+        @Body parameter: RequestBody
+    ): Response<String>
+
 
     /* Creating a singleton object of MyApi. */
     companion object {

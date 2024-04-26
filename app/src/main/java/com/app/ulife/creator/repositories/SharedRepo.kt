@@ -47,7 +47,9 @@ import com.app.ulife.creator.models.payoutManage.ldc.report.GetLdcReportReq
 import com.app.ulife.creator.models.payoutManage.rechargeIncome.GetRechargeIncomeReq
 import com.app.ulife.creator.models.payoutManage.shoppingIncome.GetShoppingIncomeReq
 import com.app.ulife.creator.models.paysprint.bbpsFetchBill.GetPsFetchBbpsReq
+import com.app.ulife.creator.models.paysprint.bbpsPayBill.GetPsBbpsPayBillReq
 import com.app.ulife.creator.models.paysprint.doPsRecharge.DoPsRechargeReq
+import com.app.ulife.creator.models.paysprint.dthHlr.GetHlrDthInfoReq
 import com.app.ulife.creator.models.paysprint.fastag.psFastagRecharge.DoPsFastagRechargeReq
 import com.app.ulife.creator.models.paysprint.fastag.psFetchFastag.GetPsFetchFastagReq
 import com.app.ulife.creator.models.paysprint.history.mobHistory.GetMobRechargeHistReq
@@ -894,6 +896,32 @@ class SharedRepo(
             val body = jsonObject.toString()
                 .toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
             response = apiRequest { api.getUserRequest(body) }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return response
+    }
+
+    suspend fun getHlrDthInfo(request: GetHlrDthInfoReq): String {
+        var response = String()
+        try {
+            val jsonObject = Gson().toJson(request, GetHlrDthInfoReq::class.java)
+            val body = jsonObject.toString()
+                .toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
+            response = apiRequest { api.getHlrDthInfo(body) }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return response
+    }
+
+    suspend fun doPsBbpsBillPay(request: GetPsBbpsPayBillReq): String {
+        var response = String()
+        try {
+            val jsonObject = Gson().toJson(request, GetPsBbpsPayBillReq::class.java)
+            val body = jsonObject.toString()
+                .toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
+            response = apiRequest { api.doPsBbpsBillPay(body) }
         } catch (e: Exception) {
             e.printStackTrace()
         }

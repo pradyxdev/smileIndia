@@ -8,33 +8,47 @@
 
 package com.app.ulife.creator.ui.userTypeActivities.customer.mainActivity.fragments.rechargeDash.paysprint.bbps
 
+import android.app.Dialog
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
+import com.app.ulife.creator.R
 import com.app.ulife.creator.databinding.FragmentBbpsPayBinding
 import com.app.ulife.creator.factories.SharedVMF
 import com.app.ulife.creator.helpers.Constants
+import com.app.ulife.creator.helpers.Coroutines
 import com.app.ulife.creator.helpers.PreferenceManager
+import com.app.ulife.creator.models.EmptyResponse
 import com.app.ulife.creator.models.UserIdRequest
 import com.app.ulife.creator.models.paysprint.bbpsFetchBill.GetPsFetchBbpsReq
+import com.app.ulife.creator.models.paysprint.bbpsFetchBill.GetPsFetchBbpsRes
 import com.app.ulife.creator.models.paysprint.bbpsOpList.DataX
 import com.app.ulife.creator.models.paysprint.bbpsOpList.GetBbpsOpListRes
-import com.app.ulife.creator.models.paysprint.fastag.psFetchFastag.GetPsFetchFastagRes
+import com.app.ulife.creator.models.paysprint.bbpsPayBill.GetPsBbpsPayBillReq
 import com.app.ulife.creator.models.wallet.WalletReq
 import com.app.ulife.creator.models.wallet.balance.GetWalletBalRes
 import com.app.ulife.creator.ui.userTypeActivities.customer.mainActivity.MainActivity
+import com.app.ulife.creator.utils.GPSTracker
+import com.app.ulife.creator.utils.LoadingUtils
+import com.app.ulife.creator.utils.afterTextChanged
+import com.app.ulife.creator.utils.hideKeyboard
 import com.app.ulife.creator.utils.onDebouncedListener
+import com.app.ulife.creator.utils.snackbar
 import com.app.ulife.creator.utils.toast
 import com.app.ulife.creator.viewModels.SharedVM
+import com.google.android.material.button.MaterialButton
 import com.google.gson.Gson
+import kotlinx.coroutines.delay
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.kodein
@@ -56,9 +70,11 @@ class BbpsRechargeFragment : Fragment(), KodeinAware {
     var categoryId = ""
     var categoryIdArr = ArrayList<String>()
     var categoryOpName = ArrayList<String>()
-
     var selectedOpData = ArrayList<DataX>()
     var arrPosition = 0
+    private lateinit var billFetchData: Any
+    private var latitude = ""
+    private var longitude = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -82,37 +98,15 @@ class BbpsRechargeFragment : Fragment(), KodeinAware {
 
         if (!rechargeType.isNullOrEmpty()) {
             Log.e("rechargeType ", "--$rechargeType--")
-
-            binding.apply {
-//                etNumber.afterTextChanged {
-//                    if (it.isNotEmpty()) {
-//                        if (it.length == 10) {
-//                            hlrCheck(
-//                                HlrCheckReq(
-//                                    number = "" + etNumber.text,
-//                                    type = "dth",
-//                                    userid = "" + preferenceManager.userid
-//                                )
-//                            )
-//                        } else {
-//                            actOperator.setText("")
-//                            actlOperator.isEnabled = true
-//                            actCircle.setText("")
-//                            actlCircle.isEnabled = true
-//                        }
-//                    } else {
-//                        actOperator.setText("")
-//                        actlOperator.isEnabled = true
-//                        actCircle.setText("")
-//                        actlCircle.isEnabled = true
-//                    }
-//                }
-            }
-
             hitApis() // fetchRequiredData
         } else {
             context?.toast("No recharge type defined for $rechargeTypeName !")
             Navigation.findNavController(binding.root).popBackStack()
+        }
+
+        Coroutines.main {
+            delay(1500)
+            setupLocation()
         }
     }
 
@@ -133,6 +127,19 @@ class BbpsRechargeFragment : Fragment(), KodeinAware {
         )
     }
 
+    private fun setupLocation() {
+        try {
+            if (GPSTracker(context).canGetLocation()) {
+                latitude = "" + GPSTracker(context).latitude
+                longitude = "" + GPSTracker(context).latitude
+            } else {
+                GPSTracker(context).showSettingsAlert()
+            }
+        } catch (e: Exception) {
+            binding.root.snackbar("$e")
+        }
+    }
+
     override fun onResume() {
         super.onResume()
         (activity as MainActivity).setBottombarVisibility(isVisible = false)
@@ -144,6 +151,28 @@ class BbpsRechargeFragment : Fragment(), KodeinAware {
                 Navigation.findNavController(it).popBackStack()
             }
 
+            etAmount.afterTextChanged {
+                if (it.isNotEmpty()) {
+                    if (etAmount.text.toString().toDouble() > walletAmt) {
+                        context?.toast("Insufficient fund !")
+                        etAmount.error = "Insufficient fund !"
+                        btnPay.isEnabled = false
+                    } else if (etAmount.text.toString().equals("0")
+                        || etAmount.text.toString().equals("0.0")
+                        || etAmount.text.toString().equals("0.00")
+                    ) {
+                        etAmount.error = "Amount can't be zero !"
+                        btnPay.isEnabled = false
+                    } else {
+                        btnPay.isEnabled = true
+                        etAmount.error = null
+                    }
+                } else {
+                    btnPay.isEnabled = true
+                    etAmount.error = null
+                }
+            }
+
             btnFetch.onDebouncedListener {
                 when {
                     categoryOpName.isEmpty() -> binding.autoCompleteOperator.error =
@@ -152,7 +181,18 @@ class BbpsRechargeFragment : Fragment(), KodeinAware {
                     categoryId.isEmpty() -> binding.autoCompleteCategory.error =
                         "Please select a existing category !"
 
+                    latitude.isEmpty() -> {
+                        context?.toast("Please turn on your location")
+                        setupLocation()
+                    }
+
+                    longitude.isEmpty() -> {
+                        context?.toast("Please turn on your location")
+                        setupLocation()
+                    }
+
                     else -> {
+                        hideKeyboard()
                         getPsFetchBbpsOperator(
                             GetPsFetchBbpsReq(
                                 ad1 = "" + etAd1.text,
@@ -166,6 +206,23 @@ class BbpsRechargeFragment : Fragment(), KodeinAware {
                         )
                     }
                 }
+            }
+
+            btnPay.setOnClickListener {
+                doPsBbpsBillPay(
+                    GetPsBbpsPayBillReq(
+                        userid = "" + preferenceManager.userid,
+                        canumber = "" + etNumber.text,
+                        amount = etAmount.text.toString().toDouble(),
+                        latitude = "" + latitude,
+                        longitude = "" + longitude,
+                        mode = "online",
+                        operator = opId.toInt(),
+                        bill_fetch = billFetchData,
+                        Circle = "",
+                        PlanDescription = "BBPS of ${autoCompleteOperator.text} for customer ${etNumber.text}-${etAd1.text}-${etAd2.text}-${etAd3.text} of amount ${etAmount.text}"
+                    )
+                )
             }
         }
     }
@@ -365,69 +422,124 @@ class BbpsRechargeFragment : Fragment(), KodeinAware {
         viewModel.getPsFetchBbpsOperator = MutableLiveData()
         viewModel.getPsFetchBbpsOperator.observe(requireActivity()) {
             try {
-                val response = Gson().fromJson(it, GetPsFetchFastagRes::class.java)
+                val response = Gson().fromJson(it, GetPsFetchBbpsRes::class.java)
                 if (response != null) {
                     if (response.status) {
-//                        if (response.data.status) {
-//                            binding.apply {}
-//                        } else {
-//                            (activity as MainActivity).apiErrorDialog(response.message)
-//                        }
+                        if (response.data.status) {
+                            binding.apply {
+                                cardResult.visibility = View.VISIBLE
+                                tvUsername.text = "" + response.data.bill_fetch?.userName
+                                tvAmount.text = "" + response.data.bill_fetch?.billAmount
+                                tvDueDate.text = "" + response.data.bill_fetch?.dueDate
+                                tvBillDate.text = "" + response.data.bill_fetch?.billdate
+                                tvAcceptPartPay.text = "" + response.data.bill_fetch?.acceptPartPay
+                                tvAcceptPay.text = "" + response.data.bill_fetch?.acceptPayment
+                                tvCellNumber.text = "" + response.data.bill_fetch?.cellNumber
+                                etAmount.setText("" + response.data.bill_fetch?.billAmount)
+                                billFetchData = response.data.bill_fetch
+                            }
+                        } else {
+                            binding.apply {
+                                cardResult.visibility = View.GONE
+                                tvUsername.text = ""
+                                tvAmount.text = ""
+                                tvDueDate.text = ""
+                                tvBillDate.text = ""
+                                tvAcceptPartPay.text = ""
+                                tvAcceptPay.text = ""
+                                tvCellNumber.text = ""
+                                etAmount.setText("")
+                            }
+                            (activity as MainActivity).apiErrorDialog("" + response.data?.message)
+                        }
                     } else {
+                        binding.apply {
+                            cardResult.visibility = View.GONE
+                            tvUsername.text = ""
+                            tvAmount.text = ""
+                            tvDueDate.text = ""
+                            tvBillDate.text = ""
+                            tvAcceptPartPay.text = ""
+                            tvAcceptPay.text = ""
+                            tvCellNumber.text = ""
+                            etAmount.setText("")
+                        }
                         (activity as MainActivity).apiErrorDialog("" + response?.data)
                     }
                 } else {
+                    binding.apply {
+                        cardResult.visibility = View.GONE
+                        tvUsername.text = ""
+                        tvAmount.text = ""
+                        tvDueDate.text = ""
+                        tvBillDate.text = ""
+                        tvAcceptPartPay.text = ""
+                        tvAcceptPay.text = ""
+                        tvCellNumber.text = ""
+                        etAmount.setText("")
+                    }
                     (activity as MainActivity).apiErrorDialog(Constants.apiErrors)
                 }
             } catch (e: Exception) {
+                binding.apply {
+                    cardResult.visibility = View.GONE
+                    tvUsername.text = ""
+                    tvAmount.text = ""
+                    tvDueDate.text = ""
+                    tvBillDate.text = ""
+                    tvAcceptPartPay.text = ""
+                    tvAcceptPay.text = ""
+                    tvCellNumber.text = ""
+                    etAmount.setText("")
+                }
                 (activity as MainActivity).apiErrorDialog("$e\n$it")
             }
         }
         viewModel.getPsFetchBbpsOperator(req)
     }
 
-//    private fun doPsFastagRecharge(req: DoPsFastagRechargeReq) {
-//        LoadingUtils.showDialog(context, isCancelable = false)
-//        viewModel.doPsFastagRecharge = MutableLiveData()
-//        viewModel.doPsFastagRecharge.observe(requireActivity()) {
-//            try {
-//                val response = Gson().fromJson(it, EmptyResponse::class.java)
-//                if (response != null) {
-//                    if (response.status) {
-//                        LoadingUtils.hideDialog()
-//                        val dialog = Dialog(requireContext())
-//                        dialog.setCancelable(false)
-//                        dialog.setContentView(R.layout.dialog_header_success)
-//                        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
-//
-//                        val lp = WindowManager.LayoutParams()
-//                        lp.copyFrom(dialog.window?.attributes)
-//                        lp.width = WindowManager.LayoutParams.MATCH_PARENT
-//                        lp.height = WindowManager.LayoutParams.WRAP_CONTENT
-//
-//                        dialog.findViewById<MaterialButton>(R.id.btn_close)
-//                            .setOnClickListener {
-//                                Navigation.findNavController(binding.root).popBackStack()
-//                                dialog.dismiss()
-//                            }
-//
-//                        dialog.findViewById<TextView>(R.id.tv_amount).text =
-//                            "Recharge successfully completed of ₹${binding.etAmount.text}, for operator ${binding.autoCompleteOperator.text}."
-//                        dialog.show()
-//                        dialog.window?.attributes = lp
-//                    } else {
-//                        LoadingUtils.hideDialog()
-//                        (activity as MainActivity).apiErrorDialog(response.message)
-//                    }
-//                } else {
-//                    LoadingUtils.hideDialog()
-//                    (activity as MainActivity).apiErrorDialog(Constants.apiErrors)
-//                }
-//            } catch (e: Exception) {
-//                LoadingUtils.hideDialog()
-//                (activity as MainActivity).apiErrorDialog("$it\n$e")
-//            }
-//        }
-//        viewModel.doPsFastagRecharge(req)
-//    }
+    private fun doPsBbpsBillPay(req: GetPsBbpsPayBillReq) {
+        LoadingUtils.showDialog(context, isCancelable = false)
+        viewModel.doPsBbpsBillPay = MutableLiveData()
+        viewModel.doPsBbpsBillPay.observe(requireActivity()) {
+            try {
+                val response = Gson().fromJson(it, EmptyResponse::class.java)
+                if (response != null) {
+                    if (response.status) {
+                        LoadingUtils.hideDialog()
+                        val dialog = Dialog(requireContext())
+                        dialog.setCancelable(false)
+                        dialog.setContentView(R.layout.dialog_header_success)
+                        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+
+                        val lp = WindowManager.LayoutParams()
+                        lp.copyFrom(dialog.window?.attributes)
+                        lp.width = WindowManager.LayoutParams.MATCH_PARENT
+                        lp.height = WindowManager.LayoutParams.WRAP_CONTENT
+
+                        dialog.findViewById<MaterialButton>(R.id.btn_close)
+                            .setOnClickListener {
+                                Navigation.findNavController(binding.root).popBackStack()
+                                dialog.dismiss()
+                            }
+
+                        dialog.findViewById<TextView>(R.id.tv_amount).text =
+                            "BBPS recharge successful of ${binding.autoCompleteOperator.text} for customer ${binding.etNumber.text}-${binding.etAd1.text}-${binding.etAd2.text}-${binding.etAd3.text} of amount ${binding.etAmount.text}"
+                        dialog.show()
+                        dialog.window?.attributes = lp
+                    } else {
+                        LoadingUtils.hideDialog()
+                        (activity as MainActivity).apiErrorDialog(response.message)
+                    }
+                } else {
+                    LoadingUtils.hideDialog()
+                    (activity as MainActivity).apiErrorDialog(Constants.apiErrors)
+                }
+            } catch (e: Exception) {
+                LoadingUtils.hideDialog()
+                (activity as MainActivity).apiErrorDialog("$it\n$e")
+            }
+        }
+        viewModel.doPsBbpsBillPay(req)
+    }
 }

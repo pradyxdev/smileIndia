@@ -322,7 +322,7 @@ class FastagRechargeFragment : Fragment(), KodeinAware {
                                 tvBillAcceptPay.text = "" + response.data.bill_fetch.acceptPayment
                                 tvAcceptPartPay.text = "" + response.data.bill_fetch.acceptPartPay
                                 tvBillAmount.text = "" + response.data.bill_fetch.billAmount
-
+                                etAmount.setText("" + response.data.bill_fetch.billAmount)
 
                                 billFetchData = response.data.bill_fetch
 //                                billFetchData.addAll(listOf(response.data.bill_fetch))
@@ -331,12 +331,14 @@ class FastagRechargeFragment : Fragment(), KodeinAware {
                         } else {
                             binding.apply {
                                 cardResult.visibility = View.GONE
+                                etAmount.setText("")
                             }
-                            (activity as MainActivity).apiErrorDialog(response.message)
+                            (activity as MainActivity).apiErrorDialog("" + response.data?.message)
                         }
                     } else {
                         LoadingUtils.hideDialog()
                         binding.apply {
+                            etAmount.setText("")
                             cardResult.visibility = View.GONE
                         }
                         (activity as MainActivity).apiErrorDialog("" + response?.data)
@@ -344,6 +346,7 @@ class FastagRechargeFragment : Fragment(), KodeinAware {
                 } else {
                     LoadingUtils.hideDialog()
                     binding.apply {
+                        etAmount.setText("")
                         cardResult.visibility = View.GONE
                     }
                     (activity as MainActivity).apiErrorDialog(Constants.apiErrors)
@@ -351,6 +354,7 @@ class FastagRechargeFragment : Fragment(), KodeinAware {
             } catch (e: Exception) {
                 LoadingUtils.hideDialog()
                 binding.apply {
+                    etAmount.setText("")
                     cardResult.visibility = View.GONE
                 }
                 (activity as MainActivity).apiErrorDialog("$e\n$it")

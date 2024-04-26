@@ -287,7 +287,7 @@
                 android:id="@+id/card_result"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="16dp"
                 android:animateLayoutChanges="true"
                 android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -492,16 +492,34 @@
                             android:text="N/A" />
                     </LinearLayout>
 
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:hint="Amount"
+                        app:endIconMode="clear_text"
+                        app:errorEnabled="true"
+                        app:helperText="*required"
+                        app:helperTextTextColor="@color/red"
+                        app:startIconDrawable="@drawable/ic_rupee_txt">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/et_amount"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:inputType="number" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btn_pay"
                         style="@style/Widget.Material3.Button.Icon"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="55dp"
                         android:layout_gravity="end"
                         android:layout_marginTop="8dp"
                         android:text="Pay now"
                         app:cornerRadius="8dp"
-                        app:icon="@drawable/ic_rupee_txt"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
                 </LinearLayout>

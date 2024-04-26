@@ -48,7 +48,9 @@ import com.app.ulife.creator.models.payoutManage.ldc.report.GetLdcReportReq
 import com.app.ulife.creator.models.payoutManage.rechargeIncome.GetRechargeIncomeReq
 import com.app.ulife.creator.models.payoutManage.shoppingIncome.GetShoppingIncomeReq
 import com.app.ulife.creator.models.paysprint.bbpsFetchBill.GetPsFetchBbpsReq
+import com.app.ulife.creator.models.paysprint.bbpsPayBill.GetPsBbpsPayBillReq
 import com.app.ulife.creator.models.paysprint.doPsRecharge.DoPsRechargeReq
+import com.app.ulife.creator.models.paysprint.dthHlr.GetHlrDthInfoReq
 import com.app.ulife.creator.models.paysprint.fastag.psFastagRecharge.DoPsFastagRechargeReq
 import com.app.ulife.creator.models.paysprint.fastag.psFetchFastag.GetPsFetchFastagReq
 import com.app.ulife.creator.models.paysprint.history.mobHistory.GetMobRechargeHistReq
@@ -535,6 +537,20 @@ class SharedVM(private val repository: SharedRepo) : ViewModel() {
     fun getMobRechargeHistory(request: GetMobRechargeHistReq) {
         Coroutines.main {
             getMobRechargeHistory.postValue(repository.getMobRechargeHistory(request))
+        }
+    }
+
+    var getHlrDthInfo = MutableLiveData<String>()
+    fun getHlrDthInfo(request: GetHlrDthInfoReq) {
+        Coroutines.main {
+            getHlrDthInfo.postValue(repository.getHlrDthInfo(request))
+        }
+    }
+
+    var doPsBbpsBillPay = MutableLiveData<String>()
+    fun doPsBbpsBillPay(request: GetPsBbpsPayBillReq) {
+        Coroutines.main {
+            doPsBbpsBillPay.postValue(repository.doPsBbpsBillPay(request))
         }
     }
 }

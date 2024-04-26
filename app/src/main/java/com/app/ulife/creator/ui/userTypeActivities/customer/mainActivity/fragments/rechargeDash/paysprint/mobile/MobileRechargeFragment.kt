@@ -292,12 +292,14 @@ class MobileRechargeFragment : Fragment(), KodeinAware {
     }
 
     private fun getPsOperator(req: UserIdRequest) {
+        LoadingUtils.showDialog(context, isCancelable = false)
         viewModel.getPsOperator = MutableLiveData()
         viewModel.getPsOperator.observe(requireActivity()) {
             try {
                 val response = Gson().fromJson(it, GetPsOpListRes::class.java)
                 if (response != null) {
                     if (response.status) {
+                        LoadingUtils.hideDialog()
                         opListName.clear()
                         opListId.clear()
 
@@ -336,15 +338,19 @@ class MobileRechargeFragment : Fragment(), KodeinAware {
                                 println("Operator doesn't exist !")
                             }
                         } else {
+                            LoadingUtils.hideDialog()
                             (activity as MainActivity).apiErrorDialog(response.message)
                         }
                     } else {
+                        LoadingUtils.hideDialog()
                         (activity as MainActivity).apiErrorDialog(response.message)
                     }
                 } else {
+                    LoadingUtils.hideDialog()
                     (activity as MainActivity).apiErrorDialog(Constants.apiErrors)
                 }
             } catch (e: Exception) {
+                LoadingUtils.hideDialog()
                 (activity as MainActivity).apiErrorDialog("$it\n$e")
             }
         }
@@ -352,12 +358,14 @@ class MobileRechargeFragment : Fragment(), KodeinAware {
     }
 
     private fun hlrCheck(req: HlrCheckReq) {
+        LoadingUtils.showDialog(context, isCancelable = false)
         viewModel.hlrCheck = MutableLiveData()
         viewModel.hlrCheck.observe(requireActivity()) {
             try {
                 val response = Gson().fromJson(it, HlrCheckRes::class.java)
                 if (response != null) {
                     if (response.status) {
+                        LoadingUtils.hideDialog()
                         binding.apply {
                             if (response.data.status) {
                                 actOperator.setText("" + response?.data?.info?.operator)
@@ -373,6 +381,7 @@ class MobileRechargeFragment : Fragment(), KodeinAware {
                             }
                         }
                     } else {
+                        LoadingUtils.hideDialog()
                         binding.apply {
                             actOperator.setText("")
                             actlOperator.isEnabled = true
@@ -383,6 +392,7 @@ class MobileRechargeFragment : Fragment(), KodeinAware {
 //                        (activity as MainActivity).apiErrorDialog(response.message)
                     }
                 } else {
+                    LoadingUtils.hideDialog()
                     binding.apply {
                         actOperator.setText("")
                         actlOperator.isEnabled = true
@@ -392,6 +402,7 @@ class MobileRechargeFragment : Fragment(), KodeinAware {
                     (activity as MainActivity).apiErrorDialog(Constants.apiErrors)
                 }
             } catch (e: Exception) {
+                LoadingUtils.hideDialog()
                 binding.apply {
                     actOperator.setText("")
                     actlOperator.isEnabled = true

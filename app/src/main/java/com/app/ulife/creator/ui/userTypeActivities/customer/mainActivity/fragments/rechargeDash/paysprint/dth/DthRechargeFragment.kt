@@ -10,7 +10,6 @@ package com.app.ulife.creator.ui.userTypeActivities.customer.mainActivity.fragme
 
 import android.app.Dialog
 import android.os.Bundle
-import android.text.InputFilter
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -24,21 +23,22 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import com.app.ulife.creator.R
-import com.app.ulife.creator.databinding.FragmentRechargeCommonBinding
+import com.app.ulife.creator.databinding.FragmentDthRechargeBinding
 import com.app.ulife.creator.factories.SharedVMF
 import com.app.ulife.creator.helpers.Constants
 import com.app.ulife.creator.helpers.PreferenceManager
 import com.app.ulife.creator.models.EmptyResponse
 import com.app.ulife.creator.models.UserIdRequest
 import com.app.ulife.creator.models.paysprint.doPsRecharge.DoPsRechargeReq
-import com.app.ulife.creator.models.paysprint.hlrCheck.HlrCheckReq
-import com.app.ulife.creator.models.paysprint.hlrCheck.HlrCheckRes
+import com.app.ulife.creator.models.paysprint.dthHlr.GetHlrDthInfoReq
+import com.app.ulife.creator.models.paysprint.dthHlr.GetHlrDthInfoRes
 import com.app.ulife.creator.models.paysprint.psOpList.GetPsOpListRes
 import com.app.ulife.creator.models.wallet.WalletReq
 import com.app.ulife.creator.models.wallet.balance.GetWalletBalRes
 import com.app.ulife.creator.ui.userTypeActivities.customer.mainActivity.MainActivity
 import com.app.ulife.creator.utils.LoadingUtils
 import com.app.ulife.creator.utils.afterTextChanged
+import com.app.ulife.creator.utils.hideKeyboard
 import com.app.ulife.creator.utils.onDebouncedListener
 import com.app.ulife.creator.utils.toast
 import com.app.ulife.creator.viewModels.SharedVM
@@ -51,7 +51,7 @@ import org.kodein.di.generic.instance
 import org.kodein.di.generic.kcontext
 
 class DthRechargeFragment : Fragment(), KodeinAware {
-    private lateinit var binding: FragmentRechargeCommonBinding
+    private lateinit var binding: FragmentDthRechargeBinding
     override val kodeinContext = kcontext<Fragment>(this)
     override val kodein: Kodein by kodein()
     private val factory: SharedVMF by instance()
@@ -60,19 +60,16 @@ class DthRechargeFragment : Fragment(), KodeinAware {
     private var rechargeTypeName = ""
     private var rechargeType = ""
     private var operatorId = ""
-    private var planTypesId = ""
-    private var circleId = ""
     private var walletAmt = 0.0
     private val opListName = mutableListOf<String>()
     private val opListId = mutableListOf<String>()
-    private var fetchBillID = ""
     private var hlrOperator = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentRechargeCommonBinding.inflate(layoutInflater)
+        binding = FragmentDthRechargeBinding.inflate(layoutInflater)
         return binding.root
     }
 
@@ -92,39 +89,6 @@ class DthRechargeFragment : Fragment(), KodeinAware {
             Log.e("rechargeType ", "--$rechargeType--")
 
             binding.apply {
-                llSelectPlan.visibility = View.GONE
-                actlCircle.visibility = View.GONE
-
-                etlNumber.prefixText = ""
-                etlNumber.hint = "Operator Number"
-                etlNumber.counterMaxLength = 20
-                etNumber.filters = arrayOf(InputFilter.LengthFilter(20))
-
-                etAmount.isFocusable = true
-
-//                etNumber.afterTextChanged {
-//                    if (it.isNotEmpty()) {
-//                        if (it.length == 10) {
-//                            hlrCheck(
-//                                HlrCheckReq(
-//                                    number = "" + etNumber.text,
-//                                    type = "dth",
-//                                    userid = "" + preferenceManager.userid
-//                                )
-//                            )
-//                        } else {
-//                            actOperator.setText("")
-//                            actlOperator.isEnabled = true
-//                            actCircle.setText("")
-//                            actlCircle.isEnabled = true
-//                        }
-//                    } else {
-//                        actOperator.setText("")
-//                        actlOperator.isEnabled = true
-//                        actCircle.setText("")
-//                        actlCircle.isEnabled = true
-//                    }
-//                }
             }
 
             hitApis() // fetchRequiredData
@@ -184,12 +148,32 @@ class DthRechargeFragment : Fragment(), KodeinAware {
                 }
             }
 
+            btnFetchHlrInfo.setOnClickListener {
+                when {
+                    etNumber.text.toString().isEmpty() -> etNumber.error = "Please enter your id"
+                    actOperator.text.toString().isEmpty() -> actOperator.error =
+                        "Please select operator"
+
+                    else -> {
+                        hideKeyboard()
+                        hlrCheck(
+                            GetHlrDthInfoReq(
+                                canumber = "" + etNumber.text,
+                                op = "" + actOperator.text,
+                                userid = "" + preferenceManager.userid
+                            )
+                        )
+                    }
+                }
+            }
+
             btnSubmit.onDebouncedListener {
                 when {
-                    operatorId.isEmpty() -> actOperator.error = "Please select your operator"
-                    etNumber.text.toString().isEmpty() -> etNumber.error = "Please enter number"
+                    etNumber.text.toString().isEmpty() -> etNumber.error = "Please enter your id"
+                    actOperator.text.toString().isEmpty() -> actOperator.error =
+                        "Please select operator"
+
                     etAmount.text.toString().isEmpty() -> etAmount.error = "Please enter amount"
-//                    etPass.text.toString().isEmpty() -> etAmount.error = "Please enter password"
                     else -> {
                         doPsMobRecharge(
                             DoPsRechargeReq(
@@ -198,8 +182,8 @@ class DthRechargeFragment : Fragment(), KodeinAware {
                                 operator = "" + operatorId,
                                 userid = "" + preferenceManager.userid,
                                 OperatorName = "" + actOperator.text,
-                                Circle = "" + actCircle.text,
-                                PlanDescription = "" + tvPlanDesc.text
+                                Circle = "",
+                                PlanDescription = "" + tvHlrPlan.text
                             )
                         )
                     }
@@ -242,12 +226,14 @@ class DthRechargeFragment : Fragment(), KodeinAware {
     }
 
     private fun getPsOperator(req: UserIdRequest) {
+        LoadingUtils.showDialog(context, isCancelable = false)
         viewModel.getPsOperator = MutableLiveData()
         viewModel.getPsOperator.observe(requireActivity()) {
             try {
                 val response = Gson().fromJson(it, GetPsOpListRes::class.java)
                 if (response != null) {
                     if (response.status) {
+                        LoadingUtils.hideDialog()
                         opListName.clear()
                         opListId.clear()
 
@@ -282,76 +268,96 @@ class DthRechargeFragment : Fragment(), KodeinAware {
                                 println("operatorId : $operatorId")
                             } else {
                                 binding.actOperator.setText("")
-                                binding.actCircle.setText("")
                                 println("Operator doesn't exist !")
                             }
                         } else {
+                            LoadingUtils.hideDialog()
                             (activity as MainActivity).apiErrorDialog(response.message)
                         }
                     } else {
+                        LoadingUtils.hideDialog()
                         (activity as MainActivity).apiErrorDialog(response.message)
                     }
                 } else {
+                    LoadingUtils.hideDialog()
                     (activity as MainActivity).apiErrorDialog(Constants.apiErrors)
                 }
             } catch (e: Exception) {
+                LoadingUtils.hideDialog()
                 (activity as MainActivity).apiErrorDialog("$it\n$e")
             }
         }
         viewModel.getPsOperator(req)
     }
 
-    private fun hlrCheck(req: HlrCheckReq) {
-        viewModel.hlrCheck = MutableLiveData()
-        viewModel.hlrCheck.observe(requireActivity()) {
+    private fun hlrCheck(req: GetHlrDthInfoReq) {
+        LoadingUtils.showDialog(context, isCancelable = false)
+        viewModel.getHlrDthInfo = MutableLiveData()
+        viewModel.getHlrDthInfo.observe(requireActivity()) {
             try {
-                val response = Gson().fromJson(it, HlrCheckRes::class.java)
+                val response = Gson().fromJson(it, GetHlrDthInfoRes::class.java)
                 if (response != null) {
                     if (response.status) {
+                        LoadingUtils.hideDialog()
                         binding.apply {
                             if (response.data.status) {
-                                actOperator.setText("" + response?.data?.info?.operator)
-                                actCircle.setText("" + response?.data?.info?.circle)
-                                circleId = "" + response?.data?.info?.circle
-                                hlrOperator = "" + response?.data?.info?.operator
-
-                                getPsOperator(
-                                    UserIdRequest(userid = "" + preferenceManager.userid)
-                                )
+                                cardHlrInfo.visibility = View.VISIBLE
+                                tvHlrName.text = "" + response.data.info[0]?.customerName
+                                tvHlrBalance.text = "" + response.data.info[0]?.balance
+                                tvHlrStatus.text = "" + response.data.info[0]?.status
+                                tvHlrDueDate.text = "" + response.data.info[0]?.nextRechargeDate
+                                tvHlrPlan.text = "" + response.data.info[0]?.planname
+                                tvHlrPrice.text = "" + response.data.info[0]?.monthlyRecharge
+                                etAmount.setText("" + response.data.info[0]?.monthlyRecharge)
                             } else {
+                                cardHlrInfo.visibility = View.GONE
                                 (activity as MainActivity).apiErrorDialog("${response.data.message}")
                             }
                         }
                     } else {
+                        LoadingUtils.hideDialog()
                         binding.apply {
-                            actOperator.setText("")
-                            actlOperator.isEnabled = true
-                            actCircle.setText("")
-                            actlCircle.isEnabled = true
+                            cardHlrInfo.visibility = View.GONE
+                            tvHlrName.text = ""
+                            tvHlrBalance.text = ""
+                            tvHlrStatus.text = ""
+                            tvHlrDueDate.text = ""
+                            tvHlrPlan.text = ""
+                            tvHlrPrice.text = ""
+                            etAmount.setText("")
                         }
-                        context?.toast("" + response.message)
-//                        (activity as MainActivity).apiErrorDialog(response.message)
+                        (activity as MainActivity).apiErrorDialog(response.message)
                     }
                 } else {
+                    LoadingUtils.hideDialog()
                     binding.apply {
-                        actOperator.setText("")
-                        actlOperator.isEnabled = true
-                        actCircle.setText("")
-                        actlCircle.isEnabled = true
+                        cardHlrInfo.visibility = View.GONE
+                        tvHlrName.text = ""
+                        tvHlrBalance.text = ""
+                        tvHlrStatus.text = ""
+                        tvHlrDueDate.text = ""
+                        tvHlrPlan.text = ""
+                        tvHlrPrice.text = ""
+                        etAmount.setText("")
                     }
                     (activity as MainActivity).apiErrorDialog(Constants.apiErrors)
                 }
             } catch (e: Exception) {
+                LoadingUtils.hideDialog()
                 binding.apply {
-                    actOperator.setText("")
-                    actlOperator.isEnabled = true
-                    actCircle.setText("")
-                    actlCircle.isEnabled = true
+                    cardHlrInfo.visibility = View.GONE
+                    tvHlrName.text = ""
+                    tvHlrBalance.text = ""
+                    tvHlrStatus.text = ""
+                    tvHlrDueDate.text = ""
+                    tvHlrPlan.text = ""
+                    tvHlrPrice.text = ""
+                    etAmount.setText("")
                 }
-                (activity as MainActivity).apiErrorDialog("$it\n$e")
+                (activity as MainActivity).apiErrorDialog("$e\n$it")
             }
         }
-        viewModel.hlrCheck(req)
+        viewModel.getHlrDthInfo(req)
     }
 
     private fun doPsMobRecharge(req: DoPsRechargeReq) {
