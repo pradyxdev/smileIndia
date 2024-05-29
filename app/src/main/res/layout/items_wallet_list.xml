@@ -6,114 +6,130 @@
   ~  */
   -->
 
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/ll_container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginStart="8dp"
-    android:layout_marginTop="4dp"
-    android:layout_marginEnd="8dp"
-    android:layout_marginBottom="4dp"
-    app:cardElevation="1dp"
-    app:strokeWidth="0dp">
+    android:orientation="vertical">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <TextView
+        android:id="@+id/tv_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"
+        android:text="Date" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/ll_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="4dp"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="2dp"
+        app:strokeWidth="0dp">
 
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/materialCardView4"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
-            app:cardBackgroundColor="?attr/colorSecondary"
-            app:cardCornerRadius="50dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:strokeWidth="0dp">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="?attr/colorSurface">
 
-            <ImageView
-                android:id="@+id/iv_icon"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="8dp"
-                android:src="@drawable/money_bag_rupee"
-                app:tint="@color/white" />
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/materialCardView4"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                app:cardBackgroundColor="?attr/colorSecondary"
+                app:cardCornerRadius="50dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:strokeWidth="0dp">
 
-            <ImageView
-                android:id="@+id/iv_icon_real"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="8dp" />
-        </com.google.android.material.card.MaterialCardView>
+                <ImageView
+                    android:id="@+id/iv_icon"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="8dp"
+                    android:src="@drawable/money_bag_rupee"
+                    app:tint="@color/white" />
 
-        <LinearLayout
-            android:id="@+id/linearLayout11"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/materialCardView5"
-            app:layout_constraintStart_toEndOf="@+id/materialCardView4"
-            app:layout_constraintTop_toTopOf="parent">
+                <ImageView
+                    android:id="@+id/iv_icon_real"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="8dp" />
+            </com.google.android.material.card.MaterialCardView>
 
-            <TextView
-                android:id="@+id/tv_name"
-                style="@style/HeaderStyle"
-                android:layout_width="match_parent"
+            <LinearLayout
+                android:id="@+id/linearLayout11"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:text="Name"
-                android:textSize="14sp" />
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="16dp"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/materialCardView5"
+                app:layout_constraintStart_toEndOf="@+id/materialCardView4"
+                app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                android:id="@+id/tv_amt"
-                style="@style/SubHeaderStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:text="0.0"
-                android:textAllCaps="true"
-                android:textSize="14sp"
-                app:drawableStartCompat="@drawable/ic_rupee_txt" />
-        </LinearLayout>
+                <TextView
+                    android:id="@+id/tv_name"
+                    style="@style/HeaderStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:text="Name"
+                    android:textSize="14sp" />
 
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/materialCardView5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            app:cardCornerRadius="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:strokeWidth="0dp">
+                <TextView
+                    android:id="@+id/tv_amt"
+                    style="@style/SubHeaderStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text="0.0"
+                    android:textAllCaps="true"
+                    android:textSize="14sp"
+                    app:drawableStartCompat="@drawable/ic_rupee_txt" />
+            </LinearLayout>
 
-            <TextView
-                android:id="@+id/tv_type"
-                style="@style/SubHeaderStyle"
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/materialCardView5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingStart="10dp"
-                android:paddingTop="6dp"
-                android:paddingEnd="10dp"
-                android:paddingBottom="6dp"
-                android:text="TYPE"
-                android:textAlignment="center"
-                android:textAllCaps="true"
-                android:textColor="@color/white"
-                android:textSize="12sp" />
+                android:layout_marginEnd="8dp"
+                app:cardCornerRadius="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:strokeWidth="0dp">
 
-        </com.google.android.material.card.MaterialCardView>
+                <TextView
+                    android:id="@+id/tv_type"
+                    style="@style/SubHeaderStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="10dp"
+                    android:paddingTop="6dp"
+                    android:paddingEnd="10dp"
+                    android:paddingBottom="6dp"
+                    android:text="TYPE"
+                    android:textAlignment="center"
+                    android:textAllCaps="true"
+                    android:textColor="@color/white"
+                    android:textSize="12sp" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</com.google.android.material.card.MaterialCardView>
+            </com.google.android.material.card.MaterialCardView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+</LinearLayout>

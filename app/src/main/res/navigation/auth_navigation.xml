@@ -14,7 +14,7 @@
 
     <fragment
         android:id="@+id/signinFragment"
-        android:name="com.app.ulife.creator.ui.authActivity.fragments.SignInFragment"
+        android:name="com.app.ulife.creatoron.ui.authActivity.fragments.SignInFragment"
         android:label="@string/sign_in"
         tools:layout="@layout/fragment_signin">
         <action
@@ -37,7 +37,7 @@
     </fragment>
     <fragment
         android:id="@+id/otpVerifyFragment"
-        android:name="com.app.ulife.creator.ui.authActivity.fragments.OtpVerifyFragment"
+        android:name="com.app.ulife.creatoron.ui.authActivity.fragments.OtpVerifyFragment"
         android:label="@string/enter_otp"
         tools:layout="@layout/fragment_otp_verify">
 
@@ -54,7 +54,7 @@
     </fragment>
     <fragment
         android:id="@+id/signUpFragment"
-        android:name="com.app.ulife.creator.ui.authActivity.fragments.SignUpFragment"
+        android:name="com.app.ulife.creatoron.ui.authActivity.fragments.SignUpFragment"
         android:label="SignUp"
         tools:layout="@layout/fragment_signup">
         <action
@@ -80,7 +80,7 @@
     </fragment>
     <fragment
         android:id="@+id/userTypeFragment"
-        android:name="com.app.ulife.creator.ui.authActivity.fragments.UserTypeFragment"
+        android:name="com.app.ulife.creatoron.ui.authActivity.fragments.UserTypeFragment"
         android:label="fragment_user_type"
         tools:layout="@layout/fragment_user_type">
         <action
@@ -93,7 +93,7 @@
     </fragment>
     <fragment
         android:id="@+id/forgotFragment"
-        android:name="com.app.ulife.creator.ui.authActivity.fragments.ForgotFragment"
+        android:name="com.app.ulife.creatoron.ui.authActivity.fragments.ForgotFragment"
         android:label=""
         tools:layout="@layout/fragment_forgot">
         <action
@@ -109,7 +109,7 @@
     </fragment>
     <fragment
         android:id="@+id/introScreenFragment"
-        android:name="com.app.ulife.creator.ui.authActivity.fragments.IntroScreenFragment"
+        android:name="com.app.ulife.creatoron.ui.authActivity.fragments.IntroScreenFragment"
         android:label="IntroScreenFragment"
         tools:layout="@layout/fragment_intro_screen">
         <action

@@ -76,32 +76,6 @@
             android:orientation="vertical">
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/etl_number"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Operator number"
-                app:counterEnabled="true"
-                app:counterMaxLength="10"
-                app:endIconMode="clear_text"
-                app:errorEnabled="true"
-                app:helperText="*required"
-                app:helperTextTextColor="@color/red"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/et_number"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:imeOptions="actionDone"
-                    android:inputType="number"
-                    android:maxLength="10"
-                    android:text="" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/actl_operator"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
@@ -120,6 +94,32 @@
                     android:focusable="true"
                     android:inputType="textAutoComplete"
                     android:padding="16dp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/etl_number"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Operator number"
+                app:counterEnabled="true"
+                app:counterMaxLength="20"
+                app:endIconMode="clear_text"
+                app:errorEnabled="true"
+                app:helperText="*required"
+                app:helperTextTextColor="@color/red"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_number"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:imeOptions="actionDone"
+                    android:inputType="number"
+                    android:maxLength="20"
+                    android:text="" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.button.MaterialButton
@@ -269,7 +269,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="55dp"
                         android:layout_gravity="end"
-                        android:text="PAY NOW"
+                        android:text="Recharge NOW"
                         app:cornerRadius="16dp" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>

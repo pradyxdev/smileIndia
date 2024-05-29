@@ -13,7 +13,7 @@
         android:required="false" />
 
     <application
-        android:name="com.app.ulife.creator.helpers.AppController"
+        android:name="com.app.ulife.creatoron.helpers.AppController"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -39,25 +39,25 @@
             android:exported="false"
             android:theme="@style/Theme.MVVM.Template" />
         <activity
-            android:name="com.app.ulife.creator.ui.maps.MapsActivity"
+            android:name="com.app.ulife.creatoron.ui.maps.MapsActivity"
             android:exported="false" />
         <activity
-            android:name="com.app.ulife.creator.ui.initialActivities.LoginAsActivity"
+            android:name="com.app.ulife.creatoron.ui.initialActivities.LoginAsActivity"
             android:exported="false"
             android:theme="@style/Theme.MVVM.Template" />
         <activity
-            android:name="com.app.ulife.creator.ui.userTypeActivities.customer.productActivity.ProductDetailsActivity"
+            android:name="com.app.ulife.creatoron.ui.userTypeActivities.customer.productActivity.ProductDetailsActivity"
             android:exported="false" />
         <activity
-            android:name="com.app.ulife.creator.ui.userTypeActivities.customer.cartActivity.BagActivity"
+            android:name="com.app.ulife.creatoron.ui.userTypeActivities.customer.cartActivity.BagActivity"
             android:exported="false"
             android:theme="@style/Theme.MVVM.Template" />
-        <activity android:name="com.app.ulife.creator.ui.userTypeActivities.customer.mainActivity.fragments.rechargeDash.roundPay.mobPlanList.PlanListActivity" />
-        <activity android:name="com.app.ulife.creator.ui.userTypeActivities.customer.mainActivity.fragments.rechargeDash.roundPay.dthPlanList.DthListActivity" />
-        <activity android:name="com.app.ulife.creator.ui.userTypeActivities.customer.mainActivity.fragments.rechargeDash.paysprint.mobile.planList.MobPlanListActivity" />
+        <activity android:name="com.app.ulife.creatoron.ui.userTypeActivities.customer.mainActivity.fragments.rechargeDash.roundPay.mobPlanList.PlanListActivity" />
+        <activity android:name="com.app.ulife.creatoron.ui.userTypeActivities.customer.mainActivity.fragments.rechargeDash.roundPay.dthPlanList.DthListActivity" />
+        <activity android:name="com.app.ulife.creatoron.ui.userTypeActivities.customer.mainActivity.fragments.rechargeDash.paysprint.mobile.planList.MobPlanListActivity" />
 
         <service
-            android:name="com.app.ulife.creator.services.FCMService"
+            android:name="com.app.ulife.creatoron.services.FCMService"
             android:exported="true"
             android:permission="com.google.android.c2dm.permission.SEND">
             <intent-filter>

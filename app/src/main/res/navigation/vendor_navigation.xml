@@ -13,22 +13,22 @@
 
     <fragment
         android:id="@+id/venHomeFragment"
-        android:name="com.app.ulife.creator.ui.userTypeActivities.vendor.mainActivity.fragments.home.VenHomeFragment"
+        android:name="com.app.ulife.creatoron.ui.userTypeActivities.vendor.mainActivity.fragments.home.VenHomeFragment"
         android:label="VenHomeFragment" />
     <fragment
         android:id="@+id/createBillFragment"
-        android:name="com.app.ulife.creator.ui.userTypeActivities.vendor.mainActivity.fragments.create.bill.CreateBillFragment"
+        android:name="com.app.ulife.creatoron.ui.userTypeActivities.vendor.mainActivity.fragments.create.bill.CreateBillFragment"
         android:label="CreateBillFragment" />
     <fragment
         android:id="@+id/createItemsFragment"
-        android:name="com.app.ulife.creator.ui.userTypeActivities.vendor.mainActivity.fragments.create.CreateItemsFragment"
+        android:name="com.app.ulife.creatoron.ui.userTypeActivities.vendor.mainActivity.fragments.create.CreateItemsFragment"
         android:label="CreateItemsFragment" />
     <fragment
         android:id="@+id/createCustomerFragment"
-        android:name="com.app.ulife.creator.ui.userTypeActivities.vendor.mainActivity.fragments.create.CreateCustomerFragment"
+        android:name="com.app.ulife.creatoron.ui.userTypeActivities.vendor.mainActivity.fragments.create.CreateCustomerFragment"
         android:label="CreateCustomerFragment" />
     <fragment
         android:id="@+id/createBill2Fragment"
-        android:name="com.app.ulife.creator.ui.userTypeActivities.vendor.mainActivity.fragments.create.bill.CreateBill2Fragment"
+        android:name="com.app.ulife.creatoron.ui.userTypeActivities.vendor.mainActivity.fragments.create.bill.CreateBill2Fragment"
         android:label="CreateBill2Fragment" />
 </navigation>

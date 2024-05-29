@@ -14,7 +14,7 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.app.ulife.creator.ui.userTypeActivities.customer.mainActivity.fragments.home.HomeFragment"
+        android:name="com.app.ulife.creatoron.ui.userTypeActivities.customer.mainActivity.fragments.home.HomeFragment"
         android:label="@string/app_name"
         tools:layout="@layout/fragment_home">
         <action
@@ -27,17 +27,17 @@
     </fragment>
     <fragment
         android:id="@+id/comingSoonFragment"
-        android:name="com.app.ulife.creator.ui.userTypeActivities.customer.mainActivity.fragments.ComingSoonFragment"
+        android:name="com.app.ulife.creatoron.ui.userTypeActivities.customer.mainActivity.fragments.ComingSoonFragment"
         android:label="@string/coming_soon"
         tools:layout="@layout/fragment_coming_soon" />
     <fragment
         android:id="@+id/mapFragment"
-        android:name="com.app.ulife.creator.ui.maps.mapFragment.MapFragment"
+        android:name="com.app.ulife.creatoron.ui.maps.mapFragment.MapFragment"
         android:label="Station's Nearby"
         tools:layout="@layout/fragment_map" />
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.app.ulife.creator.ui.userTypeActivities.customer.mainActivity.fragments.profile.ProfileFragment"
+        android:name="com.app.ulife.creatoron.ui.userTypeActivities.customer.mainActivity.fragments.profile.ProfileFragment"
         android:label="Profile"
         tools:layout="@layout/fragment_profile">
         <action
@@ -60,7 +60,7 @@
     </fragment>
     <fragment
         android:id="@+id/editProfileFragment"
-        android:name="com.app.ulife.creator.ui.userTypeActivities.customer.mainActivity.fragments.profile.EditProfileFragment"
+        android:name="com.app.ulife.creatoron.ui.userTypeActivities.customer.mainActivity.fragments.profile.EditProfileFragment"
         android:label="My Profile"
         tools:layout="@layout/fragment_edit_profile">
         <action
@@ -76,184 +76,188 @@
     </fragment>
     <fragment
         android:id="@+id/rechargeDashboardFragment"
-        android:name="com.app.ulife.creator.ui.userTypeActivities.customer.mainActivity.fragments.rechargeDash.RechargeDashboardFragment"
+        android:name="com.app.ulife.creatoron.ui.userTypeActivities.customer.mainActivity.fragments.rechargeDash.RechargeDashboardFragment"
         android:label="RechargeDashboardFragment"
         tools:layout="@layout/fragment_recharge_dashboard" />
     <fragment
         android:id="@+id/categoryFragment"
-        android:name="com.app.ulife.creator.ui.userTypeActivities.customer.mainActivity.fragments.home.CategoryFragment"
+        android:name="com.app.ulife.creatoron.ui.userTypeActivities.customer.mainActivity.fragments.home.CategoryFragment"
         android:label="CategoryFragment"
         tools:layout="@layout/fragment_category" />
     <fragment
         android:id="@+id/walletHistoryFragment"
-        android:name="com.app.ulife.creator.ui.userTypeActivities.customer.mainActivity.fragments.reports.wallet.WalletHistoryFragment"
+        android:name="com.app.ulife.creatoron.ui.userTypeActivities.customer.mainActivity.fragments.reports.wallet.WalletHistoryFragment"
         android:label="WalletHistoryFragment"
         tools:layout="@layout/fragment_see_all" />
     <fragment
         android:id="@+id/orderHistoryFragment"
-        android:name="com.app.ulife.creator.ui.userTypeActivities.customer.mainActivity.fragments.reports.orders.OrderHistoryFragment"
+        android:name="com.app.ulife.creatoron.ui.userTypeActivities.customer.mainActivity.fragments.reports.orders.OrderHistoryFragment"
         android:label="OrderHistoryFragment"
         tools:layout="@layout/fragment_see_all" />
     <fragment
         android:id="@+id/orderDetailsFragment"
-        android:name="com.app.ulife.creator.ui.userTypeActivities.customer.mainActivity.fragments.reports.orders.OrderDetailsFragment"
+        android:name="com.app.ulife.creatoron.ui.userTypeActivities.customer.mainActivity.fragments.reports.orders.OrderDetailsFragment"
         android:label="OrderDetailsFragment"
         tools:layout="@layout/fragment_order_detailsl" />
     <fragment
         android:id="@+id/rechargeCommonFragment"
-        android:name="com.app.ulife.creator.ui.userTypeActivities.customer.mainActivity.fragments.rechargeDash.roundPay.RechargeCommonFragment"
+        android:name="com.app.ulife.creatoron.ui.userTypeActivities.customer.mainActivity.fragments.rechargeDash.roundPay.RechargeCommonFragment"
         android:label="RechargeCommonFragment"
         tools:layout="@layout/fragment_recharge_common" />
     <fragment
         android:id="@+id/ledgerFragment"
-        android:name="com.app.ulife.creator.ui.userTypeActivities.customer.mainActivity.fragments.reports.ledger.LedgerFragment"
+        android:name="com.app.ulife.creatoron.ui.userTypeActivities.customer.mainActivity.fragments.reports.ledger.LedgerFragment"
         android:label="LedgerFragment"
         tools:layout="@layout/fragment_ledger" />
     <fragment
         android:id="@+id/networkContainerFragment"
-        android:name="com.app.ulife.creator.ui.userTypeActivities.customer.mainActivity.fragments.reports.networkManage.NetworkContainerFragment"
+        android:name="com.app.ulife.creatoron.ui.userTypeActivities.customer.mainActivity.fragments.reports.networkManage.NetworkContainerFragment"
         android:label="NetworkContainerFragment" />
     <fragment
         android:id="@+id/networkContainerNewFragment"
-        android:name="com.app.ulife.creator.ui.userTypeActivities.customer.mainActivity.fragments.reports.networkManage.NetworkContainerNewFragment"
+        android:name="com.app.ulife.creatoron.ui.userTypeActivities.customer.mainActivity.fragments.reports.networkManage.NetworkContainerNewFragment"
         android:label="NetworkContainerNewFragment" />
     <fragment
         android:id="@+id/directTeamFragment"
-        android:name="com.app.ulife.creator.ui.userTypeActivities.customer.mainActivity.fragments.reports.networkManage.tabs.DirectTeamFragment"
+        android:name="com.app.ulife.creatoron.ui.userTypeActivities.customer.mainActivity.fragments.reports.networkManage.tabs.DirectTeamFragment"
         android:label="DirectTeamFragment" />
     <fragment
         android:id="@+id/downlineFragment"
-        android:name="com.app.ulife.creator.ui.userTypeActivities.customer.mainActivity.fragments.reports.networkManage.tabs.DownlineFragment"
+        android:name="com.app.ulife.creatoron.ui.userTypeActivities.customer.mainActivity.fragments.reports.networkManage.tabs.DownlineFragment"
         android:label="DownlineFragment" />
     <fragment
         android:id="@+id/levelTeamFragment"
-        android:name="com.app.ulife.creator.ui.userTypeActivities.customer.mainActivity.fragments.reports.networkManage.tabs.LevelTeamFragment"
+        android:name="com.app.ulife.creatoron.ui.userTypeActivities.customer.mainActivity.fragments.reports.networkManage.tabs.LevelTeamFragment"
         android:label="LevelTeamFragment" />
     <fragment
         android:id="@+id/genelogyFragment"
-        android:name="com.app.ulife.creator.ui.userTypeActivities.customer.mainActivity.fragments.reports.networkManage.tabs.GenelogyFragment"
+        android:name="com.app.ulife.creatoron.ui.userTypeActivities.customer.mainActivity.fragments.reports.networkManage.tabs.GenelogyFragment"
         android:label="GenelogyFragment" />
     <fragment
         android:id="@+id/teamBvFragment"
-        android:name="com.app.ulife.creator.ui.userTypeActivities.customer.mainActivity.fragments.reports.networkManage.tabs.TeamBvFragment"
+        android:name="com.app.ulife.creatoron.ui.userTypeActivities.customer.mainActivity.fragments.reports.networkManage.tabs.TeamBvFragment"
         android:label="TeamBvFragment" />
     <fragment
         android:id="@+id/fundsContainerFragment"
-        android:name="com.app.ulife.creator.ui.userTypeActivities.customer.mainActivity.fragments.reports.fundsManage.FundsContainerFragment"
+        android:name="com.app.ulife.creatoron.ui.userTypeActivities.customer.mainActivity.fragments.reports.fundsManage.FundsContainerFragment"
         android:label="FundsContainerFragment" />
     <fragment
         android:id="@+id/addFundFragment"
-        android:name="com.app.ulife.creator.ui.userTypeActivities.customer.mainActivity.fragments.reports.fundsManage.tabs.AddFundFragment"
+        android:name="com.app.ulife.creatoron.ui.userTypeActivities.customer.mainActivity.fragments.reports.fundsManage.tabs.AddFundFragment"
         android:label="AddFundFragment" />
     <fragment
         android:id="@+id/addFundsReportFragment"
-        android:name="com.app.ulife.creator.ui.userTypeActivities.customer.mainActivity.fragments.reports.fundsManage.tabs.AddFundsReportFragment"
+        android:name="com.app.ulife.creatoron.ui.userTypeActivities.customer.mainActivity.fragments.reports.fundsManage.tabs.AddFundsReportFragment"
         android:label="AddFundsReportFragment" />
     <fragment
         android:id="@+id/transferFundFragment"
-        android:name="com.app.ulife.creator.ui.userTypeActivities.customer.mainActivity.fragments.reports.fundsManage.tabs.TransferFundFragment"
+        android:name="com.app.ulife.creatoron.ui.userTypeActivities.customer.mainActivity.fragments.reports.fundsManage.tabs.TransferFundFragment"
         android:label="TransferFundFragment" />
     <fragment
         android:id="@+id/transferFundReportFragment"
-        android:name="com.app.ulife.creator.ui.userTypeActivities.customer.mainActivity.fragments.reports.fundsManage.tabs.TransferFundReportFragment"
+        android:name="com.app.ulife.creatoron.ui.userTypeActivities.customer.mainActivity.fragments.reports.fundsManage.tabs.TransferFundReportFragment"
         android:label="TransferFundReportFragment" />
     <fragment
         android:id="@+id/epinContainerFragment"
-        android:name="com.app.ulife.creator.ui.userTypeActivities.customer.mainActivity.fragments.reports.epinManage.EpinContainerFragment"
+        android:name="com.app.ulife.creatoron.ui.userTypeActivities.customer.mainActivity.fragments.reports.epinManage.EpinContainerFragment"
         android:label="EpinContainerFragment" />
     <fragment
         android:id="@+id/epinTopupFragment"
-        android:name="com.app.ulife.creator.ui.userTypeActivities.customer.mainActivity.fragments.reports.epinManage.tabs.EpinTopupFragment"
+        android:name="com.app.ulife.creatoron.ui.userTypeActivities.customer.mainActivity.fragments.reports.epinManage.tabs.EpinTopupFragment"
         android:label="EpinTopupFragment" />
     <fragment
         android:id="@+id/epinGenerateFragment"
-        android:name="com.app.ulife.creator.ui.userTypeActivities.customer.mainActivity.fragments.reports.epinManage.tabs.EpinGenerateFragment"
+        android:name="com.app.ulife.creatoron.ui.userTypeActivities.customer.mainActivity.fragments.reports.epinManage.tabs.EpinGenerateFragment"
         android:label="EpinGenerateFragment" />
     <fragment
         android:id="@+id/epinReportFragment"
-        android:name="com.app.ulife.creator.ui.userTypeActivities.customer.mainActivity.fragments.reports.epinManage.tabs.EpinReportFragment"
+        android:name="com.app.ulife.creatoron.ui.userTypeActivities.customer.mainActivity.fragments.reports.epinManage.tabs.EpinReportFragment"
         android:label="EpinReportFragment" />
     <fragment
         android:id="@+id/transferEpinFragment"
-        android:name="com.app.ulife.creator.ui.userTypeActivities.customer.mainActivity.fragments.reports.epinManage.tabs.TransferEpinFragment"
+        android:name="com.app.ulife.creatoron.ui.userTypeActivities.customer.mainActivity.fragments.reports.epinManage.tabs.TransferEpinFragment"
         android:label="TransferEpinFragment" />
     <fragment
         android:id="@+id/transferEpinReportFragment"
-        android:name="com.app.ulife.creator.ui.userTypeActivities.customer.mainActivity.fragments.reports.epinManage.tabs.TransferEpinReportFragment"
+        android:name="com.app.ulife.creatoron.ui.userTypeActivities.customer.mainActivity.fragments.reports.epinManage.tabs.TransferEpinReportFragment"
         android:label="TransferEpinReportFragment" />
     <fragment
         android:id="@+id/withdrawalContainerFragment"
-        android:name="com.app.ulife.creator.ui.userTypeActivities.customer.mainActivity.fragments.reports.withdrawalManage.WithdrawalContainerFragment"
+        android:name="com.app.ulife.creatoron.ui.userTypeActivities.customer.mainActivity.fragments.reports.withdrawalManage.WithdrawalContainerFragment"
         android:label="WithdrawalContainerFragment" />
     <fragment
         android:id="@+id/withdrawalRequestFragment"
-        android:name="com.app.ulife.creator.ui.userTypeActivities.customer.mainActivity.fragments.reports.withdrawalManage.tabs.WithdrawalRequestFragment"
+        android:name="com.app.ulife.creatoron.ui.userTypeActivities.customer.mainActivity.fragments.reports.withdrawalManage.tabs.WithdrawalRequestFragment"
         android:label="WithdrawalRequestFragment" />
     <fragment
         android:id="@+id/withdrawalReportFragment"
-        android:name="com.app.ulife.creator.ui.userTypeActivities.customer.mainActivity.fragments.reports.withdrawalManage.tabs.WithdrawalReportFragment"
+        android:name="com.app.ulife.creatoron.ui.userTypeActivities.customer.mainActivity.fragments.reports.withdrawalManage.tabs.WithdrawalReportFragment"
         android:label="WithdrawalReportFragment" />
     <fragment
         android:id="@+id/payoutContainerFragment"
-        android:name="com.app.ulife.creator.ui.userTypeActivities.customer.mainActivity.fragments.reports.payout.PayoutContainerFragment"
+        android:name="com.app.ulife.creatoron.ui.userTypeActivities.customer.mainActivity.fragments.reports.payout.PayoutContainerFragment"
         android:label="PayoutContainerFragment" />
     <fragment
         android:id="@+id/sponsorIncomeFragment"
-        android:name="com.app.ulife.creator.ui.userTypeActivities.customer.mainActivity.fragments.reports.payout.tabs.SponsorIncomeFragment"
+        android:name="com.app.ulife.creatoron.ui.userTypeActivities.customer.mainActivity.fragments.reports.payout.tabs.SponsorIncomeFragment"
         android:label="SponsorIncomeFragment" />
     <fragment
         android:id="@+id/matchingIncomeFragment"
-        android:name="com.app.ulife.creator.ui.userTypeActivities.customer.mainActivity.fragments.reports.payout.tabs.MatchingIncomeFragment"
+        android:name="com.app.ulife.creatoron.ui.userTypeActivities.customer.mainActivity.fragments.reports.payout.tabs.MatchingIncomeFragment"
         android:label="MatchingIncomeFragment" />
     <fragment
         android:id="@+id/shoppingIncomeFragment"
-        android:name="com.app.ulife.creator.ui.userTypeActivities.customer.mainActivity.fragments.reports.payout.tabs.ShoppingIncomeFragment"
+        android:name="com.app.ulife.creatoron.ui.userTypeActivities.customer.mainActivity.fragments.reports.payout.tabs.ShoppingIncomeFragment"
         android:label="ShoppingIncomeFragment" />
     <fragment
         android:id="@+id/rechargeIncomeFragment"
-        android:name="com.app.ulife.creator.ui.userTypeActivities.customer.mainActivity.fragments.reports.payout.tabs.RechargeIncomeFragment"
+        android:name="com.app.ulife.creatoron.ui.userTypeActivities.customer.mainActivity.fragments.reports.payout.tabs.RechargeIncomeFragment"
         android:label="RechargeIncomeFragment" />
     <fragment
         android:id="@+id/epinRequestFragment"
-        android:name="com.app.ulife.creator.ui.userTypeActivities.customer.mainActivity.fragments.reports.epinManage.tabs.EpinRequestFragment"
+        android:name="com.app.ulife.creatoron.ui.userTypeActivities.customer.mainActivity.fragments.reports.epinManage.tabs.EpinRequestFragment"
         android:label="EpinRequestFragment" />
     <fragment
         android:id="@+id/epinRequestReportFragment"
-        android:name="com.app.ulife.creator.ui.userTypeActivities.customer.mainActivity.fragments.reports.epinManage.tabs.EpinRequestReportFragment"
+        android:name="com.app.ulife.creatoron.ui.userTypeActivities.customer.mainActivity.fragments.reports.epinManage.tabs.EpinRequestReportFragment"
         android:label="EpinRequestReportFragment" />
     <fragment
         android:id="@+id/passwordContainerFragment"
-        android:name="com.app.ulife.creator.ui.userTypeActivities.customer.mainActivity.fragments.reports.passwordManage.PasswordContainerFragment"
+        android:name="com.app.ulife.creatoron.ui.userTypeActivities.customer.mainActivity.fragments.reports.passwordManage.PasswordContainerFragment"
         android:label="PasswordContainerFragment" />
     <fragment
         android:id="@+id/changePasswordFragment"
-        android:name="com.app.ulife.creator.ui.userTypeActivities.customer.mainActivity.fragments.reports.passwordManage.tabs.ChangePasswordFragment"
+        android:name="com.app.ulife.creatoron.ui.userTypeActivities.customer.mainActivity.fragments.reports.passwordManage.tabs.ChangePasswordFragment"
         android:label="ChangePasswordFragment" />
     <fragment
         android:id="@+id/changeTransPasswordFragment"
-        android:name="com.app.ulife.creator.ui.userTypeActivities.customer.mainActivity.fragments.reports.passwordManage.tabs.ChangeTransPasswordFragment"
+        android:name="com.app.ulife.creatoron.ui.userTypeActivities.customer.mainActivity.fragments.reports.passwordManage.tabs.ChangeTransPasswordFragment"
         android:label="ChangeTransPasswordFragment" />
     <fragment
         android:id="@+id/ldcFragment"
-        android:name="com.app.ulife.creator.ui.userTypeActivities.customer.mainActivity.fragments.reports.payout.tabs.LdcFragment"
+        android:name="com.app.ulife.creatoron.ui.userTypeActivities.customer.mainActivity.fragments.reports.payout.tabs.LdcFragment"
         android:label="LdcFragment" />
     <!-- paysprint screens -->
     <fragment
         android:id="@+id/mobileRechargeFragment"
-        android:name="com.app.ulife.creator.ui.userTypeActivities.customer.mainActivity.fragments.rechargeDash.paysprint.mobile.MobileRechargeFragment"
+        android:name="com.app.ulife.creatoron.ui.userTypeActivities.customer.mainActivity.fragments.rechargeDash.paysprint.mobile.MobileRechargeFragment"
         android:label="MobileRechargeFragment" />
     <fragment
         android:id="@+id/dthRechargeFragment"
-        android:name="com.app.ulife.creator.ui.userTypeActivities.customer.mainActivity.fragments.rechargeDash.paysprint.dth.DthRechargeFragment"
+        android:name="com.app.ulife.creatoron.ui.userTypeActivities.customer.mainActivity.fragments.rechargeDash.paysprint.dth.DthRechargeFragment"
         android:label="DthRechargeFragment" />
     <fragment
         android:id="@+id/bbpsRechargeFragment"
-        android:name="com.app.ulife.creator.ui.userTypeActivities.customer.mainActivity.fragments.rechargeDash.paysprint.bbps.BbpsRechargeFragment"
+        android:name="com.app.ulife.creatoron.ui.userTypeActivities.customer.mainActivity.fragments.rechargeDash.paysprint.bbps.BbpsRechargeFragment"
         android:label="BbpsRechargeFragment" />
     <fragment
         android:id="@+id/fastagRechargeFragment"
-        android:name="com.app.ulife.creator.ui.userTypeActivities.customer.mainActivity.fragments.rechargeDash.paysprint.fastag.FastagRechargeFragment"
+        android:name="com.app.ulife.creatoron.ui.userTypeActivities.customer.mainActivity.fragments.rechargeDash.paysprint.fastag.FastagRechargeFragment"
         android:label="FastagRechargeFragment" />
+    <fragment
+        android:id="@+id/lpgRechargeFragment"
+        android:name="com.app.ulife.creatoron.ui.userTypeActivities.customer.mainActivity.fragments.rechargeDash.paysprint.lpg.LpgRechargeFragment"
+        android:label="LpgRechargeFragment" />
 </navigation>
 
     <!--    app:popUpTo="@id/homeFragment"-->
