@@ -5,6 +5,10 @@
 
     <group android:checkableBehavior="single">
         <item
+            android:id="@+id/nav_add_associates"
+            android:icon="@drawable/plus_math"
+            android:title="Add Associates" />
+        <item
             android:id="@+id/nav_order_history"
             android:icon="@drawable/purchase_order"
             android:title="Order History" />
@@ -16,6 +20,10 @@
             android:id="@+id/nav_network_manage"
             android:icon="@drawable/network"
             android:title="Network Management" />
+        <item
+            android:id="@+id/nav_tree"
+            android:icon="@drawable/network"
+            android:title="Binary Tree" />
         <item
             android:id="@+id/nav_fund_manage"
             android:icon="@drawable/wallet"

@@ -90,10 +90,18 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_sign_up"
-                style="@style/Widget.Material3.Button.TextButton.Icon"
+                style="@style/Widget.Material3.Button.TonalButton.Icon"
                 android:layout_width="match_parent"
                 android:layout_height="53dp"
                 android:text="Don't have account? Sign Up"
+                app:cornerRadius="8dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_forgot"
+                style="@style/Widget.Material3.Button.TextButton.Icon"
+                android:layout_width="match_parent"
+                android:layout_height="53dp"
+                android:text="Forgot Password ?"
                 app:cornerRadius="8dp" />
         </LinearLayout>
     </LinearLayout>

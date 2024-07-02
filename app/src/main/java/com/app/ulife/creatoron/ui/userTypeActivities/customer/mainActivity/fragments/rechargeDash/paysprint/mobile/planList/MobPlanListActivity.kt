@@ -112,39 +112,45 @@ class MobPlanListActivity : AppCompatActivity(), KodeinAware {
                         LoadingUtils.hideDialog()
                         plansG34List.clear()
                         if (!response.data.info.G34.isNullOrEmpty()) {
-                            for (i in response.data.info.G34.indices) {
-                                plansG34List.addAll(response.data.info.G34)
-                            }
+                            plansG34List.addAll(response.data.info.G34)
+//                            for (i in response.data.info.G34.indices) {
+//                                plansG34List.addAll(response.data.info.G34)
+//                            }
                         }
                         plansTopupList.clear()
                         if (!response.data.info.topup.isNullOrEmpty()) {
-                            for (i in response.data.info.topup.indices) {
-                                plansTopupList.addAll(response.data.info.topup)
-                            }
+                            plansTopupList.addAll(response.data.info.topup)
+//                            for (i in response.data.info.topup.indices) {
+//                                plansTopupList.addAll(response.data.info.topup)
+//                            }
                         }
                         plansComboList.clear()
                         if (!response.data.info.combo.isNullOrEmpty()) {
-                            for (i in response.data.info.combo.indices) {
-                                plansComboList.addAll(response.data.info.combo)
-                            }
+                            plansComboList.addAll(response.data.info.combo)
+//                            for (i in response.data.info.combo.indices) {
+//                                plansComboList.addAll(response.data.info.combo)
+//                            }
                         }
                         plansRateCutter.clear()
                         if (!response.data.info.rateCutter.isNullOrEmpty()) {
-                            for (i in response.data.info.rateCutter.indices) {
-                                plansRateCutter.addAll(response.data.info.rateCutter)
-                            }
+                            plansRateCutter.addAll(response.data.info.rateCutter)
+//                            for (i in response.data.info.rateCutter.indices) {
+//                                plansRateCutter.addAll(response.data.info.rateCutter)
+//                            }
                         }
                         plansRomaingList.clear()
                         if (!response.data.info.romaing.isNullOrEmpty()) {
-                            for (i in response.data.info.romaing.indices) {
-                                plansRomaingList.addAll(response.data.info.romaing)
-                            }
+                            plansRomaingList.addAll(response.data.info.romaing)
+//                            for (i in response.data.info.romaing.indices) {
+//                                plansRomaingList.addAll(response.data.info.romaing)
+//                            }
                         }
                         plansFullTTList.clear()
                         if (!response.data.info.fullTT.isNullOrEmpty()) {
-                            for (i in response.data.info.fullTT.indices) {
-                                plansFullTTList.addAll(response.data.info.fullTT)
-                            }
+                            plansFullTTList.addAll(response.data.info.fullTT)
+//                            for (i in response.data.info.fullTT.indices) {
+//                                plansFullTTList.addAll(response.data.info.fullTT)
+//                            }
                         }
 
                         Coroutines.main {

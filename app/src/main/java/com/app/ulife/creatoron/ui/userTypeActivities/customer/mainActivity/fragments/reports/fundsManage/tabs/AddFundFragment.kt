@@ -120,8 +120,8 @@ class AddFundFragment : Fragment(), KodeinAware {
                 ImagePicker.with(requireActivity())
                     //.crop(3f, 2f) //Crop image(Optional), Check Customization for more option
                     .crop()
-//                    .compress(1024)
-//                    .maxResultSize(1080, 1080)
+                    .compress(1024)
+                    .maxResultSize(1080, 1080)
                     .createIntent { intent ->
                         startForProfileImageResult.launch(intent)
                     }

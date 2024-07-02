@@ -17,7 +17,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.app.ulife.creatoron.R
 import com.app.ulife.creatoron.databinding.ItemsWalletListBinding
 import com.app.ulife.creatoron.models.paysprint.history.mobHistory.Data
-import com.app.ulife.creatoron.utils.mask
 import kotlin.random.Random
 
 class MobRechargeAdapter(
@@ -64,7 +63,7 @@ class MobRechargeAdapter(
 
                 tvDate.text = "" + response?.EntryDate
 
-                val custNumber = response?.CaNumber.toString().mask()
+                val custNumber = response?.CaNumber.toString()
 //                tvName.text = "${response?.OperatorName} : ${response?.PlanDescription}\nReference Id : ${response?.ReferenceId}"
                 tvName.text =
                     "${response?.OperatorName} : +91-$custNumber\nReference Id : ${response?.ReferenceId}"

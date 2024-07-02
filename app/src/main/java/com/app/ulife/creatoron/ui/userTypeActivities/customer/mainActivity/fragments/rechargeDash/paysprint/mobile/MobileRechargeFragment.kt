@@ -192,16 +192,19 @@ class MobileRechargeFragment : Fragment(), KodeinAware {
 
             cardPlans.setOnClickListener {
                 when {
-                    operatorId.isEmpty() -> actOperator.error =
+                    actOperator.text.toString().isEmpty() -> actOperator.error =
                         "Please select your operator"
 
-                    circleId.isEmpty() -> actCircle.error = "Please select your circle"
+                    actCircle.text.toString().isEmpty() -> actCircle.error =
+                        "Please select your circle"
+
                     else -> {
                         val opName = "" + actOperator.text
+                        val opCircle = "" + actCircle.text
 
                         val i = Intent(requireContext(), MobPlanListActivity::class.java)
                         i.putExtra("type", "mobile")
-                        i.putExtra("circle", circleId)
+                        i.putExtra("circle", opCircle)
 //                        i.putExtra("operator", operatorId)
                         i.putExtra("operator", opName)
                         startActivityForResult(i, 69)
@@ -375,6 +378,8 @@ class MobileRechargeFragment : Fragment(), KodeinAware {
                                 if (!circle.isNullOrEmpty() && circle.equals("Jammu and Kashmir")) {
                                     actCircle.setText("Jammu Kashmir")
                                 } else if (!circle.isNullOrEmpty() && circle.equals("Maharashtra and Goa")) {
+                                    actCircle.setText("Maharashtra Goa")
+                                } else if (!circle.isNullOrEmpty() && circle.equals("Maharashtra")) {
                                     actCircle.setText("Maharashtra Goa")
                                 } else if (!circle.isNullOrEmpty() && circle.equals("null")) {
                                     actCircle.setText("")

@@ -122,7 +122,7 @@
                 android:id="@+id/btn_add_to_cart"
                 style="@style/Widget.Material3.Button.OutlinedButton.Icon"
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
+                android:layout_height="wrap_content"
                 android:text="ADD TO CART"
                 android:textAlignment="center"
                 android:textSize="12sp"

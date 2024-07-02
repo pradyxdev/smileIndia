@@ -15,6 +15,8 @@ import com.app.ulife.creatoron.models.CommonUserIdReq
 import com.app.ulife.creatoron.models.EmptyRequest
 import com.app.ulife.creatoron.models.UserIdRequest
 import com.app.ulife.creatoron.models.addToCart.AddToCartReq
+import com.app.ulife.creatoron.models.affiliates.details.GetAffiliatesDetailsReq
+import com.app.ulife.creatoron.models.affiliates.list.GetAffiliatesReq
 import com.app.ulife.creatoron.models.bbpsRecharge.mobPlan.GetPlanListReq
 import com.app.ulife.creatoron.models.bbpsRecharge.mobileLookup.GetMobileLookupReq
 import com.app.ulife.creatoron.models.bbpsRecharge.operator.GetOperatorReq
@@ -589,6 +591,27 @@ class SharedVM(private val repository: SharedRepo) : ViewModel() {
     fun doPsLpgBillPay(request: GetPsLpgPayBillReq) {
         Coroutines.main {
             doPsLpgBillPay.postValue(repository.doPsLpgBillPay(request))
+        }
+    }
+
+    var getAffiliatesList = MutableLiveData<String>()
+    fun getAffiliatesList(request: GetAffiliatesReq) {
+        Coroutines.main {
+            getAffiliatesList.postValue(repository.getAffiliatesList(request))
+        }
+    }
+
+    var getAffiliatesDetails = MutableLiveData<String>()
+    fun getAffiliatesDetails(request: GetAffiliatesDetailsReq) {
+        Coroutines.main {
+            getAffiliatesDetails.postValue(repository.getAffiliatesDetails(request))
+        }
+    }
+
+    var passwordRecovery = MutableLiveData<String>()
+    fun passwordRecovery(request: UserIdRequest) {
+        Coroutines.main {
+            passwordRecovery.postValue(repository.passwordRecovery(request))
         }
     }
 }

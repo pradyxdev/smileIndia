@@ -11,6 +11,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.androidlover5842.androidUtils.Validator.StringValidator
 import com.app.ulife.creatoron.helpers.Coroutines
+import com.app.ulife.creatoron.models.UserIdRequest
 import com.app.ulife.creatoron.models.pincodeStateCity.GetPincodeStateCityReq
 import com.app.ulife.creatoron.models.signUp.tmp.SignUpNewReq
 import com.app.ulife.creatoron.models.signin.SigninReq
@@ -87,6 +88,13 @@ class AuthVM(private val repository: AuthRepo) : ViewModel() {
     fun getPincodeStateCity(request: GetPincodeStateCityReq) {
         Coroutines.main {
             getPincodeStateCity.postValue(repository.getPincodeStateCity(request))
+        }
+    }
+
+    var passwordRecovery = MutableLiveData<String>()
+    fun passwordRecovery(request: UserIdRequest) {
+        Coroutines.main {
+            passwordRecovery.postValue(repository.passwordRecovery(request))
         }
     }
 }

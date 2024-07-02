@@ -66,6 +66,7 @@ class DthRechargeFragment : Fragment(), KodeinAware {
     private var hlrOperator = ""
 
     private var staticOperators = listOf("Airteldth", "TataSky", "Videocon", "Sundirect", "Dishtv")
+    private var staticOperatorsId = listOf("12", "8", "10", "27", "14")
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -126,7 +127,7 @@ class DthRechargeFragment : Fragment(), KodeinAware {
         binding.actOperator.onItemClickListener =
             AdapterView.OnItemClickListener { parent, view, position, id ->
                 val index = staticOperators.indexOf("" + binding.actOperator.text)
-                operatorId = staticOperators[index]
+                operatorId = staticOperatorsId[index]
                 println("operatorId : $operatorId")
             }
     }

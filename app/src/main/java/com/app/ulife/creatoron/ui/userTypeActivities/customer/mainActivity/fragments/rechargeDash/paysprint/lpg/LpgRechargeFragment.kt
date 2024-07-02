@@ -247,37 +247,43 @@ class LpgRechargeFragment : Fragment(), KodeinAware {
             }
 
             btnPay.onDebouncedListener {
-                doPsLpgBillPay(
-                    GetPsLpgPayBillReq(
-                        userid = "" + preferenceManager.userid,
-                        canumber = "" + etNumber.text,
-                        amount = etAmount.text.toString().toDouble(),
-                        latitude = "" + latitude,
-                        longitude = "" + longitude,
-                        mode = "online",
-                        operator = opId.toInt(),
-                        Circle = "",
-                        PlanDescription = "LPG of ${autoCompleteOperator.text} for customer ${etNumber.text}-${etAd1.text}-${etAd2.text}-${etAd3.text} of amount ${etAmount.text}",
-                        ad1 = "" + selectedMode,
-                        ad2 = "" + etAd1.text,
-                        ad3 = "" + etAd2.text,
-                        ad4 = "" + etAd3.text,
-                        OperatorName = "" + autoCompleteOperator.text
+                if (opId.toInt() == 168) {
+                    doPsLpgBillPay(
+                        GetPsLpgPayBillReq(
+                            userid = "" + preferenceManager.userid,
+                            canumber = "" + etNumber.text,
+                            amount = etAmount.text.toString().toDouble(),
+                            latitude = "" + latitude,
+                            longitude = "" + longitude,
+                            operator = opId.toInt(),
+                            Circle = "",
+                            PlanDescription = "LPG of ${autoCompleteOperator.text} for customer ${etNumber.text}-${etAd1.text}-${etAd2.text}-${etAd3.text} of amount ${etAmount.text}",
+                            ad1 = "" + selectedMode,
+                            ad2 = "" + etAd3.text,
+                            ad3 = "" + etAd2.text,
+                            ad4 = "" + etAd3.text,
+                            OperatorName = "" + autoCompleteOperator.text
+                        )
                     )
-
-//                    GetPsBbpsPayBillReq(
-//                        userid = "" + preferenceManager.userid,
-//                        canumber = "" + etNumber.text,
-//                        amount = etAmount.text.toString().toDouble(),
-//                        latitude = "" + latitude,
-//                        longitude = "" + longitude,
-//                        mode = "online",
-//                        operator = opId.toInt(),
-//                        bill_fetch = billFetchData,
-//                        Circle = "",
-//                        PlanDescription = "BBPS of ${autoCompleteOperator.text} for customer ${etNumber.text}-${etAd1.text}-${etAd2.text}-${etAd3.text} of amount ${etAmount.text}"
-//                    )
-                )
+                } else {
+                    doPsLpgBillPay(
+                        GetPsLpgPayBillReq(
+                            userid = "" + preferenceManager.userid,
+                            canumber = "" + etNumber.text,
+                            amount = etAmount.text.toString().toDouble(),
+                            latitude = "" + latitude,
+                            longitude = "" + longitude,
+                            operator = opId.toInt(),
+                            Circle = "",
+                            PlanDescription = "LPG of ${autoCompleteOperator.text} for customer ${etNumber.text}-${etAd1.text}-${etAd2.text}-${etAd3.text} of amount ${etAmount.text}",
+                            ad1 = "" + selectedMode,
+                            ad2 = "" + etAd1.text,
+                            ad3 = "" + etAd2.text,
+                            ad4 = "" + etAd3.text,
+                            OperatorName = "" + autoCompleteOperator.text
+                        )
+                    )
+                }
             }
         }
     }

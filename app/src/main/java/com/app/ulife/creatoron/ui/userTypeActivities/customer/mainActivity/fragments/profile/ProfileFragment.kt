@@ -203,6 +203,13 @@ class ProfileFragment : Fragment(), KodeinAware, DashboardItemsAdapter.OnItemCli
 //                args.putString("title", "product")
 //                findNavController().navigate(R.id.savedAddressFragment, args, getNavOptions())
 //            }
+
+            cardLeftRef.setOnClickListener {
+                (activity as MainActivity).openWebIntent("https://ulifecreator.com/home/userregistration?userid=" + preferenceManager.userid + "&sp=1")
+            }
+            cardRightRef.setOnClickListener {
+                (activity as MainActivity).openWebIntent("https://ulifecreator.com/home/userregistration?userid=" + preferenceManager.userid + "&sp=2")
+            }
         }
     }
 

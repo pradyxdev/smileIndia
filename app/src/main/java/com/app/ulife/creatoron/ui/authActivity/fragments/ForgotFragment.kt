@@ -13,15 +13,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
-import com.app.ulife.creatoron.R
+import androidx.navigation.Navigation
 import com.app.ulife.creatoron.databinding.FragmentForgotBinding
 import com.app.ulife.creatoron.factories.AuthVMF
+import com.app.ulife.creatoron.helpers.Constants
 import com.app.ulife.creatoron.helpers.PreferenceManager
-import com.app.ulife.creatoron.utils.getNavOptions
+import com.app.ulife.creatoron.models.EmptyResponse
+import com.app.ulife.creatoron.models.UserIdRequest
+import com.app.ulife.creatoron.ui.authActivity.AuthActivity
+import com.app.ulife.creatoron.utils.AlertDialogUtil.apiAlertDialog
+import com.app.ulife.creatoron.utils.LoadingUtils
 import com.app.ulife.creatoron.utils.onDebouncedListener
+import com.app.ulife.creatoron.utils.setErrorWithFocus
+import com.app.ulife.creatoron.utils.toast
 import com.app.ulife.creatoron.viewModels.AuthVM
+import com.google.gson.Gson
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.kodein
@@ -53,23 +61,62 @@ class ForgotFragment : Fragment(), KodeinAware {
     private fun setupViews() {
         binding.apply {
             btnBack.setOnClickListener {
-                val action = ForgotFragmentDirections.actionForgotFragmentToSigninFragment()
-                findNavController().navigate(action)
+                Navigation.findNavController(root).popBackStack()
             }
             btnSignIn.onDebouncedListener {
-                val args = Bundle()
-                args.putString("otp", "1234")
-                args.putString("otpType", "forgot")
-                args.putString("number", binding.etNumber.text.toString())
+                when {
+                    etUserId.text.toString()
+                        .isNullOrEmpty() -> etUserId.setErrorWithFocus("Please enter your userid")
 
-                /* Navigating to the next fragment. */
-                findNavController().navigate(
-                    R.id.otpVerifyFragment,
-                    args,
-                    getNavOptions()
-                )
+                    else -> passwordRecovery(UserIdRequest(userid = "" + etUserId.text))
+                }
+//                val args = Bundle()
+//                args.putString("otp", "1234")
+//                args.putString("otpType", "forgot")
+//                args.putString("number", binding.etNumber.text.toString())
+//
+//                /* Navigating to the next fragment. */
+//                findNavController().navigate(
+//                    R.id.otpVerifyFragment,
+//                    args,
+//                    getNavOptions()
+//                )
+
             }
         }
+    }
+
+    private fun passwordRecovery(request: UserIdRequest) {
+        LoadingUtils.showDialog(requireActivity(), false)
+        viewModel.passwordRecovery = MutableLiveData()
+        viewModel.passwordRecovery.observe(requireActivity()) {
+            try {
+                val response = Gson().fromJson(it, EmptyResponse::class.java)
+                if (response != null) {
+                    if (response.status) {
+                        LoadingUtils.hideDialog()
+                        context?.apiAlertDialog(
+                            isError = false,
+                            title = "Password Recovery Successful !",
+                            subTitle = "Password has been sent to your registered email !",
+                            action = {
+                                context?.toast("Login In again using password you received on your email !")
+                                Navigation.findNavController(binding.root).popBackStack()
+                            })
+                    } else {
+                        LoadingUtils.hideDialog()
+                        (activity as AuthActivity).apiErrorDialog(response.message)
+                    }
+                } else {
+                    LoadingUtils.hideDialog()
+                    (activity as AuthActivity).apiErrorDialog(Constants.apiErrors)
+                }
+            } catch (e: Exception) {
+                LoadingUtils.hideDialog()
+                (activity as AuthActivity).apiErrorDialog("$e\n$it")
+            }
+        }
+        viewModel.passwordRecovery(request)
     }
 
 //    private fun hitApi(loginReq: MobileRequest) {

@@ -153,6 +153,7 @@ object Constants {
         CategoryMD(img = R.drawable.money_box, name = "Insurance"),
         CategoryMD(img = R.drawable.identification_documents, name = "Pan Card"),
         CategoryMD(img = R.drawable.amazon, name = "Amazon"),
+        CategoryMD(img = R.drawable.connected_people, name = "Affiliates"),
     )
 
     val itemDashboard = listOf(

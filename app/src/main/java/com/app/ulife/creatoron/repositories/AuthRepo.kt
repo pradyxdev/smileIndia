@@ -10,6 +10,7 @@ package com.app.ulife.creatoron.repositories
 
 import com.app.ulife.creatoron.data.remote.MyApi
 import com.app.ulife.creatoron.data.remote.SafeApiRequest
+import com.app.ulife.creatoron.models.UserIdRequest
 import com.app.ulife.creatoron.models.pincodeStateCity.GetPincodeStateCityReq
 import com.app.ulife.creatoron.models.signUp.tmp.SignUpNewReq
 import com.app.ulife.creatoron.models.signin.SigninReq
@@ -68,6 +69,19 @@ class AuthRepo(
             val body = jsonObject.toString()
                 .toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
             response = apiRequest { api.getPincodeStateCity(body) }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return response
+    }
+
+    suspend fun passwordRecovery(request: UserIdRequest): String {
+        var response = String()
+        try {
+            val jsonObject = Gson().toJson(request, UserIdRequest::class.java)
+            val body = jsonObject.toString()
+                .toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
+            response = apiRequest { api.passwordRecovery(body) }
         } catch (e: Exception) {
             e.printStackTrace()
         }

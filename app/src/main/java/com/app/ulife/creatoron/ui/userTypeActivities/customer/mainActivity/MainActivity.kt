@@ -289,6 +289,18 @@ class MainActivity : AppCompatActivity(), KodeinAware {
         // implement setNavigationSelectedListener event
         navView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
+                R.id.nav_add_associates -> {
+                    binding.drawerlayout.closeDrawer(GravityCompat.START)
+                    openWebIntent("https://ulifecreator.com/home/userregistration?userid=" + preferenceManager.userid)
+                    true
+                }
+
+                R.id.nav_tree -> {
+                    binding.drawerlayout.closeDrawer(GravityCompat.START)
+                    openWebIntent("https://ulifecreator.com/home/binarytree?userid=" + preferenceManager.userid)
+                    true
+                }
+
                 R.id.nav_order_history -> {
                     binding.drawerlayout.closeDrawer(GravityCompat.START)
                     val navController = findNavController(R.id.fragmentContainerView)

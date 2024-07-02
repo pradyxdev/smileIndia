@@ -14,6 +14,8 @@ import com.app.ulife.creatoron.models.CommonUserIdReq
 import com.app.ulife.creatoron.models.EmptyRequest
 import com.app.ulife.creatoron.models.UserIdRequest
 import com.app.ulife.creatoron.models.addToCart.AddToCartReq
+import com.app.ulife.creatoron.models.affiliates.details.GetAffiliatesDetailsReq
+import com.app.ulife.creatoron.models.affiliates.list.GetAffiliatesReq
 import com.app.ulife.creatoron.models.bbpsRecharge.mobPlan.GetPlanListReq
 import com.app.ulife.creatoron.models.bbpsRecharge.mobileLookup.GetMobileLookupReq
 import com.app.ulife.creatoron.models.bbpsRecharge.operator.GetOperatorReq
@@ -990,6 +992,45 @@ class SharedRepo(
             val body = jsonObject.toString()
                 .toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
             response = apiRequest { api.doPsLpgBillPay(body) }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return response
+    }
+
+    suspend fun getAffiliatesList(request: GetAffiliatesReq): String {
+        var response = String()
+        try {
+            val jsonObject = Gson().toJson(request, GetAffiliatesReq::class.java)
+            val body = jsonObject.toString()
+                .toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
+            response = apiRequest { api.getUserRequest(body) }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return response
+    }
+
+    suspend fun getAffiliatesDetails(request: GetAffiliatesDetailsReq): String {
+        var response = String()
+        try {
+            val jsonObject = Gson().toJson(request, GetAffiliatesDetailsReq::class.java)
+            val body = jsonObject.toString()
+                .toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
+            response = apiRequest { api.getUserRequest(body) }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return response
+    }
+
+    suspend fun passwordRecovery(request: UserIdRequest): String {
+        var response = String()
+        try {
+            val jsonObject = Gson().toJson(request, UserIdRequest::class.java)
+            val body = jsonObject.toString()
+                .toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
+            response = apiRequest { api.passwordRecovery(body) }
         } catch (e: Exception) {
             e.printStackTrace()
         }

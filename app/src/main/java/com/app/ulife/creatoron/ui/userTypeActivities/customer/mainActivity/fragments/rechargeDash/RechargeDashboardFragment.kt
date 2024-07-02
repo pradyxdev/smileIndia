@@ -195,6 +195,14 @@ class RechargeDashboardFragment : Fragment(), KodeinAware,
                 (activity as MainActivity).openWebIntent("https://amzn.to/3tJ7gYU")
             }
 
+            "Affiliates" -> {
+                val args = Bundle()
+                args.putString("rechargeTypeName", "Cable Recharge")
+                args.putString("rechargeType", "Cable")
+//                findNavController().navigate(R.id.rechargeCommonFragment, args, getNavOptions()) // roundpay
+                findNavController().navigate(R.id.affiliatesFragment, args, getNavOptions())
+            }
+
             "Mobile Recharge" -> {
                 val args = Bundle()
                 args.putString("rechargeTypeName", "Mobile Recharge")

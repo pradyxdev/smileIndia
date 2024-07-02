@@ -27,6 +27,7 @@ import com.app.ulife.creatoron.models.signin.SigninRes
 import com.app.ulife.creatoron.ui.authActivity.AuthActivity
 import com.app.ulife.creatoron.ui.userTypeActivities.customer.mainActivity.MainActivity
 import com.app.ulife.creatoron.utils.LoadingUtils
+import com.app.ulife.creatoron.utils.getNavOptions
 import com.app.ulife.creatoron.utils.toast
 import com.app.ulife.creatoron.viewModels.AuthVM
 import com.google.gson.Gson
@@ -43,8 +44,7 @@ class SignInFragment : Fragment(), KodeinAware {
     private val factory: AuthVMF by instance()
     private lateinit var viewModel: AuthVM
     private lateinit var preferenceManager: PreferenceManager
-    private var sessionNumber = ""
-    private val sessionNames: MutableList<String> = ArrayList()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -78,6 +78,11 @@ class SignInFragment : Fragment(), KodeinAware {
             btnSignUp.setOnClickListener {
                 val action = SignInFragmentDirections.actionSigninFragmentToSignUpFragment()
                 findNavController().navigate(action)
+            }
+            btnForgot.setOnClickListener {
+                val args = Bundle()
+                args.putString("", "")
+                findNavController().navigate(R.id.forgotFragment, args, getNavOptions())
             }
             btnSignIn.setOnClickListener {
                 when {

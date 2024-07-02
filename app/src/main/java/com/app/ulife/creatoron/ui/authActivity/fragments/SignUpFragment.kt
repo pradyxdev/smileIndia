@@ -278,6 +278,7 @@ class SignUpFragment : Fragment(), KodeinAware {
                     binding.etSpUsername.setText("")
                 }
             } catch (e: Exception) {
+                LoadingUtils.hideDialog()
                 (activity as AuthActivity).apiErrorDialog("$it\n$e")
                 binding.etSponsor.error = "User not found !"
                 binding.btnSignUp.isEnabled = false

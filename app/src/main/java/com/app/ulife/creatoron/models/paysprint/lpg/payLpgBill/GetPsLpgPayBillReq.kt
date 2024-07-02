@@ -14,7 +14,6 @@ data class GetPsLpgPayBillReq(
     val amount: Double,
     val latitude: String,
     val longitude: String,
-    val mode: String,
     val `operator`: Int,
     val Circle: String,
     val PlanDescription: String,

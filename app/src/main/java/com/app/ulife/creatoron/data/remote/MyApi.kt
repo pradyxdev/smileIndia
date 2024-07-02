@@ -58,6 +58,11 @@ interface MyApi {
         @Body parameter: RequestBody
     ): Response<String>
 
+    @POST("Home/ForgotPassword")
+    suspend fun passwordRecovery(
+        @Body parameter: RequestBody
+    ): Response<String>
+
     @POST("User/UserRequest")
     suspend fun getUserRequest(
         @Body parameter: RequestBody

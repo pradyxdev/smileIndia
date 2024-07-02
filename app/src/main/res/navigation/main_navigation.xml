@@ -258,6 +258,10 @@
         android:id="@+id/lpgRechargeFragment"
         android:name="com.app.ulife.creatoron.ui.userTypeActivities.customer.mainActivity.fragments.rechargeDash.paysprint.lpg.LpgRechargeFragment"
         android:label="LpgRechargeFragment" />
+    <fragment
+        android:id="@+id/affiliatesFragment"
+        android:name="com.app.ulife.creatoron.ui.userTypeActivities.customer.mainActivity.fragments.reports.affiliates.AffiliatesFragment"
+        android:label="AffiliatesFragment" />
 </navigation>
 
     <!--    app:popUpTo="@id/homeFragment"-->
