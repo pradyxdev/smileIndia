@@ -1,8 +1,8 @@
 /*
  * *
- *  * Created by Prady on 4/8/23, 10:52 AM
- *  * Copyright (c) 2023 . All rights reserved.
- *  * Last modified 4/7/23, 3:05 PM
+ *  * Created by Prady on 8/23/24, 4:24 PM
+ *  * Copyright (c) 2024 . All rights reserved.
+ *  * Last modified 8/23/24, 2:01 PM
  *
  */
 
@@ -47,7 +47,7 @@ import com.app.smile.india.models.shippingDetails.get.ShippDetailsRes
 import com.app.smile.india.models.wallet.WalletReq
 import com.app.smile.india.models.wallet.balance.GetWalletBalRes
 import com.app.smile.india.ui.userTypeActivities.customer.cartActivity.BagActivity
-import com.app.smile.india.ui.userTypeActivities.customer.mainActivity.MainActivity
+import com.app.smile.india.ui.userTypeActivities.department.mainActivity.MainActivity
 import com.app.smile.india.utils.onDebouncedListener
 import com.app.smile.india.utils.snackbar
 import com.app.smile.india.utils.toast

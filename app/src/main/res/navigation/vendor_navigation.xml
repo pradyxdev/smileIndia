@@ -8,27 +8,45 @@
 
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/vendor_navigation"
-    app:startDestination="@id/venHomeFragment">
+    app:startDestination="@id/custHomeFragment">
 
     <fragment
-        android:id="@+id/venHomeFragment"
-        android:name="com.app.smile.india.ui.userTypeActivities.vendor.mainActivity.fragments.home.VenHomeFragment"
-        android:label="VenHomeFragment" />
+        android:id="@+id/custHomeFragment"
+        android:name="com.app.smile.india.ui.userTypeActivities.customer.mainActivity.fragments.home.CustHomeFragment"
+        android:label="CustHomeFragment"
+        tools:layout="@layout/fragment_cust_home" />
     <fragment
-        android:id="@+id/createBillFragment"
-        android:name="com.app.smile.india.ui.userTypeActivities.vendor.mainActivity.fragments.create.bill.CreateBillFragment"
-        android:label="CreateBillFragment" />
+        android:id="@+id/subCategoryFragment"
+        android:name="com.app.smile.india.ui.userTypeActivities.customer.mainActivity.fragments.home.SubCategoryFragment"
+        android:label="SubCategoryFragment"
+        tools:layout="@layout/fragment_sub_category" />
     <fragment
-        android:id="@+id/createItemsFragment"
-        android:name="com.app.smile.india.ui.userTypeActivities.vendor.mainActivity.fragments.create.CreateItemsFragment"
-        android:label="CreateItemsFragment" />
+        android:id="@+id/subCategoryListFragment"
+        android:name="com.app.smile.india.ui.userTypeActivities.customer.mainActivity.fragments.home.SubCategoryListFragment"
+        android:label="SubCategoryFragment"
+        tools:layout="@layout/fragment_sub_category" />
     <fragment
-        android:id="@+id/createCustomerFragment"
-        android:name="com.app.smile.india.ui.userTypeActivities.vendor.mainActivity.fragments.create.CreateCustomerFragment"
-        android:label="CreateCustomerFragment" />
+        android:id="@+id/orderHistoryFragment"
+        android:name="com.app.smile.india.ui.userTypeActivities.customer.mainActivity.fragments.reports.orders.OrderHistoryFragment"
+        android:label="OrderHistoryFragment"
+        tools:layout="@layout/fragment_see_all" />
     <fragment
-        android:id="@+id/createBill2Fragment"
-        android:name="com.app.smile.india.ui.userTypeActivities.vendor.mainActivity.fragments.create.bill.CreateBill2Fragment"
-        android:label="CreateBill2Fragment" />
+        android:id="@+id/orderDetailsFragment"
+        android:name="com.app.smile.india.ui.userTypeActivities.customer.mainActivity.fragments.reports.orders.OrderDetailsFragment"
+        android:label="OrderDetailsFragment"
+        tools:layout="@layout/fragment_order_detailsl" />
+    <fragment
+        android:id="@+id/custProfileFragment"
+        android:name="com.app.smile.india.ui.userTypeActivities.customer.mainActivity.fragments.profile.CustProfileFragment"
+        android:label="CustProfileFragment" />
+    <fragment
+        android:id="@+id/supportFragment"
+        android:name="com.app.smile.india.ui.userTypeActivities.customer.mainActivity.fragments.support.SupportFragment"
+        android:label="SupportFragment" />
+    <fragment
+        android:id="@+id/custCategoryFragment"
+        android:name="com.app.smile.india.ui.userTypeActivities.customer.mainActivity.fragments.home.CustCategoryFragment"
+        android:label="CustCategoryFragment" />
 </navigation>

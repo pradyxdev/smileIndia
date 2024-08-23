@@ -27,10 +27,12 @@ import com.app.smile.india.helpers.Constants
 import com.app.smile.india.helpers.PreferenceManager
 import com.app.smile.india.models.version.AppVersion
 import com.app.smile.india.ui.authActivity.AuthActivity
-import com.app.smile.india.ui.userTypeActivities.customer.mainActivity.MainActivity
+import com.app.smile.india.ui.userTypeActivities.customer.CustMainActivity
+import com.app.smile.india.ui.userTypeActivities.department.mainActivity.MainActivity
 import com.app.smile.india.utils.getAppVersioning
 import com.app.smile.india.utils.isNetworkConnected
 import com.app.smile.india.utils.snackbar
+import com.app.smile.india.utils.toast
 import com.app.smile.india.viewModels.SharedVM
 import com.crowdfire.cfalertdialog.CFAlertDialog
 import com.google.android.gms.tasks.OnCompleteListener
@@ -175,12 +177,15 @@ class SplashActivity : AppCompatActivity(), KodeinAware {
     private fun openNextUi() {
         when (preferenceManager.userType) {
             Constants.userTypeCustomer -> {
+                startActivity(Intent(this, CustMainActivity::class.java))
+            }
+
+            Constants.userTypeDepartment -> {
                 startActivity(Intent(this, MainActivity::class.java))
             }
-//            Constants.userTypeAdmin -> {
-//                startActivity(Intent(this, VendorMainActivity::class.java))
-//            }
+
             else -> {
+                this.toast("Session expired !")
                 preferenceManager.clear()
                 startActivity(Intent(this, SplashActivity::class.java))
             }

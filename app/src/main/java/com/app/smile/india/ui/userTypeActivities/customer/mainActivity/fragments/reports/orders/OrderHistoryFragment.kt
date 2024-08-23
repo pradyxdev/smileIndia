@@ -1,8 +1,8 @@
 /*
  * *
- *  * Created by Prady on 4/6/24, 12:21 PM
+ *  * Created by Prady on 8/23/24, 4:20 PM
  *  * Copyright (c) 2024 . All rights reserved.
- *  * Last modified 4/6/24, 12:06 PM
+ *  * Last modified 8/23/24, 4:16 PM
  *
  */
 
@@ -25,7 +25,7 @@ import com.app.smile.india.factories.SharedVMF
 import com.app.smile.india.helpers.PreferenceManager
 import com.app.smile.india.models.getSaleReport.GetSaleReportReq
 import com.app.smile.india.models.getSaleReport.GetSaleReportRes
-import com.app.smile.india.ui.userTypeActivities.customer.mainActivity.MainActivity
+import com.app.smile.india.ui.userTypeActivities.customer.CustMainActivity
 import com.app.smile.india.utils.getNavOptions
 import com.app.smile.india.utils.toast
 import com.app.smile.india.viewModels.SharedVM
@@ -70,7 +70,7 @@ class OrderHistoryFragment : Fragment(), KodeinAware, OrderListAdapter.OnItemCli
 
     override fun onResume() {
         super.onResume()
-        (activity as MainActivity).setBottombarVisibility(isVisible = false)
+        (activity as CustMainActivity).setBottombarVisibility(isVisible = false)
     }
 
     private fun listeners() {
@@ -103,12 +103,12 @@ class OrderHistoryFragment : Fragment(), KodeinAware, OrderListAdapter.OnItemCli
                 } else {
                     binding.rvList.visibility = View.GONE
                     binding.containerEmpty.visibility = View.VISIBLE
-                    (activity as MainActivity).apiErrorDialog(it)
+                    (activity as CustMainActivity).apiErrorDialog(it)
                 }
             } catch (e: Exception) {
                 binding.rvList.visibility = View.GONE
                 binding.containerEmpty.visibility = View.VISIBLE
-                (activity as MainActivity).apiErrorDialog("$e\n$it")
+                (activity as CustMainActivity).apiErrorDialog("$e\n$it")
             }
         }
         viewModel.getOrderHistory(req)

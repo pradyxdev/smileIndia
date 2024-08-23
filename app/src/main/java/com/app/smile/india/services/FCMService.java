@@ -26,7 +26,7 @@ import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
 
 import com.app.smile.india.R;
-import com.app.smile.india.ui.userTypeActivities.customer.mainActivity.MainActivity;
+import com.app.smile.india.ui.userTypeActivities.department.mainActivity.MainActivity;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 

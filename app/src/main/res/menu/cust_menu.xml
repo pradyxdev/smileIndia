@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ /**
+  ~  * Created by Prady on 8/23/24, 4:27 PM
+  ~  * Copyright (c) 2024 . All rights reserved.
+  ~  * Last modified 8/23/24, 4:27 PM
+  ~  */
+  -->
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/custHomeFragment"
+        android:icon="@drawable/home"
+        android:title="Home"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/custCategoryFragment"
+        android:icon="@drawable/dashboard_layout"
+        android:title="Category"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/supportFragment"
+        android:icon="@drawable/online_support"
+        android:title="Help"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/custProfileFragment"
+        android:icon="@drawable/account"
+        android:title="Profile"
+        app:showAsAction="always" />
+</menu>

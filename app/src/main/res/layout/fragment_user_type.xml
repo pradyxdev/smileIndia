@@ -13,202 +13,201 @@
     android:layout_height="match_parent"
     tools:context=".ui.authActivity.fragments.UserTypeFragment">
 
-    <com.google.android.material.card.MaterialCardView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_height="match_parent"
+        android:layout_margin="16dp"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:strokeColor="@android:color/transparent">
+        app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
+        <TextView
+            style="@style/BigHeaderStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Welcome to Smile India !"
+            android:textColor="?attr/colorTertiary" />
+
+        <TextView
+            style="@style/HeaderStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/please_select_your_user_type" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card_1"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:padding="24dp">
+            android:layout_height="130dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:checkable="true"
+            android:clickable="true"
+            android:focusable="true"
+            app:cardBackgroundColor="#2DFFEB3B"
+            app:cardCornerRadius="16dp"
+            app:strokeColor="@android:color/transparent">
 
-            <TextView
-                style="@style/BigHeaderStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Welcome to Ram Yash PG College !"
-                android:textColor="?attr/colorTertiary" />
-
-            <TextView
-                style="@style/HeaderStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/please_select_your_user_type" />
-
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/card_1"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="130dp"
-                android:layout_marginTop="16dp"
-                android:checkable="true"
-                android:clickable="true"
-                android:focusable="true"
-                app:cardBackgroundColor="#2DFFEB3B"
-                app:cardCornerRadius="16dp"
-                app:strokeColor="@android:color/transparent">
+                android:layout_height="match_parent"
+                android:weightSum="2">
+
+                <com.airbnb.lottie.LottieAnimationView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.8"
+                    app:lottie_autoPlay="true"
+                    app:lottie_loop="true"
+                    app:lottie_rawRes="@raw/customer" />
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:weightSum="2">
+                    android:layout_weight="1.2"
+                    android:gravity="center"
+                    android:orientation="vertical">
 
-                    <com.airbnb.lottie.LottieAnimationView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="0.8"
-                        app:lottie_autoPlay="true"
-                        app:lottie_loop="true"
-                        app:lottie_rawRes="@raw/customer" />
+                    <TextView
+                        style="@style/HeaderStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="CUSTOMER" />
 
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1.2"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <TextView
-                            style="@style/HeaderStyle"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/customer" />
-
-                        <TextView
-                            style="@style/SubHeaderStyle"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="8dp"
-                            android:ellipsize="end"
-                            android:maxLines="2"
-                            android:text="Select this to get courier services."
-                            android:textAlignment="center" />
-                    </LinearLayout>
+                    <TextView
+                        style="@style/SubHeaderStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:ellipsize="end"
+                        android:maxLines="2"
+                        android:text="Select this to access shopping."
+                        android:textAlignment="center"
+                        android:visibility="gone" />
                 </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
 
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/card_2"
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card_2"
+            android:layout_width="match_parent"
+            android:layout_height="130dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:checkable="true"
+            android:clickable="true"
+            android:focusable="true"
+            app:cardBackgroundColor="#23E91E63"
+            app:cardCornerRadius="16dp"
+            app:strokeColor="@android:color/transparent">
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="130dp"
-                android:layout_marginTop="16dp"
-                android:checkable="true"
-                android:clickable="true"
-                android:focusable="true"
-                app:cardBackgroundColor="#23E91E63"
-                app:cardCornerRadius="16dp"
-                app:strokeColor="@android:color/transparent">
+                android:layout_height="match_parent"
+                android:weightSum="2">
+
+                <com.airbnb.lottie.LottieAnimationView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.8"
+                    app:lottie_autoPlay="true"
+                    app:lottie_loop="true"
+                    app:lottie_rawRes="@raw/admin" />
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:weightSum="2">
+                    android:layout_weight="1.2"
+                    android:gravity="center"
+                    android:orientation="vertical">
 
-                    <com.airbnb.lottie.LottieAnimationView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="0.8"
-                        app:lottie_autoPlay="true"
-                        app:lottie_loop="true"
-                        app:lottie_rawRes="@raw/admin" />
+                    <TextView
+                        style="@style/HeaderStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="FRANCHISE" />
 
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1.2"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <TextView
-                            style="@style/HeaderStyle"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/department" />
-
-                        <TextView
-                            style="@style/SubHeaderStyle"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="8dp"
-                            android:ellipsize="end"
-                            android:maxLines="2"
-                            android:text="Select this to provide courier services to customer."
-                            android:textAlignment="center" />
-                    </LinearLayout>
+                    <TextView
+                        style="@style/SubHeaderStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:ellipsize="end"
+                        android:maxLines="2"
+                        android:text="Select this to access ."
+                        android:textAlignment="center"
+                        android:visibility="gone" />
                 </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
 
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/card_3"
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card_3"
+            android:layout_width="match_parent"
+            android:layout_height="130dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:checkable="true"
+            android:clickable="true"
+            android:focusable="true"
+            android:visibility="gone"
+            app:cardBackgroundColor="#2000BCD4"
+            app:cardCornerRadius="16dp"
+            app:strokeColor="@android:color/transparent">
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="130dp"
-                android:layout_marginTop="16dp"
-                android:checkable="true"
-                android:clickable="true"
-                android:focusable="true"
-                android:visibility="gone"
-                app:cardBackgroundColor="#2000BCD4"
-                app:cardCornerRadius="16dp"
-                app:strokeColor="@android:color/transparent">
+                android:layout_height="match_parent"
+                android:weightSum="2">
+
+                <com.airbnb.lottie.LottieAnimationView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.8"
+                    app:lottie_autoPlay="true"
+                    app:lottie_loop="true"
+                    app:lottie_rawRes="@raw/depart" />
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:weightSum="2">
+                    android:layout_weight="1.2"
+                    android:gravity="center"
+                    android:orientation="vertical">
 
-                    <com.airbnb.lottie.LottieAnimationView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="0.8"
-                        app:lottie_autoPlay="true"
-                        app:lottie_loop="true"
-                        app:lottie_rawRes="@raw/depart" />
+                    <TextView
+                        style="@style/HeaderStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/administrator" />
 
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1.2"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <TextView
-                            style="@style/HeaderStyle"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/administrator" />
-
-                        <TextView
-                            style="@style/SubHeaderStyle"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="8dp"
-                            android:ellipsize="end"
-                            android:maxLines="2"
-                            android:text="@string/select_this_to_get_administrator_access"
-                            android:textAlignment="center" />
-                    </LinearLayout>
+                    <TextView
+                        style="@style/SubHeaderStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:ellipsize="end"
+                        android:maxLines="2"
+                        android:text="@string/select_this_to_get_administrator_access"
+                        android:textAlignment="center" />
                 </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_submit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:layout_marginTop="16dp"
-                android:text="@string/btn_continue"
-                app:iconGravity="end"
-                app:icon="@drawable/ic_baseline_keyboard_arrow_right_24" />
-        </LinearLayout>
-    </com.google.android.material.card.MaterialCardView>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_submit"
+            android:layout_width="wrap_content"
+            android:layout_height="55dp"
+            android:layout_gravity="end"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:text="CONTINUE"
+            app:icon="@drawable/ic_baseline_keyboard_arrow_right_24"
+            app:iconGravity="end" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

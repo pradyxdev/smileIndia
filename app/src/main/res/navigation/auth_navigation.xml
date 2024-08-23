@@ -10,7 +10,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/auth_navigation"
-    app:startDestination="@id/signinFragment">
+    app:startDestination="@id/userTypeFragment">
 
     <fragment
         android:id="@+id/signinFragment"

@@ -11,7 +11,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.userTypeActivities.customer.mainActivity.fragments.ComingSoonFragment">
+    tools:context=".ui.userTypeActivities.department.mainActivity.fragments.ComingSoonFragment">
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/lottieAnimationView"

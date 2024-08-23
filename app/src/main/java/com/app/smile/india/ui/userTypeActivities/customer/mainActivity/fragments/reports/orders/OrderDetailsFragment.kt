@@ -1,8 +1,8 @@
 /*
  * *
- *  * Created by Prady on 4/6/24, 1:32 PM
+ *  * Created by Prady on 8/23/24, 4:22 PM
  *  * Copyright (c) 2024 . All rights reserved.
- *  * Last modified 4/6/24, 12:06 PM
+ *  * Last modified 8/23/24, 4:16 PM
  *
  */
 
@@ -24,7 +24,7 @@ import com.app.smile.india.helpers.PreferenceManager
 import com.app.smile.india.models.getSaleItems.GetSaleItemsReq
 import com.app.smile.india.models.getSaleItems.GetSaleItemsRes
 import com.app.smile.india.models.getSaleReport.GetSaleReportRes
-import com.app.smile.india.ui.userTypeActivities.customer.mainActivity.MainActivity
+import com.app.smile.india.ui.userTypeActivities.customer.CustMainActivity
 import com.app.smile.india.viewModels.SharedVM
 import com.google.gson.Gson
 import org.kodein.di.Kodein
@@ -88,6 +88,11 @@ class OrderDetailsFragment : Fragment(), KodeinAware {
         )
     }
 
+    override fun onResume() {
+        super.onResume()
+        (activity as CustMainActivity).setBottombarVisibility(isVisible = false)
+    }
+
     private fun listeners() {
         binding.apply {
             btnBack.setOnClickListener {
@@ -109,10 +114,10 @@ class OrderDetailsFragment : Fragment(), KodeinAware {
                     cartListAdapter = OrderDetailsItemAdapter(requireActivity(), list.distinct())
                     binding.rvProduct.adapter = this@OrderDetailsFragment.cartListAdapter
                 } else {
-                    (activity as MainActivity).apiErrorDialog(Constants.apiErrors)
+                    (activity as CustMainActivity).apiErrorDialog(Constants.apiErrors)
                 }
             } catch (e: Exception) {
-                (activity as MainActivity).apiErrorDialog("$e\n$it")
+                (activity as CustMainActivity).apiErrorDialog("$e\n$it")
             }
         }
         viewModel.getOrderItems(request)

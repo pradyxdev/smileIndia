@@ -23,7 +23,7 @@ import com.app.smile.india.databinding.FragmentOtpVerifyBinding
 import com.app.smile.india.factories.AuthVMF
 import com.app.smile.india.helpers.Constants
 import com.app.smile.india.helpers.PreferenceManager
-import com.app.smile.india.ui.userTypeActivities.customer.mainActivity.MainActivity
+import com.app.smile.india.ui.userTypeActivities.department.mainActivity.MainActivity
 import com.app.smile.india.utils.showKeyboard
 import com.app.smile.india.utils.toast
 import com.app.smile.india.viewModels.AuthVM

@@ -15,7 +15,7 @@ import androidx.fragment.app.Fragment
 import com.app.smile.india.R
 import com.app.smile.india.helpers.PreferenceManager
 import com.app.smile.india.ui.authActivity.AuthActivity
-import com.app.smile.india.ui.userTypeActivities.customer.mainActivity.MainActivity
+import com.app.smile.india.ui.userTypeActivities.department.mainActivity.MainActivity
 import com.github.appintro.AppIntro2
 import com.github.appintro.AppIntroFragment
 import com.github.appintro.AppIntroPageTransformerType

@@ -55,7 +55,7 @@ class SignUpFragment : Fragment(), KodeinAware {
     private var directionList = listOf("Left", "Right")
     private var directionIdList = listOf("1", "2")
     private var selectedDirection = ""
-    private var userTypeList = listOf("Partner", "Franchise", "Seller", "Re-Seller")
+    private var userTypeList = listOf("Partner", "Franchise", "Seller", "Distributer")
     private var selectedUserType = ""
 
     override fun onCreateView(

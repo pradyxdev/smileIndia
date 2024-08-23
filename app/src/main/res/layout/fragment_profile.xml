@@ -185,7 +185,8 @@
                                         android:text="Username"
                                         android:textAlignment="center"
                                         android:textColor="@color/white"
-                                        android:textSize="14.5sp" />
+                                        android:textSize="14.5sp"
+                                        android:visibility="gone" />
 
                                     <TextView
                                         android:id="@+id/tv_number"

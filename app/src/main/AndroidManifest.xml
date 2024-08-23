@@ -22,7 +22,7 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".ui.userTypeActivities.customer.mainActivity.MainActivity"
+            android:name=".ui.userTypeActivities.department.mainActivity.MainActivity"
             android:exported="false"
             android:theme="@style/AppTheme" />
         <activity
@@ -46,15 +46,16 @@
             android:exported="false"
             android:theme="@style/Theme.MVVM.Template" />
         <activity
-            android:name="com.app.smile.india.ui.userTypeActivities.customer.productActivity.ProductDetailsActivity"
+            android:name="com.app.smile.india.ui.userTypeActivities.department.productActivity.ProductDetailsActivity"
             android:exported="false" />
         <activity
             android:name="com.app.smile.india.ui.userTypeActivities.customer.cartActivity.BagActivity"
             android:exported="false"
             android:theme="@style/Theme.MVVM.Template" />
-        <activity android:name="com.app.smile.india.ui.userTypeActivities.customer.mainActivity.fragments.rechargeDash.roundPay.mobPlanList.PlanListActivity" />
-        <activity android:name="com.app.smile.india.ui.userTypeActivities.customer.mainActivity.fragments.rechargeDash.roundPay.dthPlanList.DthListActivity" />
-        <activity android:name="com.app.smile.india.ui.userTypeActivities.customer.mainActivity.fragments.rechargeDash.paysprint.mobile.planList.MobPlanListActivity" />
+        <activity android:name="com.app.smile.india.ui.userTypeActivities.department.mainActivity.fragments.rechargeDash.roundPay.mobPlanList.PlanListActivity" />
+        <activity android:name="com.app.smile.india.ui.userTypeActivities.department.mainActivity.fragments.rechargeDash.roundPay.dthPlanList.DthListActivity" />
+        <activity android:name="com.app.smile.india.ui.userTypeActivities.department.mainActivity.fragments.rechargeDash.paysprint.mobile.planList.MobPlanListActivity" />
+        <activity android:name="com.app.smile.india.ui.userTypeActivities.customer.CustMainActivity" />
 
         <service
             android:name="com.app.smile.india.services.FCMService"

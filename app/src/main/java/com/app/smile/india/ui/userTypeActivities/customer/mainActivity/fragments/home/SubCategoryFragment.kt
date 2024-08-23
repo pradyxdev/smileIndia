@@ -1,8 +1,8 @@
 /*
  * *
- *  * Created by Prady on 4/8/23, 10:52 AM
- *  * Copyright (c) 2023 . All rights reserved.
- *  * Last modified 4/7/23, 3:05 PM
+ *  * Created by Prady on 8/23/24, 4:21 PM
+ *  * Copyright (c) 2024 . All rights reserved.
+ *  * Last modified 8/23/24, 3:02 PM
  *
  */
 
@@ -33,9 +33,9 @@ import com.app.smile.india.models.getSubCategory.GetSubCategoryReq
 import com.app.smile.india.models.getSubCategory.GetSubCategoryRes
 import com.app.smile.india.models.productList.GetProductListReq
 import com.app.smile.india.models.productList.GetProductListRes
+import com.app.smile.india.ui.userTypeActivities.customer.CustMainActivity
 import com.app.smile.india.ui.userTypeActivities.customer.cartActivity.BagActivity
-import com.app.smile.india.ui.userTypeActivities.customer.mainActivity.MainActivity
-import com.app.smile.india.ui.userTypeActivities.customer.productActivity.ProductDetailsActivity
+import com.app.smile.india.ui.userTypeActivities.department.productActivity.ProductDetailsActivity
 import com.app.smile.india.utils.LoadingUtils
 import com.app.smile.india.utils.calculateNoOfColumns
 import com.app.smile.india.utils.getNavOptions
@@ -98,6 +98,11 @@ class SubCategoryFragment : Fragment(), KodeinAware, ItemsGridAdapter.OnItemClic
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        (activity as CustMainActivity).setBottombarVisibility(isVisible = false)
+    }
+
     private fun listeners() {
         binding.apply {
             btnBack.setOnClickListener {
@@ -117,7 +122,7 @@ class SubCategoryFragment : Fragment(), KodeinAware, ItemsGridAdapter.OnItemClic
                         LoadingUtils.hideDialog()
 
                         if (response.data.isNullOrEmpty()) {
-                            (activity as MainActivity).apiErrorDialog(response.message)
+                            (activity as CustMainActivity).apiErrorDialog(response.message)
                         } else {
                             binding.apply {
                                 llNoData.visibility = View.GONE
@@ -144,7 +149,7 @@ class SubCategoryFragment : Fragment(), KodeinAware, ItemsGridAdapter.OnItemClic
                             rvList.visibility = View.GONE
                         }
                         LoadingUtils.hideDialog()
-                        (activity as MainActivity).apiErrorDialog(response.message)
+                        (activity as CustMainActivity).apiErrorDialog(response.message)
                     }
                 } else {
                     binding.apply {
@@ -152,7 +157,7 @@ class SubCategoryFragment : Fragment(), KodeinAware, ItemsGridAdapter.OnItemClic
                         rvList.visibility = View.GONE
                     }
                     LoadingUtils.hideDialog()
-                    (activity as MainActivity).apiErrorDialog(Constants.apiErrors)
+                    (activity as CustMainActivity).apiErrorDialog(Constants.apiErrors)
                 }
             } catch (e: Exception) {
                 binding.apply {
@@ -160,7 +165,7 @@ class SubCategoryFragment : Fragment(), KodeinAware, ItemsGridAdapter.OnItemClic
                     rvList.visibility = View.GONE
                 }
                 LoadingUtils.hideDialog()
-                (activity as MainActivity).apiErrorDialog("$e\n$it")
+                (activity as CustMainActivity).apiErrorDialog("$e\n$it")
             }
         }
         viewModel.getSubCategory(req)
@@ -171,7 +176,7 @@ class SubCategoryFragment : Fragment(), KodeinAware, ItemsGridAdapter.OnItemClic
         args.putString("catId", "" + response.CategoryId)
         args.putString("subCatId", "" + response.Id)
         args.putString("subCatName", "" + response.SubCategoryName)
-        findNavController().navigate(R.id.subCategoryFragment, args, getNavOptions())
+        findNavController().navigate(R.id.subCategoryListFragment, args, getNavOptions())
     }
 
     private fun getProdList(req: GetProductListReq) {
@@ -185,7 +190,7 @@ class SubCategoryFragment : Fragment(), KodeinAware, ItemsGridAdapter.OnItemClic
                         LoadingUtils.hideDialog()
 
                         if (response.data.isNullOrEmpty()) {
-                            (activity as MainActivity).apiErrorDialog(response.message)
+                            (activity as CustMainActivity).apiErrorDialog(response.message)
                         } else {
                             binding.rvList.apply {
                                 val mNoOfColumns = context.calculateNoOfColumns(context, 140)
@@ -205,15 +210,15 @@ class SubCategoryFragment : Fragment(), KodeinAware, ItemsGridAdapter.OnItemClic
                         }
                     } else {
                         LoadingUtils.hideDialog()
-                        (activity as MainActivity).apiErrorDialog(response.message)
+                        (activity as CustMainActivity).apiErrorDialog(response.message)
                     }
                 } else {
                     LoadingUtils.hideDialog()
-                    (activity as MainActivity).apiErrorDialog(Constants.apiErrors)
+                    (activity as CustMainActivity).apiErrorDialog(Constants.apiErrors)
                 }
             } catch (e: Exception) {
                 LoadingUtils.hideDialog()
-                (activity as MainActivity).apiErrorDialog("$e\n$it")
+                (activity as CustMainActivity).apiErrorDialog("$e\n$it")
             }
         }
         viewModel.getProductListReq(req)
@@ -289,13 +294,13 @@ class SubCategoryFragment : Fragment(), KodeinAware, ItemsGridAdapter.OnItemClic
 //                            )
 //                        )
                     } else {
-                        (activity as MainActivity).apiErrorDialog(response.message)
+                        (activity as CustMainActivity).apiErrorDialog(response.message)
                     }
                 } else {
-                    (activity as MainActivity).apiErrorDialog(Constants.apiErrors)
+                    (activity as CustMainActivity).apiErrorDialog(Constants.apiErrors)
                 }
             } catch (e: Exception) {
-                (activity as MainActivity).apiErrorDialog(e.toString())
+                (activity as CustMainActivity).apiErrorDialog(e.toString())
             }
         }
         viewModel.addToCart(req)
