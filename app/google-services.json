@@ -750,7 +750,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:1030018009090:android:36b7941d905d0888bbff1b",
         "android_client_info": {
-          "package_name": "com.app.ulife.creatoron"
+          "package_name": "com.app.smile.india"
         }
       },
       "oauth_client": [
@@ -758,7 +758,7 @@
           "client_id": "1030018009090-i0hg49e3q1pmiin42s7acka90pfefg8p.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.app.ulife.creatoron",
+            "package_name": "com.app.smile.india",
             "certificate_hash": "f1e69ff5331a900e0a3d1c2bc6f9f9a5cc422677"
           }
         },

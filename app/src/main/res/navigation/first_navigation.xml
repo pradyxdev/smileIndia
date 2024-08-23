@@ -14,7 +14,7 @@
 
     <fragment
         android:id="@+id/step1Fragment"
-        android:name="com.app.ulife.creatoron.ui.initialActivities.firstLoginActivity.steps.LangSelectFragment"
+        android:name="com.app.smile.india.ui.initialActivities.firstLoginActivity.steps.LangSelectFragment"
         android:label=""
         tools:layout="@layout/fragment_first_step_1" />
 </navigation>

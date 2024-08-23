@@ -15,11 +15,11 @@
         android:title="Home"
         app:showAsAction="always" />
 
-    <item
-        android:id="@+id/rechargeDashboardFragment"
-        android:icon="@drawable/dashboard_layout"
-        android:title="Recharge"
-        app:showAsAction="always" />
+<!--    <item-->
+<!--        android:id="@+id/rechargeDashboardFragment"-->
+<!--        android:icon="@drawable/dashboard_layout"-->
+<!--        android:title="Recharge"-->
+<!--        app:showAsAction="always" />-->
 
     <item
         android:id="@+id/profileFragment"

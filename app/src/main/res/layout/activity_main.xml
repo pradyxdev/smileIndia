@@ -58,28 +58,29 @@
         <!--        app:layout_constraintStart_toStartOf="parent"-->
         <!--        app:menu="@menu/main_menu" />-->
 
-        <nl.joery.animatedbottombar.AnimatedBottomBar
-            android:id="@+id/bottomNavigationView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:animateLayoutChanges="true"
-            android:elevation="16dp"
-            app:abb_animationInterpolator="@android:anim/overshoot_interpolator"
-            app:abb_indicatorAnimation="slide"
-            app:abb_indicatorAppearance="round"
-            app:abb_indicatorHeight="4dp"
-            app:abb_indicatorMargin="16dp"
-            app:abb_rippleEnabled="true"
-            app:abb_selectedIndex="1"
-            app:abb_selectedTabType="text"
-            app:abb_tabAnimation="slide"
-            app:abb_tabAnimationSelected="slide"
-            app:abb_tabs="@menu/main_menu"
-            app:abb_textAppearance="@style/HeaderStyle"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+<!--        <nl.joery.animatedbottombar.AnimatedBottomBar-->
+<!--            android:id="@+id/bottomNavigationView"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_gravity="bottom"-->
+<!--            android:animateLayoutChanges="true"-->
+<!--            android:elevation="16dp"-->
+<!--            android:visibility="gone"-->
+<!--            app:abb_animationInterpolator="@android:anim/overshoot_interpolator"-->
+<!--            app:abb_indicatorAnimation="slide"-->
+<!--            app:abb_indicatorAppearance="round"-->
+<!--            app:abb_indicatorHeight="4dp"-->
+<!--            app:abb_indicatorMargin="16dp"-->
+<!--            app:abb_rippleEnabled="true"-->
+<!--            app:abb_selectedIndex="1"-->
+<!--            app:abb_selectedTabType="text"-->
+<!--            app:abb_tabAnimation="slide"-->
+<!--            app:abb_tabAnimationSelected="slide"-->
+<!--            app:abb_tabs="@menu/main_menu"-->
+<!--            app:abb_textAppearance="@style/HeaderStyle"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent" />-->
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.navigation.NavigationView

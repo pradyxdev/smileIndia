@@ -22,5 +22,5 @@ dependencyResolutionManagement {
         jcenter() // Warning: this repository is going to shut down soon
     }
 }
-rootProject.name = "ulife_creator"
+rootProject.name = "smile_india"
 include ':app'

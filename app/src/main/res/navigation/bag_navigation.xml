@@ -14,12 +14,12 @@
 
     <fragment
         android:id="@+id/cartFragment"
-        android:name="com.app.ulife.creatoron.ui.userTypeActivities.customer.cartActivity.fragments.CartFragment"
+        android:name="com.app.smile.india.ui.userTypeActivities.customer.cartActivity.fragments.CartFragment"
         android:label="CartFragment"
         tools:layout="@layout/fragment_cart" />
     <fragment
         android:id="@+id/checkoutFragment"
-        android:name="com.app.ulife.creatoron.ui.userTypeActivities.customer.cartActivity.fragments.CheckoutFragment"
+        android:name="com.app.smile.india.ui.userTypeActivities.customer.cartActivity.fragments.CheckoutFragment"
         android:label="CheckoutFragment"
         tools:layout="@layout/fragment_checkout" />
 </navigation>
